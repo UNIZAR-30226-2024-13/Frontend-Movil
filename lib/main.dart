@@ -29,7 +29,7 @@ class _InicioState extends State<Inicio> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text(widget.title),
+        title: const Text("title"),
       ),
 
       body: 
