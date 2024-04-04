@@ -18,10 +18,11 @@ const MyApp({ super.key });
 
 class Inicio extends StatefulWidget {
   const Inicio({super.key});
-
   @override
   State<Inicio> createState() => _InicioState();
 }
+
+
 
 class _InicioState extends State<Inicio> {
   @override
@@ -29,19 +30,60 @@ class _InicioState extends State<Inicio> {
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("probando"),
+        title: const Text("Filas, Columnas y botones"),
       ),
 
       body: 
-        ListView(
-          children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max, 
+          children: <Widget>[
             Container(
-              padding: EdgeInsets.all(20.0),
-              child: Image.network("https://static.wikia.nocookie.net/naruto/images/1/12/La_Promesa_de_Naruto.png/revision/latest?cb=20110825232746&path-prefix=es"), 
+              padding: EdgeInsets.all(30.0) ,
+              child: Image.asset(
+                'assets/logo.png'
+              )
             ),
-          ],
-        )
+            Container(
+              child: ElevatedButton(
+                child: Text("Iniciar Sesión"),
+                onPressed: null,
+              )
+            ),
+            Container(
+              child: ElevatedButton(
+                child: Text("Registrarse"),
+                onPressed: null,
+              ) 
+            ),
+            Container(
 
+              child: ElevatedButton(
+                child: Text("Confirmar"),
+                onPressed: null,
+              ) 
+            ),
+          ]
+        )
+        
+        /*
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max, 
+          children: <Widget>[
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width*0.5,
+              child: Text("hey", textAlign: TextAlign.center,)
+            ),
+            Text("Hola MrBeast"),
+            Text("Hola"),
+            Text("Ah")
+          ],
+        ),
+        */
     );
 
   }
