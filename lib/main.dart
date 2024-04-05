@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_movil/registro.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,6 +55,7 @@ class _InicioState extends State<Inicio> {
               child: SizedBox(
                 width: 323.0,
                 child: TextField(
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Contraseña',
@@ -68,7 +70,7 @@ class _InicioState extends State<Inicio> {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: (){
-                    print("Aqui tengo que poner la funciónde acceder");
+                    print("Aqui tengo que poner la funció de acceder");
                   },
                   child: Text("Acceder"),
                 )
@@ -80,16 +82,20 @@ class _InicioState extends State<Inicio> {
                 width: 323.0,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: (){
-                    print("Aqui tengo que poner la función de registrar");
-                  },
                   child: Text("Registrar"),
+                  onPressed: () =>{
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => Registro())
+                    )
+                  },
                 )
+
               )
             ),
           ]
         )
-        
+
         /*
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,4 +116,15 @@ class _InicioState extends State<Inicio> {
     );
 
   }
+}
+
+Widget botonAcceder(){
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.green,
+      elevation: 0,
+    ),
+    onPressed: (){},
+    child: Text("Boton")
+  );
 }
