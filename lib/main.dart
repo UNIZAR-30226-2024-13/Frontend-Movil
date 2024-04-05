@@ -28,41 +28,64 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(
-        title: const Text("Filas, Columnas y botones"),
-      ),
-
       body: 
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max, 
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(30.0) ,
+              padding: EdgeInsets.all(20),
               child: Image.asset(
                 'assets/logo.png'
               )
             ),
             Container(
-              child: ElevatedButton(
-                child: Text("Iniciar Sesión"),
-                onPressed: null,
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                width: 323.0,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
+                ),
               )
             ),
             Container(
-              child: ElevatedButton(
-                child: Text("Registrarse"),
-                onPressed: null,
-              ) 
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                width: 323.0,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Contraseña',
+                  ),
+                ),
+              )
             ),
             Container(
-
-              child: ElevatedButton(
-                child: Text("Confirmar"),
-                onPressed: null,
-              ) 
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                width: 323.0,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: (){
+                    print("Aqui tengo que poner la funciónde acceder");
+                  },
+                  child: Text("Acceder"),
+                )
+              )
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                width: 323.0,
+                height: 45,
+                child: ElevatedButton(
+                  onPressed: (){
+                    print("Aqui tengo que poner la función de registrar");
+                  },
+                  child: Text("Registrar"),
+                )
+              )
             ),
           ]
         )
@@ -73,7 +96,7 @@ class _InicioState extends State<Inicio> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.max, 
           children: <Widget>[
-            Container(
+            SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width*0.5,
               child: Text("hey", textAlign: TextAlign.center,)
