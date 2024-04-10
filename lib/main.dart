@@ -27,6 +27,7 @@ class Inicio extends StatefulWidget {
 
 
 class _InicioState extends State<Inicio> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +153,7 @@ Widget botonAcceder(){
     child: Text("Boton")
   );
 }
-
+//Text(_registrado ? "Ok" : "No registrado")
 void mostrarAlerta(BuildContext context){
   showDialog(
     barrierDismissible: false,
@@ -162,17 +163,19 @@ void mostrarAlerta(BuildContext context){
       content: Text("buenas"),
       actions: <Widget>
       [
-        TextButton(onPressed: (){
-          print("No");
-          Navigator.pop(context);
-        }, 
-        child: Text("No")
+        TextButton(
+          onPressed: (){
+            print("No");
+            Navigator.pop(context);
+          }, 
+          child: Text("No")
         ),
-        TextButton(onPressed: (){
-          print("Yes");
-          Navigator.pop(context);
-        },
-        child: Text("Yes")
+        TextButton(
+          onPressed: (){
+            print("Yes");
+            Navigator.pop(context);
+          },
+          child: Text("Yes")
         )
       ]
     )
