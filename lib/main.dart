@@ -27,6 +27,11 @@ class Inicio extends StatefulWidget {
 
 
 class _InicioState extends State<Inicio> {
+  TextEditingController _texto_email = TextEditingController();
+  TextEditingController _texto_pass = TextEditingController();
+
+  String _email = '';
+  String _pass = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,7 @@ class _InicioState extends State<Inicio> {
                 child: SizedBox(
                   width: 323.0,
                   child: TextField(
+                    controller: _texto_email,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
@@ -62,6 +68,7 @@ class _InicioState extends State<Inicio> {
                   width: 323.0,
                   child: TextField(
                     obscureText: true,
+                    controller: _texto_pass,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Contraseña',
@@ -75,11 +82,8 @@ class _InicioState extends State<Inicio> {
                   width: 323.0,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => Menu())
-                      )
+                    onPressed: () {
+                      _verificarLogin();
                     },
                     child: Text("Acceder"),
                   )
@@ -140,6 +144,23 @@ class _InicioState extends State<Inicio> {
     );
 
   }
+
+  void _verificarLogin() {
+    setState(() {
+      _email = _texto_email.text;
+      _pass = _texto_pass.text;
+      // not email in base || email in base and pass not pass of email
+      if (false) {
+        mostrarAlerta(context);
+      }
+      else {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Menu())
+        );
+      }
+    });
+  }
 }
 
 Widget botonAcceder(){
@@ -153,6 +174,8 @@ Widget botonAcceder(){
     child: Text("Boton")
   );
 }
+
+
 //Text(_registrado ? "Ok" : "No registrado")
 void mostrarAlerta(BuildContext context){
   showDialog(
