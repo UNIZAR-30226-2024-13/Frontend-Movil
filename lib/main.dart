@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 const MyApp({ super.key });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Mi App",
       home: Inicio(),
@@ -123,26 +123,7 @@ class _InicioState extends State<Inicio> {
             ]
           )
         ) 
-
-        /*
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max, 
-          children: <Widget>[
-            SizedBox(
-              height: 50,
-              width: MediaQuery.of(context).size.width*0.5,
-              child: Text("hey", textAlign: TextAlign.center,)
-            ),
-            Text("Hola MrBeast"),
-            Text("Hola"),
-            Text("Ah")
-          ],
-        ),
-        */
     );
-
   }
 
   void _verificarLogin() {
@@ -163,21 +144,20 @@ class _InicioState extends State<Inicio> {
   }
 }
 
-Widget botonAcceder(){
+Widget botonAcceder() {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.green,
       elevation: 0,
-
     ),
-    onPressed: (){},
+    onPressed: () {},
     child: Text("Boton")
   );
 }
 
 
 //Text(_registrado ? "Ok" : "No registrado")
-void mostrarAlerta(BuildContext context){
+void mostrarAlerta(BuildContext context) {
   showDialog(
     barrierDismissible: false,
     context: context, 
