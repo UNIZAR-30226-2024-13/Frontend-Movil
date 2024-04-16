@@ -182,23 +182,15 @@ void mostrarAlerta(BuildContext context){
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
-      title: Text("Hola"),
-      content: Text("buenas"),
+      title: Text("Login incorrecto"),
+      content: Text("Email o contraseña incorrectos"),
       actions: <Widget>
       [
         TextButton(
-          onPressed: (){
-            print("No");
-            Navigator.pop(context);
-          }, 
-          child: Text("No")
-        ),
-        TextButton(
-          onPressed: (){
-            print("Yes");
+          onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Yes")
+          child: Text("Reintentar")
         )
       ]
     )
