@@ -17,7 +17,7 @@ class unirsePartida extends StatelessWidget {
             'assets/logo.png'
           ),
         ),
-        title: Text("Unirse"),
+        title: Text("Crear"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
@@ -47,14 +47,14 @@ class unirsePartida extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.jpg'),
+                    image: AssetImage('assets/baraja_española.png'),
                     fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Mentiroso"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -77,14 +77,14 @@ class unirsePartida extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.jpg'),
+                    image: AssetImage('assets/baraja_española.png'),
                     fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Cinquillo"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -114,7 +114,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Póker"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -144,7 +144,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("BlackJack"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -179,7 +179,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("UNO"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),

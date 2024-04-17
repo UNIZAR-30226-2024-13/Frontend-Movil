@@ -47,7 +47,7 @@ class crearPartida extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.jpg'),
+                    image: AssetImage('assets/baraja_española.png'),
                     fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(20)
@@ -77,7 +77,7 @@ class crearPartida extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.jpg'),
+                    image: AssetImage('assets/baraja_española.png'),
                     fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(20)
