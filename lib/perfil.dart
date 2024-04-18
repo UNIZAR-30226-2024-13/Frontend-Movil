@@ -23,18 +23,12 @@ class Perfil extends StatelessWidget {
         title: Text("CartaVerse"),
         actions: <Widget>[
           Text(funcion_fichas() + " Fichas"),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario))
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Image.asset('assets/silueta.jpg'),
-            )
-          )
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset(
+              'assets/silueta.jpg'
+            ),
+          ),
         ]
       ),
     );
