@@ -31,6 +31,10 @@ class Perfil extends StatelessWidget {
           ),
         ]
       ),
+
+      body : Container(
+
+      )
     );
   }
 }

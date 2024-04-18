@@ -47,7 +47,7 @@ class Menu extends StatelessWidget {
         ]
       ),
       
-      body:  Container(
+      body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 27, 123, 22),
