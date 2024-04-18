@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/amigos.dart';
 import 'package:frontend_movil/crearPartida.dart';
+import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
 class Menu extends StatelessWidget {
@@ -21,6 +22,7 @@ class Menu extends StatelessWidget {
         backgroundColor: Colors.red,
         //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
+
         leading: Container(
           padding: EdgeInsets.all(5),
           child: Image.asset(
@@ -30,14 +32,29 @@ class Menu extends StatelessWidget {
         title: Text("CartaVerse"),
         actions: <Widget>[
           Text(_mostrarFichas() + " Fichas"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario))
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/silueta.jpg'),
+            )
+          )
+          /*
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
               'assets/silueta.jpg'
             ),
           ),
+          */
         ]
       ),
+      
       body:  Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
