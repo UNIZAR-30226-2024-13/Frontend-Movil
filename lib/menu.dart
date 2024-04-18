@@ -67,7 +67,7 @@ class Menu extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => amigos())
@@ -90,7 +90,7 @@ class Menu extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => crearPartida())
@@ -113,7 +113,7 @@ class Menu extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => unirsePartida())
@@ -136,7 +136,7 @@ class Menu extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       /************************************************************* */
                       //Además de insertar los datos del usuario en la base de datos 
                       /************************************************************* */
