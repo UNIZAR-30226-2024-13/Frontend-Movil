@@ -44,14 +44,6 @@ class Menu extends StatelessWidget {
               child: Image.asset('assets/silueta.jpg'),
             )
           )
-          /*
-          Container(
-            padding: EdgeInsets.all(5),
-            child: Image.asset(
-              'assets/silueta.jpg'
-            ),
-          ),
-          */
         ]
       ),
       
