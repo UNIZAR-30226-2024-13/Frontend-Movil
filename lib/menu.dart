@@ -12,7 +12,7 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _mostrarFichas() {
-      String fichas = "";
+      String fichas = "1M";
 
       return fichas;
     }

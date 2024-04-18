@@ -166,7 +166,7 @@ class _InicioState extends State<Inicio> {
       _pass = _texto_pass.text;
       String usuario = "";
       // not email in base || email in base and pass not pass of email
-      if (false) {
+      if (_email == "" || _pass == "") {
         mostrarAlerta(context);
       }
       else {

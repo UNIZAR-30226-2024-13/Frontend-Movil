@@ -104,8 +104,8 @@ void _verificarRegistro(BuildContext context) {
   _pass = _texto_pass.text;
 
   // Casos de error
-  if (false) {
-    mostrarAlerta(context);
+  if (_nombre == "" || _pais == "" || _email == "" || _pass == "") {
+    mostrarAlerta(context, "Todos los campos han de ser rellenados");
   }
   else {
     // INSERTAR USUARIO EN LA BASE DE DATOS
@@ -117,13 +117,13 @@ void _verificarRegistro(BuildContext context) {
 }
 
 
-void mostrarAlerta(BuildContext context) {
+void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
       title: Text("Registro incorrecto"),
-      content: Text("Email o nombre ya existentes"),
+      content: Text(mensaje),
       actions: <Widget>
       [
         TextButton(
