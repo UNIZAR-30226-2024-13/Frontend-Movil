@@ -4,10 +4,18 @@ import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
 class Menu extends StatelessWidget {
-  const Menu({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const Menu({required this.usuario});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    String _mostrarFichas() {
+      String fichas = "";
+
+      return fichas;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -21,7 +29,7 @@ class Menu extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(_mostrarFichas() + " Fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(

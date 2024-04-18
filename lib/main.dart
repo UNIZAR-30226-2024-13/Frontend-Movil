@@ -2,6 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:frontend_movil/menu.dart';
 import 'package:frontend_movil/registro.dart';
 
+/* CONEXIÓN
+
+  final connection = PostgreSQLConnection(
+    'host', // Replace with your database host
+    port, // Replace with your database port
+    'database_name', // Replace with your database name
+    username: 'username', // Replace with your username
+    password: 'password', // Replace with your password
+  );
+  await connection.open();
+*/
+
+/* INSERTAR
+var result = await connection.query(
+  'INSERT INTO users(name, email) VALUES (@name, @email)',
+  substitutionValues: {
+    'name': 'John Doe',
+    'email': 'john.doe@example.com'
+  }
+);
+*/
+
+/* SELECT
+List<List<dynamic>> results = await connection.query(
+  'SELECT * FROM users WHERE name = @name',
+  substitutionValues: {
+    'name': 'John Doe'
+  }
+);
+for (final row in results) {
+  print('Name: ${row[0]}, Email: ${row[1]}');
+}
+*/
+
 void main() {
   runApp(const MyApp());
 }
@@ -130,6 +164,7 @@ class _InicioState extends State<Inicio> {
     setState(() {
       _email = _texto_email.text;
       _pass = _texto_pass.text;
+      String usuario = "";
       // not email in base || email in base and pass not pass of email
       if (false) {
         mostrarAlerta(context);
@@ -137,7 +172,7 @@ class _InicioState extends State<Inicio> {
       else {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => Menu())
+          MaterialPageRoute(builder: (context) => Menu(usuario : usuario))
         );
       }
     });

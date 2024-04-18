@@ -111,7 +111,7 @@ void _verificarRegistro(BuildContext context) {
     // INSERTAR USUARIO EN LA BASE DE DATOS
     Navigator.push(
       context, 
-      MaterialPageRoute(builder: (context) => Menu())
+      MaterialPageRoute(builder: (context) => Menu(usuario : _nombre))
     );
   }
 }
