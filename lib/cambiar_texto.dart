@@ -3,18 +3,28 @@ import 'package:flutter/material.dart';
 /*
   Botón cambiar usuario
   Botón cambiar contraseña
-  Botón cambiar icono perfil
+  Botón cambiar icono perfil (de momento sin uso)
   Botón cerrar sesión
 */
 
-class Perfil extends StatelessWidget {
+class CambiarTexto extends StatelessWidget {
   final String usuario;
   final Function funcion_fichas;
+  final bool cambiar_contraseña;
 
-  const Perfil({required this.usuario, required this.funcion_fichas});
+  const Perfil({required this.usuario, required this.funcion_fichas, required this.cambiar_contraseña});
 
   @override
   Widget build(BuildContext context) {
+
+    void modificar_usuario() {
+
+    }
+
+    void modificar_contraseña() {
+      
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -40,7 +50,7 @@ class Perfil extends StatelessWidget {
       ),
 
       body : Container(
-
+        // Textfield y botón debajo
       )
     );
   }
