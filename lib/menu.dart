@@ -36,7 +36,7 @@ class Menu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, funcion_fichas : _mostrarFichas))
               );
             },
             child: Container(
