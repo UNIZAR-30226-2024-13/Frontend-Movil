@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 
-/*
-  Botón cambiar usuario
-  Botón cambiar contraseña
-  Botón cambiar icono perfil (de momento sin uso)
-  Botón cerrar sesión
-*/
-
 class CambiarTexto extends StatelessWidget {
   final String usuario;
   final Function funcion_fichas;
-  final bool cambiar_contraseña;
+  final bool cambiar_contrasegna;
 
-  const Perfil({required this.usuario, required this.funcion_fichas, required this.cambiar_contraseña});
+  const CambiarTexto({required this.usuario, required this.funcion_fichas, required this.cambiar_contrasegna});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +14,7 @@ class CambiarTexto extends StatelessWidget {
 
     }
 
-    void modificar_contraseña() {
+    void modificar_contrasegna() {
       
     }
 
