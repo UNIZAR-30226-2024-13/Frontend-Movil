@@ -140,6 +140,7 @@ class _InicioState extends State<Inicio> {
 
                 )
               ),
+              /*
               Container(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
@@ -154,6 +155,7 @@ class _InicioState extends State<Inicio> {
 
                 )
               ),
+              */
             ]
           )
         ) 
