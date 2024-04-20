@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/cambiar_texto.dart';
+import 'package:frontend_movil/main.dart';
 
 /*
   Botón cambiar usuario
@@ -140,7 +141,14 @@ class Perfil extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () => {
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyApp(),
+                        ),
+                        (route) => false,
+                      );
                       // Ir a main y borrar el historial de ruta de pantallas
                     },
                   )

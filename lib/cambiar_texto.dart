@@ -14,10 +14,10 @@ class CambiarTexto extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (cambiar_contrasegna) {
-      texto_a_mostrar = "Introduzca contraseña nueva";
+      texto_a_mostrar = "Introduzca una contraseña nueva";
     }
     else {
-      texto_a_mostrar = "Introduzca usuario nuevo";
+      texto_a_mostrar = "Introduzca un usuario nuevo";
     }
 
     void modificar_usuario() {
@@ -30,12 +30,26 @@ class CambiarTexto extends StatelessWidget {
 
     void _verificar_cambio() {
       String texto_leido = _texto_input.text;
+      /*
+      CAMBIAR CONTRASEÑA O USUARIO
       if (cambiar_contrasegna) {
-
+        if (todo_bien) {
+          modificar_contrasegna()
+        }
+        else {
+          mostrarAlerta(context, "Contraseña vacía")
+        }
       }
       else {
-
+        if (todo_bien) {
+          modificar_usuario()
+        }
+        else {
+          mostrarAlerta(context, "Usuario nulo o ya existente")
+        }
       }
+      */
+      Navigator.of(context).pop();
     }
 
 return Scaffold(
@@ -100,4 +114,25 @@ return Scaffold(
   ),
 );
   }
+}
+
+
+void mostrarAlerta(BuildContext context, String texto) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Error"),
+      content: Text(texto),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }
