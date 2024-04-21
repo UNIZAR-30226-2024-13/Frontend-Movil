@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/menu.dart';
 import 'package:frontend_movil/registro.dart';
@@ -27,10 +29,10 @@ class Inicio extends StatefulWidget {
 
 
 class _InicioState extends State<Inicio> {
-  TextEditingController _texto_email = TextEditingController();
+  TextEditingController _texto_user = TextEditingController();
   TextEditingController _texto_pass = TextEditingController();
 
-  String _email = '';
+  String _user = '';
   String _pass = '';
 
   @override
@@ -54,10 +56,10 @@ class _InicioState extends State<Inicio> {
                 child: SizedBox(
                   width: 323.0,
                   child: TextField(
-                    controller: _texto_email,
+                    controller: _texto_user,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Email',
+                      labelText: 'Usuario',
                     ),
                   ),
                 )
@@ -130,17 +132,19 @@ class _InicioState extends State<Inicio> {
 
   void _verificarLogin() {
     setState(() {
-      _email = _texto_email.text;
+      _user = _texto_user.text;
       _pass = _texto_pass.text;
-      String usuario = "";
       // not email in base || email in base and pass not pass of email
-      if (_email == "" || _pass == "") {
-        mostrarAlerta(context);
+      if (_user == "" || _pass == "") {
+        mostrarAlerta(context, "Los campos no pueden ser vacíos");
+      }
+      else if (_pass.length <= 7 || not ( _pass.contains(RegExp(r'[a-z]'))) || not (_pass.contains(RegExp(r'[A-Z]'))) || not (_pass.contains(RegExp(r'[0-9]')))) {
+        mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
       }
       else {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => Menu(usuario : usuario))
+          MaterialPageRoute(builder: (context) => Menu(usuario : _user))
         );
       }
     });
@@ -160,13 +164,13 @@ Widget botonAcceder() {
 
 
 //Text(_registrado ? "Ok" : "No registrado")
-void mostrarAlerta(BuildContext context) {
+void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
       title: Text("Login incorrecto"),
-      content: Text("Email o contraseña incorrectos"),
+      content: Text(mensaje),
       actions: <Widget>
       [
         TextButton(
