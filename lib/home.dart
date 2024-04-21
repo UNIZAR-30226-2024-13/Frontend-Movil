@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_movil/amigos.dart';
 import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/unirsePartida.dart';
+import 'package:frontend_movil/partidasPausadas.dart';
 
 class Home extends StatelessWidget {
   const Home({ Key? key }) : super(key: key);
@@ -132,7 +133,10 @@ class Home extends StatelessWidget {
                       /************************************************************* */
                       //Además de insertar los datos del usuario en la base de datos 
                       /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => PartidasPausadas())
+                      )
                     },
                   )
                 )
