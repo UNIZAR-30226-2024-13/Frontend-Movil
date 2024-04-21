@@ -1,12 +1,13 @@
 import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/menu.dart';
 import 'package:frontend_movil/registro.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
 const MyApp({ super.key });
@@ -20,12 +21,12 @@ const MyApp({ super.key });
   }
 }
 
+
 class Inicio extends StatefulWidget {
   const Inicio({super.key});
   @override
   State<Inicio> createState() => _InicioState();
 }
-
 
 
 class _InicioState extends State<Inicio> {
@@ -108,27 +109,12 @@ class _InicioState extends State<Inicio> {
 
                 )
               ),
-              /*
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  height: 45,
-                  child: ElevatedButton(
-                    child: Text("Prueba"),
-                    onPressed: () =>{
-                      mostrarAlerta(context)
-                    },
-                  )
-
-                )
-              ),
-              */
             ]
           )
         ) 
     );
   }
+
 
   void _verificarLogin() {
     setState(() {
@@ -150,6 +136,7 @@ class _InicioState extends State<Inicio> {
     });
   }
 }
+
 
 Widget botonAcceder() {
   return ElevatedButton(

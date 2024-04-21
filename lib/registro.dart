@@ -113,6 +113,7 @@ class Registro extends StatelessWidget {
   }
 }
 
+
 void _verificarRegistro(BuildContext context) {
   _nombre = _texto_nombre.text;
   _pais = _texto_pais.text;

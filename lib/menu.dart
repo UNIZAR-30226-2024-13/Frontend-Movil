@@ -4,6 +4,7 @@ import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
+
 class Menu extends StatelessWidget {
   final String usuario;
 
@@ -146,9 +147,6 @@ class Menu extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
                       Navigator.pop(context)
                     },
                   )
