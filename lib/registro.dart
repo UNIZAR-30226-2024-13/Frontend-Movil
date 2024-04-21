@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/menu.dart';
-import 'dart:js_util';
 
 TextEditingController _texto_nombre = TextEditingController();
 TextEditingController _texto_pais = TextEditingController();
@@ -125,7 +124,7 @@ void _verificarRegistro(BuildContext context) {
   if (_nombre == "" || _pais == "" || _email == "" || _pass == "" || _user == "") {
     mostrarAlerta(context, "Todos los campos han de ser rellenados");
   }
-  else if (_pass.length <= 7 || not ( _pass.contains(RegExp(r'[a-z]'))) || not (_pass.contains(RegExp(r'[A-Z]'))) || not (_pass.contains(RegExp(r'[0-9]')))) {
+  else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
     mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
   }
   else if (RegExp(r'^\w+@\w+\.\w+$').hasMatch(_email)) {

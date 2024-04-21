@@ -1,4 +1,4 @@
-import 'dart:js_util';
+//import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/menu.dart';
 import 'package:frontend_movil/registro.dart';
@@ -110,7 +110,6 @@ class _InicioState extends State<Inicio> {
                       )
                     },
                   )
-
                 )
               ),
             ]
@@ -128,7 +127,7 @@ class _InicioState extends State<Inicio> {
       if (_user == "" || _pass == "") {
         mostrarAlerta(context, "Los campos no pueden ser vacíos");
       }
-      else if (_pass.length <= 7 || not ( _pass.contains(RegExp(r'[a-z]'))) || not (_pass.contains(RegExp(r'[A-Z]'))) || not (_pass.contains(RegExp(r'[0-9]')))) {
+      else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
         mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
       }
       else {
