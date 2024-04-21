@@ -41,6 +41,7 @@ class _InicioState extends State<Inicio> {
     return Scaffold(
       body:
         Container(
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 27, 123, 22),
             border: Border.all(color: Colors.black, width: 2.0) ,
@@ -65,6 +66,7 @@ class _InicioState extends State<Inicio> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Usuario',
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 )
@@ -79,6 +81,7 @@ class _InicioState extends State<Inicio> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Contraseña',
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 )
@@ -86,23 +89,39 @@ class _InicioState extends State<Inicio> {
               Container(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
-                  width: 323.0,
+                  width: 320.0,
                   height: 45,
                   child: ElevatedButton(
                     onPressed: () {
                       _verificarLogin();
                     },
                     child: Text("Acceder"),
+                      style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ))
+                    ), 
                   )
                 )
               ),
               Container(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
-                  width: 323.0,
+                  width: 320.0,
                   height: 45,
                   child: ElevatedButton(
                     child: Text("Registro"),
+                      style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ))
+                    ), 
                     onPressed: () =>{
                       Navigator.push(
                         context, 
