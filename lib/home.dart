@@ -3,8 +3,8 @@ import 'package:frontend_movil/amigos.dart';
 import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
-class Menu extends StatelessWidget {
-  const Menu({ Key? key }) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context){

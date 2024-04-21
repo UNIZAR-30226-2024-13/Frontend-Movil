@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/menu.dart';
+import 'package:frontend_movil/home.dart';
 import 'package:frontend_movil/registro.dart';
 
 void main() {
@@ -63,7 +63,7 @@ class _InicioState extends State<Inicio> {
                   child: TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(),
                       labelText: 'Contraseña',
                     ),
                   ),
@@ -78,7 +78,7 @@ class _InicioState extends State<Inicio> {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Menu())
+                        MaterialPageRoute(builder: (context) => Home())
                       )
                     },
                     child: Text("Acceder"),
@@ -119,24 +119,6 @@ class _InicioState extends State<Inicio> {
             ]
           )
         ) 
-
-        /*
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max, 
-          children: <Widget>[
-            SizedBox(
-              height: 50,
-              width: MediaQuery.of(context).size.width*0.5,
-              child: Text("hey", textAlign: TextAlign.center,)
-            ),
-            Text("Hola MrBeast"),
-            Text("Hola"),
-            Text("Ah")
-          ],
-        ),
-        */
     );
 
   }

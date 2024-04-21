@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_movil/MenuUnion.dart';
+import 'package:frontend_movil/home.dart';
 
 
 class unirsePartida extends StatelessWidget {
@@ -11,12 +13,19 @@ class unirsePartida extends StatelessWidget {
         backgroundColor: Colors.red,
         //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
-        leading: Container(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/logo.png'
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => Home())
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/logo.png'),
+            ),
           ),
-        ),
+
         title: Text("Crear"),
         actions: <Widget>[
           Text("400 Fichas"),
@@ -65,10 +74,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion())
+                      )
                     },
                   ),
                 )
@@ -95,10 +104,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion())
+                      )
                     },
                   ),
                 )
@@ -125,10 +134,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion())
+                      )
                     },
                   ),
                 )
@@ -160,10 +169,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion())
+                      )
                     },
                   ),
                 )
@@ -190,10 +199,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion())
+                      )
                     },
                   ),
                 )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_movil/home.dart';
 
 class amigos extends StatelessWidget {
   amigos({ Key? key }) : super(key: key);
@@ -11,12 +12,18 @@ class amigos extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
-        leading: Container(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/logo.png'
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => Home())
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/logo.png'),
+            ),
           ),
-        ),
         title: Text("Amigos"),
         actions: <Widget>[
           Text("400 Fichas"), //Esto se tendrá que sacar de la base de datos
