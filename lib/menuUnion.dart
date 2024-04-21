@@ -167,11 +167,11 @@ class MenuUnion extends StatelessWidget {
                         )
                       ),
                       labelText: 'Buscar',
-                      labelStyle: TextStyle(
-                        color: Colors.yellow
-                      ),
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
                       prefixIcon: Icon(Icons.search),
-                      prefixIconColor: Colors.yellow
+                      prefixIconColor: Colors.black
                     ),
                   ),
                 )
@@ -221,11 +221,11 @@ class MenuUnion extends StatelessWidget {
                         )
                       ),
                       labelText: 'Buscar',
-                      labelStyle: TextStyle(
-                        color: Colors.yellow
-                      ),
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
                       prefixIcon: Icon(Icons.search),
-                      prefixIconColor: Colors.yellow
+                      prefixIconColor: Colors.black
                     ),
                   ),
                 )

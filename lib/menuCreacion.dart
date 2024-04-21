@@ -155,9 +155,9 @@ class MenuCreacion extends StatelessWidget {
                         )
                       ),
                       labelText: 'Nombre',
-                      labelStyle: TextStyle(
-                        color: Colors.yellow
-                      )
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                   ),
                 )
