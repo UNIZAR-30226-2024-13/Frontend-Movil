@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
+import 'package:frontend_movil/UNO.dart';
 
 class SwitchTorneo extends StatefulWidget {
   const SwitchTorneo({super.key});
@@ -248,7 +249,9 @@ class PartidasPausadas extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => UnoGamePage())
+                      ),
                     },
                   ),
                 )
