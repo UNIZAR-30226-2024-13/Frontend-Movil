@@ -40,7 +40,11 @@ class _InicioState extends State<Inicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-        SingleChildScrollView(
+        Container(
+          decoration: BoxDecoration(
+            color: Color.fromARGB(255, 27, 123, 22),
+            border: Border.all(color: Colors.black, width: 2.0) ,
+          ),
           child: Column(
             children: <Widget> [
               SizedBox(
