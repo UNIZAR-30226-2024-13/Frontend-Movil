@@ -4,15 +4,10 @@ import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
-<<<<<<< HEAD:lib/home.dart
-class Home extends StatelessWidget {
-  const Home({ Key? key }) : super(key: key);
-=======
 class Menu extends StatelessWidget {
   final String usuario;
 
   const Menu({required this.usuario});
->>>>>>> origin/Jorge:lib/menu.dart
 
   @override
   Widget build(BuildContext context) {
