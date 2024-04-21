@@ -49,7 +49,12 @@ class CambiarTexto extends StatelessWidget {
         }
       }
       */
-      Navigator.of(context).pop();
+      if (texto_leido == "") {
+        mostrarAlerta(context, "El campo a rellenar no puede ser vacío");
+      }
+      else {
+        Navigator.of(context).pop();
+      }
     }
 
 return Scaffold(
