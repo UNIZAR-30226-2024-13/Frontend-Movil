@@ -20,92 +20,116 @@ class Registro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro")
+        backgroundColor: Colors.red,
+        shape: Border.all(color: Colors.black, width: 2.0),
+        title: Text(
+          "Registro",
+          style: TextStyle(fontWeight: FontWeight.bold),)
       ),
-      body: 
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    controller: _texto_nombre,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nombre',
+      body:
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+          color: Color.fromARGB(255, 27, 123, 22),
+          border: Border.all(color: Colors.black, width: 2.0),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      controller: _texto_nombre,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nombre',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    controller: _texto_user,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Nombre de usuario',
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    controller: _texto_pais,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'País',
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    controller: _texto_email,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    obscureText: true,
-                    controller: _texto_pass,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Contraseña',
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  height: 45,
-                  child: ElevatedButton(
-                    child: Text("Registrar"),
-                    onPressed: () {
-                      _verificarRegistro(context);
-                    },
                   )
-                )
-              ),
-            ]
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      controller: _texto_user,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nombre de usuario',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      controller: _texto_pais,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'País',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      controller: _texto_email,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      obscureText: true,
+                      controller: _texto_pass,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Contraseña',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    height: 45,
+                    child: ElevatedButton(
+                      child: Text("Registrar"),
+                        style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        ))
+                      ),
+                      onPressed: () {
+                        _verificarRegistro(context);
+                      },
+                    )
+                  )
+                ),
+              ]
+            )
           )
         )
     );
@@ -127,7 +151,7 @@ void _verificarRegistro(BuildContext context) {
   else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
     mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
   }
-  else if (RegExp(r'^\w+@\w+\.\w+$').hasMatch(_email)) {
+  else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(_email)) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
