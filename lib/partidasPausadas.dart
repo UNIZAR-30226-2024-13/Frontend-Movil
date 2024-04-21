@@ -250,7 +250,7 @@ class PartidasPausadas extends StatelessWidget {
                     ),
                     onPressed: () =>{
                       Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => UnoGamePage())
+                        context, MaterialPageRoute(builder: (context) => UnoGame())
                       ),
                     },
                   ),
