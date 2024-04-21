@@ -43,97 +43,99 @@ class _InicioState extends State<Inicio> {
         Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 27, 123, 22),
-            border: Border.all(color: Colors.black, width: 2.0) ,
+          color: Color.fromARGB(255, 27, 123, 22),
+          border: Border.all(color: Colors.black, width: 2.0),
           ),
-          child: Column(
-            children: <Widget> [
-              SizedBox(
-                width: 323.0,
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  child: Image.asset(
-                    'assets/logo.png'
-                  )
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
+          child: SingleChildScrollView (
+            child: Column(
+              children: <Widget> [
+                SizedBox(
                   width: 323.0,
-                  child: TextField(
-                    controller: _texto_user,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Usuario',
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    obscureText: true,
-                    controller: _texto_pass,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Contraseña',
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 320.0,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _verificarLogin();
-                    },
-                    child: Text("Acceder"),
-                      style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                      ))
-                    ), 
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Image.asset(
+                      'assets/logo.png'
+                    )
                   )
-                )
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 320.0,
-                  height: 45,
-                  child: ElevatedButton(
-                    child: Text("Registro"),
-                      style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                      foregroundColor: MaterialStateProperty.all(Colors.black),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                      ))
-                    ), 
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => Registro())
-                      )
-                    },
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      controller: _texto_user,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Usuario',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   )
-                )
-              ),
-            ]
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 323.0,
+                    child: TextField(
+                      obscureText: true,
+                      controller: _texto_pass,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Contraseña',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 320.0,
+                    height: 45,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _verificarLogin();
+                      },
+                      child: Text("Acceder"),
+                        style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        ))
+                      ), 
+                    )
+                  )
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 320.0,
+                    height: 45,
+                    child: ElevatedButton(
+                      child: Text("Registro"),
+                        style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        ))
+                      ), 
+                      onPressed: () =>{
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => Registro())
+                        )
+                      },
+                    )
+                  )
+                ),
+              ]
+            )
           )
-        ) 
+        )
     );
   }
 
