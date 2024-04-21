@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/amigos.dart';
 import 'package:frontend_movil/crearPartida.dart';
+import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
+<<<<<<< HEAD:lib/home.dart
 class Home extends StatelessWidget {
   const Home({ Key? key }) : super(key: key);
+=======
+class Menu extends StatelessWidget {
+  final String usuario;
+
+  const Menu({required this.usuario});
+>>>>>>> origin/Jorge:lib/menu.dart
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
+    String _mostrarFichas() {
+      String fichas = "1M";
+
+      return fichas;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
         //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
+
         leading: Container(
           padding: EdgeInsets.all(5),
           child: Image.asset(
@@ -21,16 +36,23 @@ class Home extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("400 Fichas"),
-          Container(
-            padding: EdgeInsets.all(5),
-            child: Image.asset(
-              'assets/silueta.jpg'
-            ),
-          ),
+          Text(_mostrarFichas() + " Fichas"),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, funcion_fichas : _mostrarFichas))
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/silueta.jpg'),
+            )
+          )
         ]
       ),
-      body:  Container(
+      
+      body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 27, 123, 22),
@@ -59,7 +81,7 @@ class Home extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => amigos())
@@ -82,7 +104,7 @@ class Home extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => crearPartida())
@@ -105,7 +127,7 @@ class Home extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
                         MaterialPageRoute(builder: (context) => unirsePartida())
@@ -128,7 +150,7 @@ class Home extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () =>{
+                    onPressed: () => {
                       /************************************************************* */
                       //Además de insertar los datos del usuario en la base de datos 
                       /************************************************************* */

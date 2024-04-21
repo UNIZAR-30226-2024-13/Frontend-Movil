@@ -7,7 +7,7 @@ class crearPartida extends StatelessWidget {
   const crearPartida({ Key? key }) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -72,11 +72,11 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion())
-                      )
+                    onPressed: () => {
+                      /************************************************************* */
+                      //Además de insertar los datos del usuario en la base de datos 
+                      /************************************************************* */
+                      Navigator.pop(context)
                     },
                   ),
                 )
@@ -102,11 +102,11 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion())
-                      )
+                    onPressed: () => {
+                      /************************************************************* */
+                      //Además de insertar los datos del usuario en la base de datos 
+                      /************************************************************* */
+                      Navigator.pop(context)
                     },
                   ),
                 )
@@ -132,11 +132,11 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion())
-                      )
+                    onPressed: () => {
+                      /************************************************************* */
+                      //Además de insertar los datos del usuario en la base de datos 
+                      /************************************************************* */
+                      Navigator.pop(context)
                     },
                   ),
                 )
@@ -167,11 +167,11 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion())
-                      )
+                    onPressed: () => {
+                      /************************************************************* */
+                      //Además de insertar los datos del usuario en la base de datos 
+                      /************************************************************* */
+                      Navigator.pop(context)
                     },
                   ),
                 )
@@ -197,11 +197,11 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion())
-                      )
+                    onPressed: () => {
+                      /************************************************************* */
+                      //Además de insertar los datos del usuario en la base de datos 
+                      /************************************************************* */
+                      Navigator.pop(context)
                     },
                   ),
                 )

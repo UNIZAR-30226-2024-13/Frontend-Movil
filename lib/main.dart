@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 const MyApp({ super.key });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Mi App",
       home: Inicio(),
@@ -27,6 +27,11 @@ class Inicio extends StatefulWidget {
 
 
 class _InicioState extends State<Inicio> {
+  TextEditingController _texto_email = TextEditingController();
+  TextEditingController _texto_pass = TextEditingController();
+
+  String _email = '';
+  String _pass = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,7 @@ class _InicioState extends State<Inicio> {
                 child: SizedBox(
                   width: 323.0,
                   child: TextField(
+                    controller: _texto_email,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
@@ -62,6 +68,7 @@ class _InicioState extends State<Inicio> {
                   width: 323.0,
                   child: TextField(
                     obscureText: true,
+                    controller: _texto_pass,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(),
                       labelText: 'Contraseña',
@@ -75,11 +82,8 @@ class _InicioState extends State<Inicio> {
                   width: 323.0,
                   height: 45,
                   child: ElevatedButton(
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => Home())
-                      )
+                    onPressed: () {
+                      _verificarLogin();
                     },
                     child: Text("Acceder"),
                   )
@@ -102,6 +106,7 @@ class _InicioState extends State<Inicio> {
 
                 )
               ),
+              /*
               Container(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
@@ -116,48 +121,59 @@ class _InicioState extends State<Inicio> {
 
                 )
               ),
+              */
             ]
           )
         ) 
     );
+  }
 
+  void _verificarLogin() {
+    setState(() {
+      _email = _texto_email.text;
+      _pass = _texto_pass.text;
+      String usuario = "";
+      // not email in base || email in base and pass not pass of email
+      if (_email == "" || _pass == "") {
+        mostrarAlerta(context);
+      }
+      else {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Menu(usuario : usuario))
+        );
+      }
+    });
   }
 }
 
-Widget botonAcceder(){
+Widget botonAcceder() {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: Colors.green,
       elevation: 0,
-
     ),
-    onPressed: (){},
+    onPressed: () {},
     child: Text("Boton")
   );
 }
+
+
 //Text(_registrado ? "Ok" : "No registrado")
-void mostrarAlerta(BuildContext context){
+void mostrarAlerta(BuildContext context) {
   showDialog(
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
-      title: Text("Hola"),
-      content: Text("buenas"),
+      title: Text("Login incorrecto"),
+      content: Text("Email o contraseña incorrectos"),
       actions: <Widget>
       [
         TextButton(
-          onPressed: (){
-            print("No");
-            Navigator.pop(context);
-          }, 
-          child: Text("No")
-        ),
-        TextButton(
-          onPressed: (){
-            print("Yes");
+          onPressed: () {
             Navigator.pop(context);
           },
-          child: Text("Yes")
+          child: Text("Reintentar")
         )
       ]
     )
