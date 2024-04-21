@@ -78,13 +78,13 @@ class PartidasPausadas extends StatelessWidget {
   PartidasPausadas({ Key? key }) : super(key: key);
 
   final List<String> partidasGuardadas = [
-    "Partida 1",
-    "Partida 2",
-    "Partida 3",
-    "Partida 4",
-    "Partida 5",
-    "Partida 6",
-    "Partida 7",
+    "Partida pausada 1",
+    "Partida pausada 2",
+    "Partida pausada 3",
+    "Partida pausada 4",
+    "Partida pausada 5",
+    "Partida pausada 6",
+    "Partida pausada 7",
   ];
 
 
@@ -116,7 +116,7 @@ class PartidasPausadas extends StatelessWidget {
             child: Image.asset('assets/logo.png'),
           ),
         ),
-        title: Text("Crear"),
+        title: Text("Retomar"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
