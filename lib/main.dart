@@ -65,9 +65,11 @@ class _InicioState extends State<Inicio> {
                     child: TextField(
                       controller: _texto_user,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'Usuario',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -81,8 +83,10 @@ class _InicioState extends State<Inicio> {
                       controller: _texto_pass,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
+                        filled: true,
+                        fillColor: Colors.white,
                         labelText: 'Contraseña',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -147,9 +151,6 @@ class _InicioState extends State<Inicio> {
       // not email in base || email in base and pass not pass of email
       if (_user == "" || _pass == "") {
         mostrarAlerta(context, "Los campos no pueden ser vacíos");
-      }
-      else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
-        mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
       }
       else {
         Navigator.push(

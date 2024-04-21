@@ -43,9 +43,11 @@ class Registro extends StatelessWidget {
                     child: TextField(
                       controller: _texto_nombre,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'Nombre',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -57,9 +59,11 @@ class Registro extends StatelessWidget {
                     child: TextField(
                       controller: _texto_user,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'Nombre de usuario',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -71,9 +75,11 @@ class Registro extends StatelessWidget {
                     child: TextField(
                       controller: _texto_pais,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'País',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -85,9 +91,11 @@ class Registro extends StatelessWidget {
                     child: TextField(
                       controller: _texto_email,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'Email',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
@@ -100,9 +108,11 @@ class Registro extends StatelessWidget {
                       obscureText: true,
                       controller: _texto_pass,
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         border: OutlineInputBorder(),
                         labelText: 'Contraseña',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   )
