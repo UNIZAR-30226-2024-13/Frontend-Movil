@@ -140,7 +140,7 @@ class _InicioState extends State<Inicio> {
       else {
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => Menu(usuario : usuario))
+          MaterialPageRoute(builder: (context) => Home(usuario : usuario))
         );
       }
     });

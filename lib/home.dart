@@ -4,10 +4,10 @@ import 'package:frontend_movil/crearPartida.dart';
 import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
-class Menu extends StatelessWidget {
+class Home extends StatelessWidget {
   final String usuario;
 
-  const Menu({required this.usuario});
+  const Home({required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => amigos())
+                        MaterialPageRoute(builder: (context) => amigos(usuario: usuario,))
                       )
                     },
                   )
@@ -102,7 +102,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => crearPartida())
+                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario,))
                       )
                     },
                   )
@@ -125,7 +125,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => unirsePartida())
+                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario,))
                       )
                     },
                   )
@@ -146,10 +146,10 @@ class Menu extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => Home(usuario: usuario,))
+                      )
                     },
                   )
                 )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/menu.dart';
+import 'package:frontend_movil/home.dart';
 
 TextEditingController _texto_nombre = TextEditingController();
 TextEditingController _texto_pais = TextEditingController();
@@ -111,7 +111,7 @@ void _verificarRegistro(BuildContext context) {
     // INSERTAR USUARIO EN LA BASE DE DATOS
     Navigator.push(
       context, 
-      MaterialPageRoute(builder: (context) => Menu(usuario : _nombre))
+      MaterialPageRoute(builder: (context) => Home(usuario : _nombre))
     );
   }
 }

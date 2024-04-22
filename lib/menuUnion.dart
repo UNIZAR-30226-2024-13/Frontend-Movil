@@ -75,7 +75,9 @@ class _SwitchPrivadaState extends State<SwitchPrivada> {
 
 
 class MenuUnion extends StatelessWidget {
-  MenuUnion({ Key? key }) : super(key: key);
+  final String usuario;
+
+  MenuUnion({required this.usuario});
 
   final List<String> partidasGuardadas = [
     "Partida 1",
@@ -108,7 +110,7 @@ class MenuUnion extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => Home())
+              MaterialPageRoute(builder: (context) => Home(usuario: usuario,))
             );
           },
           child: Container(

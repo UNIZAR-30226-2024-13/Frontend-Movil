@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
 
 class amigos extends StatelessWidget {
-  amigos({ Key? key }) : super(key: key);
+  final String usuario;
+
+  amigos({required this.usuario});
 
   final List<String> items = List<String>.generate(10000, (i) => '$i');
 
@@ -16,7 +18,7 @@ class amigos extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => Home())
+                MaterialPageRoute(builder: (context) => Home(usuario: usuario))
               );
             },
             child: Container(

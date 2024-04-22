@@ -4,20 +4,21 @@ import 'package:frontend_movil/home.dart';
 
 
 class crearPartida extends StatelessWidget {
-  const crearPartida({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const crearPartida({required this.usuario,});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => Home())
+                MaterialPageRoute(builder: (context) => Home(usuario: usuario))
               );
             },
             child: Container(
@@ -73,10 +74,10 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
+                      )
                     },
                   ),
                 )
@@ -103,10 +104,10 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
+                      )
                     },
                   ),
                 )
@@ -133,10 +134,10 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
+                      )
                     },
                   ),
                 )
@@ -168,10 +169,10 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
+                      )
                     },
                   ),
                 )
@@ -198,10 +199,10 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () => {
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
+                      )
                     },
                   ),
                 )

@@ -4,7 +4,9 @@ import 'package:frontend_movil/home.dart';
 
 
 class unirsePartida extends StatelessWidget {
-  const unirsePartida({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const unirsePartida({required this.usuario});
 
   @override
   Widget build(BuildContext context){
@@ -17,7 +19,7 @@ class unirsePartida extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => Home())
+                MaterialPageRoute(builder: (context) => Home(usuario: usuario))
               );
             },
             child: Container(
@@ -76,7 +78,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion())
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario,))
                       )
                     },
                   ),
@@ -106,7 +108,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion())
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
                       )
                     },
                   ),
@@ -136,7 +138,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion())
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
                       )
                     },
                   ),
@@ -171,7 +173,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion())
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
                       )
                     },
                   ),
@@ -201,7 +203,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion())
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
                       )
                     },
                   ),

@@ -75,7 +75,9 @@ class _SwitchPrivadaState extends State<SwitchPrivada> {
 
 
 class MenuCreacion extends StatelessWidget {
-  const MenuCreacion({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const MenuCreacion({required this.usuario});
 
   @override
   Widget build(BuildContext context){
@@ -97,7 +99,7 @@ class MenuCreacion extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => Home())
+              MaterialPageRoute(builder: (context) => Home(usuario: usuario))
             );
           },
           child: Container(
