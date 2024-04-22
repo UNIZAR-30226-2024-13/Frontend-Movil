@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/amigos.dart';
 import 'package:frontend_movil/crearPartida.dart';
+import 'package:frontend_movil/partidasPausadas.dart';
 import 'package:frontend_movil/perfil.dart';
 import 'package:frontend_movil/unirsePartida.dart';
 
@@ -148,7 +149,7 @@ class Home extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Home(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => PartidasPausadas(usuario: usuario))
                       )
                     },
                   )

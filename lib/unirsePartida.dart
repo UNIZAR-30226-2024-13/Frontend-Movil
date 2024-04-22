@@ -28,7 +28,7 @@ class unirsePartida extends StatelessWidget {
             ),
           ),
 
-        title: Text("Crear"),
+        title: Text("Unirse"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(

@@ -118,7 +118,7 @@ class MenuUnion extends StatelessWidget {
             child: Image.asset('assets/logo.png'),
           ),
         ),
-        title: Text("Crear"),
+        title: Text("Menu Union"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
@@ -145,7 +145,7 @@ class MenuUnion extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -179,7 +179,7 @@ class MenuUnion extends StatelessWidget {
                 )
               ),
               Container(
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 height: 350,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.yellow, width: 2.0),
@@ -192,20 +192,19 @@ class MenuUnion extends StatelessWidget {
                     return ListTile(
                       title: Text(partida),
                       onTap: () {
-                        // Aquí puedes agregar la lógica para manejar la selección de la partida
                         print("Partida seleccionada: $partida");
                       },
                     );
                   },
                 ),
               ),
-                            Container(
-                margin: EdgeInsets.all(10),
+              Container(
+                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: SizedBox(
-                  width: 323.0,
+                  width: 325.0,
                   child: TextField(
                     style: TextStyle(
                       color: Colors.black
