@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/MenuUnion.dart';
 import 'package:frontend_movil/home.dart';
@@ -78,7 +80,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
                       )
                     },
                   ),
@@ -138,7 +140,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario,))
                       )
                     },
                   ),

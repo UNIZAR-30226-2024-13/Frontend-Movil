@@ -1,79 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
 
-class SwitchTorneo extends StatefulWidget {
-  const SwitchTorneo({super.key});
-
-  @override
-  State<SwitchTorneo> createState() => _SwitchTorneoState();
-}
-
-class _SwitchTorneoState extends State<SwitchTorneo> {
-  bool torneo = false;
-
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-      thumbIcon: thumbIcon,
-      value: torneo,
-      activeColor: Colors.yellow,
-      onChanged: (bool value) {
-        // This is called when the user toggles the switch.
-        setState(() {
-          torneo = value;
-        });
-      },
-    );
-  }
-}
-
-class SwitchPrivada extends StatefulWidget {
-  const SwitchPrivada({super.key});
-
-  @override
-  State<SwitchPrivada> createState() => _SwitchPrivadaState();
-}
-
-class _SwitchPrivadaState extends State<SwitchPrivada> {
-  bool privada = false;
-
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-      thumbIcon: thumbIcon,
-      value: privada,
-      activeColor: Colors.yellow,
-      onChanged: (bool value) {
-        // This is called when the user toggles the switch.
-        setState(() {
-          privada = value;
-        });
-      },
-    );
-  }
-}
-
-
 class PartidasPausadas extends StatelessWidget {
   final String usuario;
 
@@ -197,39 +124,6 @@ class PartidasPausadas extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20)
-                ),
-                child: SizedBox(
-                  width: 323.0,
-                  child: TextField(
-                    style: TextStyle(
-                      color: Colors.black
-                    ),
-                    cursorColor: Colors.yellow,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
-                        )
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.yellow
-                        )
-                      ),
-                      labelText: 'Buscar',
-                      labelStyle: TextStyle(
-                        color: Colors.yellow
-                      ),
-                      prefixIcon: Icon(Icons.search),
-                      prefixIconColor: Colors.yellow
-                    ),
-                  ),
-                )
               ),
               Container(
                 margin: EdgeInsets.all(10),
