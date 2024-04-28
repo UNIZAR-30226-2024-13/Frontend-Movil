@@ -20,7 +20,7 @@ class UnoGamePage extends StatefulWidget {
 }
 
 class _UnoGamePageState extends State<UnoGamePage> {
-  List<String> playerCards = [
+    List<String> playerCards = [
     'Red 1',
     'Blue 2',
     'Green 3',
@@ -43,6 +43,16 @@ class _UnoGamePageState extends State<UnoGamePage> {
 
   // Variable para controlar si se muestran todas las cartas
   bool mostrarTodasLasCartas = false;
+
+  // Método para manejar la selección de una carta
+  void _onCardSelected(String card) {
+    setState(() {
+      // Actualizar la carta jugada en el centro
+      playedCard = card;
+      // Eliminar la carta seleccionada de las cartas del jugador
+      playerCards.remove(card);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +84,7 @@ class _UnoGamePageState extends State<UnoGamePage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     // Lógica para manejar la selección de la carta
-                                    print('Selected card: $card');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => Home()),
-                                    );
+                                    _onCardSelected(card);
                                   },
                                   child: Text(card),
                                 ),
@@ -91,11 +97,7 @@ class _UnoGamePageState extends State<UnoGamePage> {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     // Lógica para manejar la selección de la carta
-                                    print('Selected card: $card');
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => Home()),
-                                    );
+                                    _onCardSelected(card);
                                   },
                                   child: Text(card),
                                 ),
