@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
 
 
+
 class CinquilloGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,9 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
     // Agregar más cartas según sea necesario
   ];
 
-  String playedCard = '8 de Copas'; // Carta jugada en el centro
+  List<String> playedCards = [
+    '2 de Oros'
+  ]; // Cartas jugadas en el centro
 
   // Ejemplo de número de cartas para cada jugador
   int numCartasJugador1 = 10;
@@ -65,43 +68,21 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
-                          children: () {
-                            if (mostrarTodasLasCartas) {
-                              return playerCards.map((card) {
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Lógica para manejar la selección de la carta
-                                      print('Selected card: $card');
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Home()),
-                                      );
-                                    },
-                                    child: Text(card),
-                                  ),
-                                );
-                              }).toList();
-                            } else {
-                              return playerCards.take(5).map((card) {
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      // Lógica para manejar la selección de la carta
-                                      print('Selected card: $card');
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => Home()),
-                                      );
-                                    },
-                                    child: Text(card),
-                                  ),
-                                );
-                              }).toList();
-                            }
-                          }(),
+                          children: [
+                            for (int i = 0; i < playerCards.length; i++)
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      playedCards.add(playerCards[i]);
+                                      playerCards.removeAt(i);
+                                    });
+                                  },
+                                  child: Text(playerCards[i]),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ),
@@ -133,7 +114,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                     ),
                   ),
                   Image.asset(
-                    'assets/reverso.jpg',
+                    'assets/logo.png',
                     width: 50,
                     height: 50,
                   ),
@@ -148,7 +129,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                 ],
               ),
             ),
-            // Contenedor para el número de cartas del Jugador 2 
+            // Contenedor para el número de cartas del Jugador 2
             Positioned(
               right: 16,
               top: 16,
@@ -163,7 +144,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                     ),
                   ),
                   Image.asset(
-                    'assets/reverso.jpg',
+                    'assets/logo.png',
                     width: 50,
                     height: 50,
                   ),
@@ -178,7 +159,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                 ],
               ),
             ),
-            // Contenedor para el número de cartas del Jugador 3 
+            // Contenedor para el número de cartas del Jugador 3
             Positioned(
               top: 16,
               left: 0,
@@ -194,7 +175,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                       ),
                     ),
                     Image.asset(
-                      'assets/anterior.png',
+                      'assets/logo.png',
                       width: 50,
                       height: 50,
                     ),
@@ -210,7 +191,7 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                 ),
               ),
             ),
-            // Contenedor para el botón de robar carta 
+            // Contenedor para el botón de robar carta
             Positioned(
               left: 0,
               top: MediaQuery.of(context).size.height / 2 - 50,
@@ -230,18 +211,27 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                 ],
               ),
             ),
-            // Contenedor para la carta jugada en el centro
+            // Contenedor para las cartas jugadas en el centro
             Positioned(
               left: 0,
               right: 0,
               top: MediaQuery.of(context).size.height / 2 - 50,
               child: Center(
-                child: Card(
-                  elevation: 5.0,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(playedCard),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (String card in playedCards)
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Card(
+                          elevation: 5.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(card),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
