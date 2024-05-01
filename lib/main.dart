@@ -1,8 +1,7 @@
-//import 'dart:js_util';
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/menu.dart';
-import 'package:frontend_movil/registro.dart';
-import 'package:frontend_movil/blackjack.dart';
+import 'package:CardVerse/menu.dart';
+import 'package:CardVerse/registro.dart';
+import 'package:CardVerse/blackjack.dart';
 
 void main() {
   runApp(const MyApp());

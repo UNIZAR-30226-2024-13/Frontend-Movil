@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/cambiar_texto.dart';
-import 'package:frontend_movil/main.dart';
+import 'package:CardVerse/cambiar_texto.dart';
+import 'package:CardVerse/main.dart';
 
 /*
   Botón cambiar usuario

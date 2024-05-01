@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/menu.dart';
+import 'package:CardVerse/menu.dart';
 
 TextEditingController _texto_nombre = TextEditingController();
 TextEditingController _texto_pais = TextEditingController();
