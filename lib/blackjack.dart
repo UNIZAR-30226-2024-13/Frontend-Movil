@@ -24,7 +24,7 @@ class Blackjack extends StatelessWidget {
 class BlackjackTable extends StatelessWidget {
 
   // Lista de cartas del jugador
-  final List<String> cartas = ['Sota de caballos', 'Rey de caballos'];
+  final List<String> cartas_jugador = ['As de picas', '7 de treboles'];
 
   @override
   Widget build(BuildContext context) {
@@ -61,18 +61,48 @@ class BlackjackTable extends StatelessWidget {
             ),
             // Espacio en el medio
             Expanded(
-              child: Container(),
+              child: CartasCroupier(turno_final: false),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (var carta in cartas) Carta(cartaTexto: carta),
+                for (var carta in cartas_jugador) Carta(cartaTexto: carta),
               ],
             ),
           ],
         ),
       ],
     );
+  }
+}
+
+
+class CartasCroupier extends StatelessWidget {
+
+  final bool turno_final;
+  final List<String> cartas_croupier = ['4 de diamante', '12 de corazones'];
+
+  CartasCroupier({required this.turno_final});
+
+  @override
+  Widget build(BuildContext context) {
+    if (turno_final) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (var carta in cartas_croupier) Carta(cartaTexto: carta),
+        ],
+      );
+    }
+    else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Carta(cartaTexto: cartas_croupier[0]),
+          CartaExtra()
+        ],
+      );
+    }
   }
 }
 
@@ -96,6 +126,7 @@ class CartaExtra extends StatelessWidget {
 
 
 class Carta extends StatelessWidget {
+
   final String cartaTexto;
 
   Carta({required this.cartaTexto});
