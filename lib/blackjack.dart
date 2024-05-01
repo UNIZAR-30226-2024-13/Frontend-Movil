@@ -1,57 +1,81 @@
 import 'package:flutter/material.dart';
 
+
 class Blackjack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Blackjack'),
-          backgroundColor: Colors.red, // Cambiar el color de la AppBar a rojo
-        ),
-        body: Container(
-          color: Color.fromARGB(255, 27, 123, 22), // Cambiar el color de fondo del body a verde
-          child: Padding(
-            padding: EdgeInsets.all(5), // Agregar un margen de 5 píxeles en todos los lados
-            child: BlackjackTable(),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Blackjack'),
+        backgroundColor: Colors.red,
+      ),
+      body: Container(
+        color: Color.fromARGB(255, 27, 123, 22),
+        child: Padding(
+          padding: EdgeInsets.all(5),
+          child: BlackjackTable(),
         ),
       ),
     );
   }
 }
 
+
 class BlackjackTable extends StatelessWidget {
-  // Lista de cartas para cada jugador
-  // final List<String> jugador1Cartas = ['Carta 1', 'Carta 2']; // ¡Puedes agregar más cartas aquí!
-  final List<String> jugador2Cartas = ['Carta 3', 'Carta 4']; // ¡Puedes agregar más cartas aquí!
+
+  // Lista de cartas del jugador
+  final List<String> cartas = ['Sota de caballos', 'Rey de caballos'];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Stack(
       children: [
-        // Zona para las cartas del jugador 1
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < 2; i++) CartaExtra(),
-          ],
+        Positioned(
+          left: 0,
+          top: MediaQuery.of(context).size.height / 4 - 15,
+          child: CartaExtra(),
         ),
-        Expanded(
-          child: Container(), // Espacio en el medio
+        Positioned(
+          left: 0,
+          top: MediaQuery.of(context).size.height / 4 * 3 - 160,
+          child: CartaExtra(),
         ),
-        // Zona para las cartas del jugador 2
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Positioned(
+          right: 0,
+          top: MediaQuery.of(context).size.height / 4 - 15,
+          child: CartaExtra(),
+        ),
+        Positioned(
+          right: 0,
+          top: MediaQuery.of(context).size.height / 4 * 3 - 160,
+          child: CartaExtra(),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            for (var carta in jugador2Cartas) Carta(cartaTexto: carta),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < 2; i++) CartaExtra(),
+              ],
+            ),
+            // Espacio en el medio
+            Expanded(
+              child: Container(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var carta in cartas) Carta(cartaTexto: carta),
+              ],
+            ),
           ],
         ),
       ],
     );
   }
 }
+
 
 class CartaExtra extends StatelessWidget {
   @override
@@ -70,6 +94,7 @@ class CartaExtra extends StatelessWidget {
   }
 }
 
+
 class Carta extends StatelessWidget {
   final String cartaTexto;
 
@@ -78,10 +103,10 @@ class Carta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 1), // Margen entre cartas de 1 unidad
+      margin: EdgeInsets.symmetric(horizontal: 2),
       child: SizedBox(
-        width: 105, // Ancho de la carta
-        height: 40, // Alto de la carta
+        width: 144,
+        height: 37,
         child: ElevatedButton(
           onPressed: () => {},
           child: Text(
@@ -92,7 +117,7 @@ class Carta extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle: MaterialStateProperty.all(
               TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
             ),
