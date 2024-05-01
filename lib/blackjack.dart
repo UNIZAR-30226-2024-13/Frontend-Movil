@@ -23,7 +23,7 @@ class Blackjack extends StatelessWidget {
 
 class BlackjackTable extends StatelessWidget {
   // Lista de cartas para cada jugador
-  final List<String> jugador1Cartas = ['Carta 1', 'Carta 2']; // ¡Puedes agregar más cartas aquí!
+  // final List<String> jugador1Cartas = ['Carta 1', 'Carta 2']; // ¡Puedes agregar más cartas aquí!
   final List<String> jugador2Cartas = ['Carta 3', 'Carta 4']; // ¡Puedes agregar más cartas aquí!
 
   @override
@@ -35,7 +35,7 @@ class BlackjackTable extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var carta in jugador1Cartas) Carta(cartaTexto: carta),
+            for (int i = 0; i < 2; i++) CartaExtra(),
           ],
         ),
         Expanded(
@@ -49,6 +49,23 @@ class BlackjackTable extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class CartaExtra extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      child: SizedBox(
+        width: 50, // Ancho de la imagen
+        height: 50, // Alto de la imagen
+        child: Image.asset(
+          'assets/logo.png',
+          fit: BoxFit.contain, // Ajustar la imagen al contenedor
+        ),
+      ),
     );
   }
 }
@@ -84,8 +101,4 @@ class Carta extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(Blackjack());
 }
