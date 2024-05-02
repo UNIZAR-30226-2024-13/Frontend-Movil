@@ -9,7 +9,6 @@ class Blackjack extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(''),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -176,7 +175,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
             ),
 
             // Cartas del jugador principal
-            CartasJugador(lista: cartasJugador, estado: actualizarEstado,),
+            CartasJugador(lista: cartasJugador, estado: actualizarEstado),
           ],
         ),
       ],
@@ -298,7 +297,6 @@ class CartasJugador extends StatelessWidget {
               ElevatedButton(
               onPressed: () {
                 ocultar = false;
-                lista.removeLast();
                 estado();
               },
               child: Text("->"),
@@ -306,7 +304,7 @@ class CartasJugador extends StatelessWidget {
                 backgroundColor: MaterialStateProperty.all(Colors.yellow),
                 foregroundColor: MaterialStateProperty.all(Colors.black),
                 textStyle: MaterialStateProperty.all(TextStyle(
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold
                 )),
               ), 
