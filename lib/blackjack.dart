@@ -8,8 +8,11 @@ class Blackjack extends StatelessWidget {
     ocultar = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBar(
+          backgroundColor: Colors.red,
+        ),
       ),
       body: Container(
         color: Color.fromARGB(255, 27, 123, 22),
