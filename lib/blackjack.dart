@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
 var ocultar;
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Blackjack(),
-    );
-  }
-}
 
 class Blackjack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ocultar = true;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(''),
         backgroundColor: Colors.red,
@@ -35,21 +23,27 @@ class Blackjack extends StatelessWidget {
   }
 }
 
+
 class BlackjackTable extends StatefulWidget {
   @override
   _BlackjackTableState createState() => _BlackjackTableState();
 }
 
+
 class _BlackjackTableState extends State<BlackjackTable> {
+
   // Lista de cartas del jugador
   List<String> cartasJugador = ['As de picas', '7 de treboles'];
+
+  // Numero de cartas de cada jugador auxiliar
   List<int> cartas_jugadores = [2, 2, 2];
-  
-  String cartaAux = 'Carta auxiliar'; // Carta auxiliar
+
+  // Controlador de fichas a apostar
+  TextEditingController _text_fichas = TextEditingController();
 
   void actualizarCartasJugador() {
     setState(() {
-      cartasJugador.add(cartaAux); // Añadir carta auxiliar a la lista de cartas del jugador
+      cartasJugador.add('Carta auxiliar'); // Añadir carta auxiliar a la lista de cartas del jugador
     });
   }
 
@@ -61,6 +55,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Cartas auxiliares
         Positioned(
           left: 0,
           top: MediaQuery.of(context).size.height / 4 - 15,
@@ -81,6 +76,48 @@ class _BlackjackTableState extends State<BlackjackTable> {
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
           child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(2)),
         ),
+
+        // Cuadro de texto para apostar
+        Positioned(
+          left: 0,
+          top: 4,
+          child: SizedBox(
+            width: 100.0,
+            height: 40.0,
+            child: TextField(
+              controller: _text_fichas,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
+                labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+              ),
+            ),
+          )
+        ),
+        // Botón de apostar
+        Positioned(
+          left: 105,
+          top: 0,
+          child: ElevatedButton(
+            onPressed: () {
+              // Llamar a la función para apostar
+            },
+            child: Text("Apostar"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.yellow),
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold
+              )),
+            ), 
+          ),
+        ),
+
+        // Botón pedir carta
         Positioned(
           right: 0,
           top: 0,
@@ -99,6 +136,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
             ), 
           ),
         ),
+        // Botón plantarse
         Positioned(
           right: 125,
           top: 0,
@@ -146,6 +184,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
   }
 }
 
+
 class CartasCroupier extends StatefulWidget {
   final bool turnoFinal;
 
@@ -154,6 +193,7 @@ class CartasCroupier extends StatefulWidget {
   @override
   _CartasCroupierState createState() => _CartasCroupierState();
 }
+
 
 class _CartasCroupierState extends State<CartasCroupier> {
   // Lista de cartas del croupier
@@ -185,6 +225,7 @@ class _CartasCroupierState extends State<CartasCroupier> {
     }
   }
 }
+
 
 class CartaExtra extends StatelessWidget {
   final bool con_numero;
