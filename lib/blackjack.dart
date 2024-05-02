@@ -4,7 +4,7 @@ void main() {
   runApp(MyApp());
 }
 
-var ocultar = true;
+var ocultar;
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
 class Blackjack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ocultar = true;
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -108,7 +109,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
               child: CartasCroupier(turnoFinal: false),
             ),
 
-            CartasJugador(lista: cartasJugador),
+            CartasJugador(lista: cartasJugador, estado: actualizarCartasJugador,),
           ],
         ),
       ],
@@ -176,7 +177,8 @@ class CartaExtra extends StatelessWidget {
 
 class CartasJugador extends StatelessWidget {
   final List<String> lista;
-  CartasJugador({required this.lista});
+  final Function estado;
+  CartasJugador({required this.lista, required this.estado});
 
   @override
   Widget build(BuildContext context) {
@@ -198,6 +200,8 @@ class CartasJugador extends StatelessWidget {
               ElevatedButton(
               onPressed: () {
                 ocultar = false;
+                lista.removeLast();
+                estado();
               },
               child: Text("->"),
               style: ButtonStyle(
