@@ -11,6 +11,13 @@ class Blackjack extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
+          title: Text(
+            '1M fichas disponibles',
+            style: TextStyle(
+              fontSize: 19.5,
+            ),
+          ),
+          centerTitle: true,
           backgroundColor: Colors.red,
         ),
       ),
