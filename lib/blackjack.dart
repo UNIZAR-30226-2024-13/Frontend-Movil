@@ -52,6 +52,10 @@ class _BlackjackTableState extends State<BlackjackTable> {
     });
   }
 
+  void actualizarEstado() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -109,7 +113,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
               child: CartasCroupier(turnoFinal: false),
             ),
 
-            CartasJugador(lista: cartasJugador, estado: actualizarCartasJugador,),
+            CartasJugador(lista: cartasJugador, estado: actualizarEstado,),
           ],
         ),
       ],
