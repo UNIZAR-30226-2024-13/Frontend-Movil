@@ -4,6 +4,8 @@ void main() {
   runApp(MyApp());
 }
 
+var ocultar = true;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class Blackjack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blackjack'),
+        title: Text(''),
         backgroundColor: Colors.red,
       ),
       body: Container(
@@ -100,16 +102,13 @@ class _BlackjackTableState extends State<BlackjackTable> {
                 for (int i = 0; i < 2; i++) CartaExtra(),
               ],
             ),
+
             // Espacio en el medio
             Expanded(
               child: CartasCroupier(turnoFinal: false),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (var carta in cartasJugador) Carta(cartaTexto: carta),
-              ],
-            ),
+
+            CartasJugador(lista: cartasJugador),
           ],
         ),
       ],
@@ -130,9 +129,9 @@ class _CartasCroupierState extends State<CartasCroupier> {
   // Lista de cartas del croupier
   List<String> cartasCroupier = ['4 de diamante', '12 de corazones'];
 
-  void actualizarCartasCroupier(List<String> nuevasCartas) {
+  void actualizarCartasCroupier(String carta_nueva_croupier) {
     setState(() {
-      cartasCroupier = nuevasCartas;
+      cartasCroupier.add(carta_nueva_croupier);
     });
   }
 
@@ -173,6 +172,61 @@ class CartaExtra extends StatelessWidget {
     );
   }
 }
+
+
+class CartasJugador extends StatelessWidget {
+  final List<String> lista;
+  CartasJugador({required this.lista});
+
+  @override
+  Widget build(BuildContext context) {
+    var num_cartas = lista.length;
+    if (ocultar) {
+      if (num_cartas < 5) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (var carta in lista) Carta(cartaTexto: carta),
+          ],
+        );
+      }
+      else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < 4; i++) Carta(cartaTexto: lista.elementAt(i)),
+              ElevatedButton(
+              onPressed: () {
+                ocultar = false;
+              },
+              child: Text("->"),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                textStyle: MaterialStateProperty.all(TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                )),
+              ), 
+            ),
+          ],
+        );
+      }
+    }
+    else {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (var carta in lista) Carta(cartaTexto: carta),
+          ],
+        ),
+      );
+    }
+  }
+}
+
 
 class Carta extends StatelessWidget {
   final String cartaTexto;
