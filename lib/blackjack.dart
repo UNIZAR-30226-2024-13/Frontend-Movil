@@ -43,6 +43,7 @@ class BlackjackTable extends StatefulWidget {
 class _BlackjackTableState extends State<BlackjackTable> {
   // Lista de cartas del jugador
   List<String> cartasJugador = ['As de picas', '7 de treboles'];
+  List<int> cartas_jugadores = [2, 2, 2];
   
   String cartaAux = 'Carta auxiliar'; // Carta auxiliar
 
@@ -63,22 +64,22 @@ class _BlackjackTableState extends State<BlackjackTable> {
         Positioned(
           left: 0,
           top: MediaQuery.of(context).size.height / 4 - 15,
-          child: CartaExtra(),
+          child: CartaExtra(con_numero: false, numero: 0),
         ),
         Positioned(
           left: 0,
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
-          child: CartaExtra(),
+          child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(1)),
         ),
         Positioned(
           right: 0,
           top: MediaQuery.of(context).size.height / 4 - 15,
-          child: CartaExtra(),
+          child: CartaExtra(con_numero: false, numero: 0),
         ),
         Positioned(
           right: 0,
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
-          child: CartaExtra(),
+          child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(2)),
         ),
         Positioned(
           right: 0,
@@ -92,7 +93,25 @@ class _BlackjackTableState extends State<BlackjackTable> {
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
               foregroundColor: MaterialStateProperty.all(Colors.black),
               textStyle: MaterialStateProperty.all(TextStyle(
-                fontSize: 18,
+                fontSize: 14,
+                fontWeight: FontWeight.bold
+              )),
+            ), 
+          ),
+        ),
+        Positioned(
+          right: 125,
+          top: 0,
+          child: ElevatedButton(
+            onPressed: () {
+              // Llamar a la función para plantarse
+            },
+            child: Text("Plantarse"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.yellow),
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 14,
                 fontWeight: FontWeight.bold
               )),
             ), 
@@ -101,10 +120,15 @@ class _BlackjackTableState extends State<BlackjackTable> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            // Cartas jugador auxiliar de arriba
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 2; i++) CartaExtra(),
+                for (int i = 0; i < 2; i++) CartaExtra(con_numero: false, numero: 0),
+                Text(
+                  cartas_jugadores.elementAt(0).toString(),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
 
@@ -113,6 +137,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
               child: CartasCroupier(turnoFinal: false),
             ),
 
+            // Cartas del jugador principal
             CartasJugador(lista: cartasJugador, estado: actualizarEstado,),
           ],
         ),
@@ -154,7 +179,7 @@ class _CartasCroupierState extends State<CartasCroupier> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Carta(cartaTexto: cartasCroupier[0]),
-          CartaExtra(),
+          CartaExtra(con_numero: false, numero: 0),
         ],
       );
     }
@@ -162,19 +187,47 @@ class _CartasCroupierState extends State<CartasCroupier> {
 }
 
 class CartaExtra extends StatelessWidget {
+  final bool con_numero;
+  final int numero;
+
+  CartaExtra({required this.con_numero, required this.numero});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      child: SizedBox(
-        width: 50, // Ancho de la imagen
-        height: 50, // Alto de la imagen
-        child: Image.asset(
-          'assets/logo.png',
-          fit: BoxFit.contain, // Ajustar la imagen al contenedor
+    if (con_numero) {
+      return Column(
+        children: [
+          Container(
+          padding: EdgeInsets.all(5),
+          child: SizedBox(
+            width: 50, // Ancho de la imagen
+            height: 50, // Alto de la imagen
+            child: Image.asset(
+              'assets/logo.png',
+              fit: BoxFit.contain, // Ajustar la imagen al contenedor
+            ),
+          ),
+          ),
+          Text(
+            numero.toString(),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ]
+      );
+    }
+    else {
+      return Container(
+        padding: EdgeInsets.all(5),
+        child: SizedBox(
+          width: 50, // Ancho de la imagen
+          height: 50, // Alto de la imagen
+          child: Image.asset(
+            'assets/logo.png',
+            fit: BoxFit.contain, // Ajustar la imagen al contenedor
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
