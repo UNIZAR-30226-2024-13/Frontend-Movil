@@ -38,6 +38,7 @@ class _BlackjackState extends State<Blackjack> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             '1M fichas disponibles',
             style: TextStyle(
