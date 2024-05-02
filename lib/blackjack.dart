@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Blackjack(),
+    );
+  }
+}
 
 class Blackjack extends StatelessWidget {
   @override
@@ -20,11 +32,22 @@ class Blackjack extends StatelessWidget {
   }
 }
 
+class BlackjackTable extends StatefulWidget {
+  @override
+  _BlackjackTableState createState() => _BlackjackTableState();
+}
 
-class BlackjackTable extends StatelessWidget {
-
+class _BlackjackTableState extends State<BlackjackTable> {
   // Lista de cartas del jugador
-  final List<String> cartas_jugador = ['As de picas', '7 de treboles'];
+  List<String> cartasJugador = ['As de picas', '7 de treboles'];
+  
+  String cartaAux = 'Carta auxiliar'; // Carta auxiliar
+
+  void actualizarCartasJugador() {
+    setState(() {
+      cartasJugador.add(cartaAux); // Añadir carta auxiliar a la lista de cartas del jugador
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +73,24 @@ class BlackjackTable extends StatelessWidget {
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
           child: CartaExtra(),
         ),
+        Positioned(
+          right: 0,
+          top: 0,
+          child: ElevatedButton(
+            onPressed: () {
+              actualizarCartasJugador(); // Llamar a la función para añadir carta auxiliar
+            },
+            child: Text("Pedir carta"),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.yellow),
+              foregroundColor: MaterialStateProperty.all(Colors.black),
+              textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              )),
+            ), 
+          ),
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -61,12 +102,12 @@ class BlackjackTable extends StatelessWidget {
             ),
             // Espacio en el medio
             Expanded(
-              child: CartasCroupier(turno_final: false),
+              child: CartasCroupier(turnoFinal: false),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (var carta in cartas_jugador) Carta(cartaTexto: carta),
+                for (var carta in cartasJugador) Carta(cartaTexto: carta),
               ],
             ),
           ],
@@ -76,36 +117,45 @@ class BlackjackTable extends StatelessWidget {
   }
 }
 
+class CartasCroupier extends StatefulWidget {
+  final bool turnoFinal;
 
-class CartasCroupier extends StatelessWidget {
+  CartasCroupier({required this.turnoFinal});
 
-  final bool turno_final;
-  final List<String> cartas_croupier = ['4 de diamante', '12 de corazones'];
+  @override
+  _CartasCroupierState createState() => _CartasCroupierState();
+}
 
-  CartasCroupier({required this.turno_final});
+class _CartasCroupierState extends State<CartasCroupier> {
+  // Lista de cartas del croupier
+  List<String> cartasCroupier = ['4 de diamante', '12 de corazones'];
+
+  void actualizarCartasCroupier(List<String> nuevasCartas) {
+    setState(() {
+      cartasCroupier = nuevasCartas;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (turno_final) {
+    if (widget.turnoFinal) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          for (var carta in cartas_croupier) Carta(cartaTexto: carta),
+          for (var carta in cartasCroupier) Carta(cartaTexto: carta),
         ],
       );
-    }
-    else {
+    } else {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Carta(cartaTexto: cartas_croupier[0]),
-          CartaExtra()
+          Carta(cartaTexto: cartasCroupier[0]),
+          CartaExtra(),
         ],
       );
     }
   }
 }
-
 
 class CartaExtra extends StatelessWidget {
   @override
@@ -124,9 +174,7 @@ class CartaExtra extends StatelessWidget {
   }
 }
 
-
 class Carta extends StatelessWidget {
-
   final String cartaTexto;
 
   Carta({required this.cartaTexto});
