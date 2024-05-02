@@ -140,6 +140,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
           top: 0,
           child: ElevatedButton(
             onPressed: () {
+              _text_fichas.clear();
               // Llamar a la función para apostar
             },
             child: Text("Apostar"),
