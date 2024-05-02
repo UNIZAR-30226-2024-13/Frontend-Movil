@@ -1,8 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 var ocultar;
 
-class Blackjack extends StatelessWidget {
+class Blackjack extends StatefulWidget {
+  @override
+  _BlackjackState createState() => _BlackjackState();
+}
+
+
+class _BlackjackState extends State<Blackjack> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     ocultar = true;
