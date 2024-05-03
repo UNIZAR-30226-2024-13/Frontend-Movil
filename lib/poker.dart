@@ -38,15 +38,15 @@ class _PokerState extends State<Poker> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            '1M fichas disponibles',
-            style: TextStyle(
-              fontSize: 19.5,
-            ),
-          ),
-          centerTitle: true,
           backgroundColor: Colors.red,
+          automaticallyImplyLeading: false,
+          title : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text('1M fichas disponibles', style: TextStyle(fontSize: 19.5)),
+              Text('Última apuesta: 3M fichas',style: TextStyle(fontSize: 19.5)),
+            ],
+          ),
         ),
       ),
       body: Container(
