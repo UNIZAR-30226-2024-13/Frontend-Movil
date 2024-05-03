@@ -196,21 +196,41 @@ class _PokerTableState extends State<PokerTable> {
         ),
 
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Cartas jugador auxiliar de arriba
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < 2; i++) CartaExtra(),
-              ],
+            Align(
+              alignment: Alignment.topCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < 2; i++) CartaExtra(),
+                ],
+              ),
             ),
 
             // Espacio en el medio
-            CartasJugador(lista: cartasMesa),
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var carta in cartasMesa) Carta(cartaTexto: carta),
+                  ],
+                ),
+              ),
+            ),
 
             // Cartas del jugador principal
-            CartasJugador(lista: cartasJugador),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (var carta in cartasJugador) Carta(cartaTexto: carta),
+                ],
+              ),
+            ),
           ],
         ),
       ],
@@ -232,22 +252,6 @@ class CartaExtra extends StatelessWidget {
           fit: BoxFit.contain, // Ajustar la imagen al contenedor
         ),
       ),
-    );
-  }
-}
-
-
-class CartasJugador extends StatelessWidget {
-  final List<String> lista;
-  CartasJugador({required this.lista});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (var carta in lista) Carta(cartaTexto: carta),
-      ],
     );
   }
 }
