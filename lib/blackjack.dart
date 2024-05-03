@@ -215,7 +215,16 @@ class _BlackjackTableState extends State<BlackjackTable> {
 
             // Espacio en el medio
             Expanded(
-              child: CartasCroupier(turnoFinal: false),
+              child: Container(
+                width: 710,
+                height: 625,
+                margin: EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.yellow, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                child: CartasCroupier(turnoFinal: false),
+              )
             ),
 
             // Cartas del jugador principal
