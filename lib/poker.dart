@@ -51,10 +51,10 @@ class _PokerState extends State<Poker> {
       ),
       body: Container(
         color: Color.fromARGB(255, 27, 123, 22),
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: PokerTable(),
-        ),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: PokerTable(),
+          ),
       ),
     );
   }
@@ -210,15 +210,24 @@ class _PokerTableState extends State<PokerTable> {
 
             // Espacio en el medio
             Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (var carta in cartasMesa) Carta(cartaTexto: carta),
-                  ],
+              child: Container(
+                width: 710,
+                height: 625,
+                margin: EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.yellow, width: 2.0),
+                  borderRadius: BorderRadius.circular(20)
                 ),
-              ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (var carta in cartasMesa) Carta(cartaTexto: carta),
+                    ],
+                  ),
+                ),
+              )
             ),
 
             // Cartas del jugador principal
