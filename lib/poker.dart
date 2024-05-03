@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 
 var ocultar;
 
-class Blackjack extends StatefulWidget {
+class Poker extends StatefulWidget {
   @override
-  _BlackjackState createState() => _BlackjackState();
+  _PokerState createState() => _PokerState();
 }
 
 
-class _BlackjackState extends State<Blackjack> {
+class _PokerState extends State<Poker> {
   @override
   void initState() {
     super.initState();
@@ -53,7 +53,7 @@ class _BlackjackState extends State<Blackjack> {
         color: Color.fromARGB(255, 27, 123, 22),
         child: Padding(
           padding: EdgeInsets.all(5),
-          child: BlackjackTable(),
+          child: PokerTable(),
         ),
       ),
     );
@@ -61,13 +61,13 @@ class _BlackjackState extends State<Blackjack> {
 }
 
 
-class BlackjackTable extends StatefulWidget {
+class PokerTable extends StatefulWidget {
   @override
-  _BlackjackTableState createState() => _BlackjackTableState();
+  _PokerTableState createState() => _PokerTableState();
 }
 
 
-class _BlackjackTableState extends State<BlackjackTable> {
+class _PokerTableState extends State<PokerTable> {
 
   // Lista de cartas del jugador
   List<String> cartasJugador = ['As de picas', '7 de treboles'];
@@ -77,10 +77,6 @@ class _BlackjackTableState extends State<BlackjackTable> {
 
   // Controlador de fichas a apostar
   TextEditingController _text_fichas = TextEditingController();
-
-  void verificar_apuesta() {
-
-  }
 
   void actualizarCartasJugador() {
     setState(() {
@@ -145,8 +141,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
           child: ElevatedButton(
             onPressed: () {
               _text_fichas.clear();
-              verificar_apuesta();
-              // Función apostar
+              // Llamar a la función para apostar
             },
             child: Text("Apostar"),
             style: ButtonStyle(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:CardVerse/menu.dart';
 import 'package:CardVerse/registro.dart';
-import 'package:CardVerse/blackjack.dart';
+//import 'package:CardVerse/blackjack.dart';
+import 'package:CardVerse/poker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -145,7 +146,7 @@ class _InicioState extends State<Inicio> {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Blackjack())
+                        MaterialPageRoute(builder: (context) => Poker())
                       )
                     },
                   )
