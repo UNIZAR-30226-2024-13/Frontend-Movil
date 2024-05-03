@@ -92,6 +92,16 @@ class _BlackjackTableState extends State<BlackjackTable> {
     setState(() {});
   }
 
+  int sanitizar_fichas(String input) {
+    String numeros = '';
+    for (int i = 0; i < input.length; i++) {
+      if (int.tryParse(input[i]) != null) {
+        numeros += input[i];
+      }
+    }
+    return int.tryParse(numeros) ?? -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -127,6 +137,7 @@ class _BlackjackTableState extends State<BlackjackTable> {
             height: 40.0,
             child: TextField(
               controller: _text_fichas,
+              keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -144,7 +155,9 @@ class _BlackjackTableState extends State<BlackjackTable> {
           top: 0,
           child: ElevatedButton(
             onPressed: () {
+              String input = _text_fichas.text;
               _text_fichas.clear();
+              int apuesta = sanitizar_fichas(input);
               verificar_apuesta();
               // Función apostar
             },

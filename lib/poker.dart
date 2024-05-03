@@ -86,6 +86,20 @@ class _PokerTableState extends State<PokerTable> {
     actualizarEstado();
   }
 
+  int sanitizar_fichas(String input) {
+    String numeros = '';
+    for (int i = 0; i < input.length; i++) {
+      if (int.tryParse(input[i]) != null) {
+        numeros += input[i];
+      }
+    }
+    return int.tryParse(numeros) ?? -1;
+  }
+
+  void verificar_apuesta() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -122,6 +136,7 @@ class _PokerTableState extends State<PokerTable> {
             height: 40.0,
             child: TextField(
               controller: _text_fichas,
+              keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -140,8 +155,12 @@ class _PokerTableState extends State<PokerTable> {
           top: 0,
           child: ElevatedButton(
             onPressed: () {
+              String input = _text_fichas.text;
               _text_fichas.clear();
-              // Llamar a la función para apostar
+              int apuesta = sanitizar_fichas(input);
+              verificar_apuesta();
+              // Función apostar
+
             },
             child: Text("Apostar"),
             style: ButtonStyle(
