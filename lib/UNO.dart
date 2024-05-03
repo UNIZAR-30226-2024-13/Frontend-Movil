@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/home.dart';
 
 void main() {
   runApp(UnoGame());
@@ -20,7 +19,7 @@ class UnoGamePage extends StatefulWidget {
 }
 
 class _UnoGamePageState extends State<UnoGamePage> {
-    List<String> playerCards = [
+  List<String> playerCards = [
     'Red 1',
     'Blue 2',
     'Green 3',
@@ -54,129 +53,124 @@ class _UnoGamePageState extends State<UnoGamePage> {
     });
   }
 
+  // Método para manejar el botón "Ver todas"
+  void _onVerTodasPressed() {
+    setState(() {
+      mostrarTodasLasCartas = true;
+    });
+  }
+
+  // Método para manejar el botón de robar carta
+  void _onRobarCarta() {
+    setState(() {
+      // Simular robo de carta (aquí puedes agregar la lógica real)
+      playerCards.add('Nueva Carta');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('UNO'),
       ),
-      body: Stack(
-        children: [
-          // Contenedor para las cartas del jugador
-          Positioned(
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: () {
-                          if (mostrarTodasLasCartas) {
-                            return playerCards.map((card) {
-                              return Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Lógica para manejar la selección de la carta
-                                    _onCardSelected(card);
-                                  },
-                                  child: Text(card),
-                                ),
-                              );
-                            }).toList();
-                          } else {
-                            return playerCards.take(5).map((card) {
-                              return Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Lógica para manejar la selección de la carta
-                                    _onCardSelected(card);
-                                  },
-                                  child: Text(card),
-                                ),
-                              );
-                            }).toList();
-                          }
-                        }(),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 27, 123, 22),
+          border: Border.all(color: Colors.black, width: 2.0),
+        ),
+        child: Stack(
+          children: [
+            // Resto del contenido del juego aquí
+            // Contenedor para las cartas del jugador
+            Positioned(
+              left: 0,
+              bottom: 0,
+              right: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: () {
+                            if (mostrarTodasLasCartas) {
+                              return playerCards.map((card) {
+                                return Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Lógica para manejar la selección de la carta
+                                      _onCardSelected(card);
+                                    },
+                                    child: Text(card),
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                                      textStyle: MaterialStateProperty.all(TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold
+                                      ))
+                                    ),
+                                  ),
+                                );
+                              }).toList();
+                            } else {
+                              return playerCards.take(5).map((card) {
+                                return Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      // Lógica para manejar la selección de la carta
+                                      _onCardSelected(card);
+                                    },
+                                    child: Text(card),
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                                      textStyle: MaterialStateProperty.all(TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold
+                                      ))
+                                    ),
+                                  ),
+                                );
+                              }).toList();
+                            }
+                          }(),
+                        ),
                       ),
                     ),
-                  ),
-                  if (playerCards.length > 5 && !mostrarTodasLasCartas)
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          mostrarTodasLasCartas = true;
-                        });
-                      },
-                      child: Text('Ver todas'),
-                    ),
-                ],
+                    if (playerCards.length > 5 && !mostrarTodasLasCartas)
+                      ElevatedButton(
+                        onPressed: _onVerTodasPressed,
+                        child: Text('Ver todas'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                          foregroundColor: MaterialStateProperty.all(Colors.black),
+                          textStyle: MaterialStateProperty.all(TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold
+                          ))
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          // Contenedor para el número de cartas del Jugador 1
-          Positioned(
-            left: 16,
-            top: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Jugador 1',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Image.asset(
-                  'assets/logo.png',
-                  width: 50,
-                  height: 50,
-                ),
-                Text(
-                  '$numCartasJugador1',
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          // Contenedor para el número de cartas del Jugador 2 
-          Positioned(
-            right: 16,
-            top: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  'Jugador 2',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Image.asset(
-                  'assets/logo.png',
-                  width: 50,
-                  height: 50,
-                ),
-                Text(
-                  '$numCartasJugador2',
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          // Contenedor para el número de cartas del Jugador 3 
-          Positioned(
-            top: 16,
-            left: 0,
-            right: 0,
-            child: Center(
+            // Contenedor para el número de cartas del Jugador 1
+            Positioned(
+              left: 16,
+              top: 16,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Jugador 3',
+                    'Jugador 1',
                     style: TextStyle(fontSize: 16.0),
                   ),
                   Image.asset(
@@ -185,49 +179,103 @@ class _UnoGamePageState extends State<UnoGamePage> {
                     height: 50,
                   ),
                   Text(
-                    '$numCartasJugador3',
+                    '$numCartasJugador1',
                     style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-          ),
-          // Contenedor para el botón de robar carta 
-          Positioned(
-            left: 0,
-            top: MediaQuery.of(context).size.height / 2 - 50,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    // Lógica para robar carta
-                    print('Robar carta');
-                  },
-                  child: Text('Robar Carta'),
-                ),
-                SizedBox(width: 16),
-              ],
+            // Contenedor para el número de cartas del Jugador 2
+            Positioned(
+              right: 16,
+              top: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'Jugador 2',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  Image.asset(
+                    'assets/logo.png',
+                    width: 50,
+                    height: 50,
+                  ),
+                  Text(
+                    '$numCartasJugador2',
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-          ),
-          // Contenedor para la carta jugada en el centro
-          Positioned(
-            left: 0,
-            right: 0,
-            top: MediaQuery.of(context).size.height / 2 - 50,
-            child: Center(
-              child: Card(
-                elevation: 5.0,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(playedCard),
+            // Contenedor para el número de cartas del Jugador 3
+            Positioned(
+              top: 16,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Jugador 3',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    Image.asset(
+                      'assets/logo.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                    Text(
+                      '$numCartasJugador3',
+                      style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-        ],
+            // Contenedor para el botón de robar carta
+            Positioned(
+              left: 0,
+              top: MediaQuery.of(context).size.height / 2 - 50,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: _onRobarCarta,
+                    child: Text('Robar Carta'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                      ))
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                ],
+              ),
+            ),
+            // Contenedor para la carta jugada en el centro
+            Positioned(
+              left: 0,
+              right: 0,
+              top: MediaQuery.of(context).size.height / 2 - 50,
+              child: Center(
+                child: Card(
+                  elevation: 5.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(playedCard),
+                    
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
