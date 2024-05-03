@@ -68,50 +68,49 @@ class PokerTable extends StatefulWidget {
 
 
 class _PokerTableState extends State<PokerTable> {
-
   // Lista de cartas del jugador
   List<String> cartasJugador = ['As de picas', '7 de treboles'];
 
-  // Numero de cartas de cada jugador auxiliar
-  List<int> cartas_jugadores = [2, 2, 2];
+  // Lista de cartas de la mesa
+  List<String> cartasMesa = ['4 de diamante', '12 de corazones'];
 
   // Controlador de fichas a apostar
   TextEditingController _text_fichas = TextEditingController();
 
-  void actualizarCartasJugador() {
-    setState(() {
-      cartasJugador.add('Carta auxiliar'); // Añadir carta auxiliar a la lista de cartas del jugador
-    });
-  }
-
   void actualizarEstado() {
     setState(() {});
+  }
+
+  void sumar_carta_mesa(String carta) {
+    cartasMesa.add(carta);
+    actualizarEstado();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+
         // Cartas auxiliares
         Positioned(
           left: 0,
           top: MediaQuery.of(context).size.height / 4 - 15,
-          child: CartaExtra(con_numero: false, numero: 0),
+          child: CartaExtra(),
         ),
         Positioned(
           left: 0,
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
-          child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(1)),
+          child: CartaExtra(),
         ),
         Positioned(
           right: 0,
           top: MediaQuery.of(context).size.height / 4 - 15,
-          child: CartaExtra(con_numero: false, numero: 0),
+          child: CartaExtra(),
         ),
         Positioned(
           right: 0,
           top: MediaQuery.of(context).size.height / 4 * 3 - 160,
-          child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(2)),
+          child: CartaExtra(),
         ),
 
         // Cuadro de texto para apostar
@@ -134,6 +133,7 @@ class _PokerTableState extends State<PokerTable> {
             ),
           )
         ),
+
         // Botón de apostar
         Positioned(
           left: 105,
@@ -161,9 +161,9 @@ class _PokerTableState extends State<PokerTable> {
           top: 0,
           child: ElevatedButton(
             onPressed: () {
-              actualizarCartasJugador(); // Llamar a la función para añadir carta auxiliar
+              // Igualar apuesta
             },
-            child: Text("Pedir carta"),
+            child: Text("Igualar"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
               foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -174,15 +174,16 @@ class _PokerTableState extends State<PokerTable> {
             ), 
           ),
         ),
+
         // Botón plantarse
         Positioned(
-          right: 125,
+          right: 100,
           top: 0,
           child: ElevatedButton(
             onPressed: () {
-              // Llamar a la función para plantarse
+              sumar_carta_mesa("Carta auxiliar");
             },
-            child: Text("Plantarse"),
+            child: Text("Retirarse"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
               foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -193,6 +194,7 @@ class _PokerTableState extends State<PokerTable> {
             ), 
           ),
         ),
+
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -200,21 +202,15 @@ class _PokerTableState extends State<PokerTable> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 2; i++) CartaExtra(con_numero: false, numero: 0),
-                Text(
-                  cartas_jugadores.elementAt(0).toString(),
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                for (int i = 0; i < 2; i++) CartaExtra(),
               ],
             ),
 
             // Espacio en el medio
-            Expanded(
-              child: CartasCroupier(turnoFinal: false),
-            ),
+            CartasJugador(lista: cartasMesa),
 
             // Cartas del jugador principal
-            CartasJugador(lista: cartasJugador, estado: actualizarEstado),
+            CartasJugador(lista: cartasJugador),
           ],
         ),
       ],
@@ -223,151 +219,42 @@ class _PokerTableState extends State<PokerTable> {
 }
 
 
-class CartasCroupier extends StatefulWidget {
-  final bool turnoFinal;
-
-  CartasCroupier({required this.turnoFinal});
-
-  @override
-  _CartasCroupierState createState() => _CartasCroupierState();
-}
-
-
-class _CartasCroupierState extends State<CartasCroupier> {
-  // Lista de cartas del croupier
-  List<String> cartasCroupier = ['4 de diamante', '12 de corazones'];
-
-  void actualizarCartasCroupier(String carta_nueva_croupier) {
-    setState(() {
-      cartasCroupier.add(carta_nueva_croupier);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (widget.turnoFinal) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (var carta in cartasCroupier) Carta(cartaTexto: carta),
-        ],
-      );
-    } else {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Carta(cartaTexto: cartasCroupier[0]),
-          CartaExtra(con_numero: false, numero: 0),
-        ],
-      );
-    }
-  }
-}
-
-
 class CartaExtra extends StatelessWidget {
-  final bool con_numero;
-  final int numero;
-
-  CartaExtra({required this.con_numero, required this.numero});
-
   @override
   Widget build(BuildContext context) {
-    if (con_numero) {
-      return Column(
-        children: [
-          Container(
-          padding: EdgeInsets.all(5),
-          child: SizedBox(
-            width: 50, // Ancho de la imagen
-            height: 50, // Alto de la imagen
-            child: Image.asset(
-              'assets/logo.png',
-              fit: BoxFit.contain, // Ajustar la imagen al contenedor
-            ),
-          ),
-          ),
-          Text(
-            numero.toString(),
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-        ]
-      );
-    }
-    else {
-      return Container(
-        padding: EdgeInsets.all(5),
-        child: SizedBox(
-          width: 50, // Ancho de la imagen
-          height: 50, // Alto de la imagen
-          child: Image.asset(
-            'assets/logo.png',
-            fit: BoxFit.contain, // Ajustar la imagen al contenedor
-          ),
+    return Container(
+      padding: EdgeInsets.all(5),
+      child: SizedBox(
+        width: 50, // Ancho de la imagen
+        height: 50, // Alto de la imagen
+        child: Image.asset(
+          'assets/logo.png',
+          fit: BoxFit.contain, // Ajustar la imagen al contenedor
         ),
-      );
-    }
+      ),
+    );
   }
 }
 
 
 class CartasJugador extends StatelessWidget {
   final List<String> lista;
-  final Function estado;
-  CartasJugador({required this.lista, required this.estado});
+  CartasJugador({required this.lista});
 
   @override
   Widget build(BuildContext context) {
-    var num_cartas = lista.length;
-    if (ocultar) {
-      if (num_cartas < 5) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var carta in lista) Carta(cartaTexto: carta),
-          ],
-        );
-      }
-      else {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < 4; i++) Carta(cartaTexto: lista.elementAt(i)),
-              ElevatedButton(
-              onPressed: () {
-                ocultar = false;
-                estado();
-              },
-              child: Text("->"),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                textStyle: MaterialStateProperty.all(TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
-                )),
-              ), 
-            ),
-          ],
-        );
-      }
-    }
-    else {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var carta in lista) Carta(cartaTexto: carta),
-          ],
-        ),
-      );
-    }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var carta in lista) Carta(cartaTexto: carta),
+      ],
+    );
   }
 }
 
 
 class Carta extends StatelessWidget {
+
   final String cartaTexto;
 
   Carta({required this.cartaTexto});
@@ -377,7 +264,7 @@ class Carta extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 2),
       child: SizedBox(
-        width: 144,
+        width: 136,
         height: 37,
         child: ElevatedButton(
           onPressed: () => {},
@@ -389,7 +276,7 @@ class Carta extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle: MaterialStateProperty.all(
               TextStyle(
-                fontSize: 12,
+                fontSize: 11,
                 fontWeight: FontWeight.bold,
               ),
             ),
