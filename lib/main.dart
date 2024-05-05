@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
 import 'package:frontend_movil/registro.dart';
+import 'package:frontend_movil/Cinquillo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -145,20 +146,14 @@ void mostrarAlerta(BuildContext context){
       content: Text("buenas"),
       actions: <Widget>
       [
-        TextButton(
+        ElevatedButton(
           onPressed: (){
-            print("No");
-            Navigator.pop(context);
+            Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => CinquilloGame())
+                      );
           }, 
           child: Text("No")
         ),
-        TextButton(
-          onPressed: (){
-            print("Yes");
-            Navigator.pop(context);
-          },
-          child: Text("Yes")
-        )
       ]
     )
   );
