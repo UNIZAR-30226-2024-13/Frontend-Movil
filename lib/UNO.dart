@@ -73,12 +73,12 @@ class _UnoGamePageState extends State<UnoGamePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('UNO'),
+        backgroundColor: Colors.red,
       ),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 27, 123, 22),
-          border: Border.all(color: Colors.black, width: 2.0),
         ),
         child: Stack(
           children: [
@@ -264,13 +264,20 @@ class _UnoGamePageState extends State<UnoGamePage> {
               right: 0,
               top: MediaQuery.of(context).size.height / 2 - 50,
               child: Center(
-                child: Card(
-                  elevation: 5.0,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(playedCard),
-                    
-                  ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Aquí puedes agregar la lógica si se quiere hacer algo al tocar la carta jugada
+                  },
+                  child: Text(
+                    playedCard,),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                      ))
+                    ),
                 ),
               ),
             ),
