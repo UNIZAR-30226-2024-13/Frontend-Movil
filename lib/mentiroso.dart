@@ -71,10 +71,6 @@ class _BlackjackTableState extends State<BlackjackTable> {
   List<int> cartas_jugadores = [10, 10, 10];
   List<bool> cartasSeleccionadas = List.generate(10, (index) => false);
 
-  // Controlador de fichas a apostar
-  TextEditingController _text_fichas = TextEditingController();
-
-
   void actualizarEstado() {
     setState(() {});
   }
@@ -260,7 +256,7 @@ class CartasJugador extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[0]),
+            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[lista.indexOf(carta)]),
           ],
         );
       }
@@ -294,7 +290,7 @@ class CartasJugador extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[0]),
+            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[lista.indexOf(carta)]),
           ],
         ),
       );
