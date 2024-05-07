@@ -19,6 +19,8 @@ class _MentirosoState extends State<Mentiroso> {
     ]);
   }
 
+
+
   @override
   void dispose() {
     SystemChrome.setPreferredOrientations([
@@ -47,7 +49,7 @@ class _MentirosoState extends State<Mentiroso> {
         color: Color.fromARGB(255, 27, 123, 22),
         child: Padding(
           padding: EdgeInsets.all(5),
-          child: BlackjackTable(),
+          child: MentirosoTable(),
         ),
       ),
     );
@@ -55,13 +57,13 @@ class _MentirosoState extends State<Mentiroso> {
 }
 
 
-class BlackjackTable extends StatefulWidget {
+class MentirosoTable extends StatefulWidget {
   @override
-  _BlackjackTableState createState() => _BlackjackTableState();
+  _MentirosoTableState createState() => _MentirosoTableState();
 }
 
 
-class _BlackjackTableState extends State<BlackjackTable> {
+class _MentirosoTableState extends State<MentirosoTable> {
 
   // Lista de cartas del jugador
   List<String> cartasJugador = ['As de espadas','2 de espadas','3 de espadas','4 de espadas',
@@ -69,10 +71,17 @@ class _BlackjackTableState extends State<BlackjackTable> {
 
   // Numero de cartas de cada jugador auxiliar
   List<int> cartas_jugadores = [10, 10, 10];
+  // Listado de cartas seleccionadas
   List<bool> cartasSeleccionadas = List.generate(10, (index) => false);
 
   void actualizarEstado() {
     setState(() {});
+  }
+
+  void onCartaPressed(int index) {
+    setState(() {
+      cartasSeleccionadas[index] = !cartasSeleccionadas[index];
+    });
   }
 
 
@@ -105,8 +114,8 @@ class _BlackjackTableState extends State<BlackjackTable> {
 
         // Botón pedir carta
         Positioned(
-          right: 0,
-          top: 0,
+          right: 20,
+          top: 8,
           child: ElevatedButton(
             onPressed: () {
             },
@@ -123,8 +132,8 @@ class _BlackjackTableState extends State<BlackjackTable> {
         ),
         // Botón plantarse
         Positioned(
-          right: 125,
-          top: 0,
+          right: 145,
+          top: 8,
           child: ElevatedButton(
             onPressed: () {
               // Llamar a la función para tirar
@@ -173,11 +182,6 @@ class _BlackjackTableState extends State<BlackjackTable> {
               lista: cartasJugador,
               estado: actualizarEstado,
               seleccionadas: cartasSeleccionadas,
-              onCartaPressed: (index) {
-                setState(() {
-                  cartasSeleccionadas[index] = !cartasSeleccionadas[index];
-                });
-              },
             ),
           ],
         ),
@@ -239,14 +243,13 @@ class CartasJugador extends StatelessWidget {
   final List<String> lista;
   final List<bool> seleccionadas;
   final Function estado;
-  final Function(int) onCartaPressed;
 
   CartasJugador({
     required this.lista,
     required this.estado,
     required this.seleccionadas,
-    required this.onCartaPressed,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +293,10 @@ class CartasJugador extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[lista.indexOf(carta)]),
+            for (var carta in lista) Carta(
+              cartaTexto: carta,
+              seleccionada: seleccionadas[lista.indexOf(carta)],
+            ),
           ],
         ),
       );
@@ -299,11 +305,15 @@ class CartasJugador extends StatelessWidget {
 }
 
 
+
 class Carta extends StatelessWidget {
   final String cartaTexto;
   final bool seleccionada;
 
-  Carta({required this.cartaTexto, required this.seleccionada});
+  Carta({
+    required this.cartaTexto,
+    required this.seleccionada,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -313,12 +323,13 @@ class Carta extends StatelessWidget {
         width: 144,
         height: 37,
         child: ElevatedButton(
-          onPressed: () => {},
+          onPressed: () {
+          },
           child: Text(
             cartaTexto,
           ),
           style: ButtonStyle(
-            backgroundColor: seleccionada ? MaterialStateProperty.all(Colors.blue) : MaterialStateProperty.all(Colors.yellow),
+            backgroundColor: seleccionada ? MaterialStateProperty.all(Colors.cyanAccent) : MaterialStateProperty.all(Colors.yellow),
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle: MaterialStateProperty.all(
               TextStyle(

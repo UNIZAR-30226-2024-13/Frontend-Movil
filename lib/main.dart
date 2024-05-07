@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_movil/home.dart';
+import 'package:frontend_movil/mentiroso.dart';
 import 'package:frontend_movil/registro.dart';
 
 void main() {
@@ -99,7 +100,7 @@ class _InicioState extends State<Inicio> {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Registro())
+                        MaterialPageRoute(builder: (context) => Mentiroso())
                       )
                     },
                   )
