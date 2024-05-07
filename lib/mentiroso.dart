@@ -77,24 +77,99 @@ class _MentirosoTableState extends State<MentirosoTable> {
   List<bool> cartasSeleccionadas = List.generate(10, (index) => false);
   // Lista de cartas en la mesa
   List<String> cartasEnMesa = [];
+  bool pantallaMostrada = false;
+
 
   void actualizarEstado() {
     setState(() {});
   }
 
   void tirarCartas() {
-    // Mover cartas seleccionadas a la mesa y eliminarlas de la mano
+    // Verificar si hay al menos una carta seleccionada y si la pantalla no se ha mostrado
+    if (cartasSeleccionadas.contains(true) && !pantallaMostrada) {
+      _ElegirNumero(); // Elige que carta dice que va a tirar
+      pantallaMostrada = true; // Marcar que la pantalla ya se mostró
+    }
+    // Mover cartas seleccionadas a la mesa y eliminarlas de la mano del jugador
     for (int i = 0; i < cartasSeleccionadas.length; i++) {
       if (cartasSeleccionadas[i]) {
         cartasEnMesa.add(cartasJugador[i]);
         cartasJugador.removeAt(i);
         cartasSeleccionadas.removeAt(i);
-        i--;
+        i--; // Ajustar el índice después de eliminar un elemento
       }
     }
     setState(() {});
   }
-  
+
+  void levantarCartas() {
+    // Devolver cartas a la mano
+    for (int i = 0; i < cartasEnMesa.length; i++) {
+      cartasJugador.add(cartasEnMesa[i]);
+      cartasEnMesa.removeAt(i);
+      cartasSeleccionadas.add(false);
+      i--;
+    }
+    setState(() {});
+  }
+
+
+  // Método para mostrar el cuadro de diálogo
+  Future<void> _ElegirNumero() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // Permite cerrar el cuadro de diálogo haciendo clic fuera de él
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Selecciona que número de carta dices que tiras'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Dividir los botones en dos filas
+                    ...List.generate(6, (index) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                        },
+                        child: Text('${index + 1}'),
+                      );
+                    }),
+                  ],
+                ),
+                SizedBox(height: 15), // Añadir espacio entre las filas
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Segunda fila de botones
+                    ...List.generate(6, (index) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                        },
+                        child: Text('${index + 7}'),
+                      );
+                    }),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cerrar'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +203,9 @@ class _MentirosoTableState extends State<MentirosoTable> {
           right: 20,
           top: 8,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              levantarCartas();
+            },
             child: Text("Levantar"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
