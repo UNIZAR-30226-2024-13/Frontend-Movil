@@ -7,7 +7,6 @@ TextEditingController _texto_email = TextEditingController();
 TextEditingController _texto_pass = TextEditingController();
 TextEditingController _texto_user = TextEditingController();
 
-String _nombre = '';
 String _pais = '';
 String _email = '';
 String _pass = '';
@@ -36,22 +35,6 @@ class Registro extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: SizedBox(
-                    width: 323.0,
-                    child: TextField(
-                      controller: _texto_nombre,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(),
-                        labelText: 'Nombre',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                    ),
-                  )
-                ),
                 Container(
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
@@ -148,14 +131,13 @@ class Registro extends StatelessWidget {
 
 
 void _verificarRegistro(BuildContext context) {
-  _nombre = _texto_nombre.text;
   _pais = _texto_pais.text;
   _email = _texto_email.text;
   _pass = _texto_pass.text;
   _user = _texto_user.text;
 
   // Casos de error
-  if (_nombre == "" || _pais == "" || _email == "" || _pass == "" || _user == "") {
+  if (_pais == "" || _email == "" || _pass == "" || _user == "") {
     mostrarAlerta(context, "Todos los campos han de ser rellenados");
   }
   else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
