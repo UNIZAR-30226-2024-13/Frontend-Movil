@@ -64,29 +64,41 @@ class MentirosoTable extends StatefulWidget {
 
 
 class _MentirosoTableState extends State<MentirosoTable> {
-
   // Lista de cartas del jugador
-  List<String> cartasJugador = ['As de espadas','2 de espadas','3 de espadas','4 de espadas',
-    '5 de espadas','6 de espadas','7 de espadas','Sota de espadas','Caballo de espadas','Rey de espadas'];
+  List<String> cartasJugador = [
+    'As de espadas','2 de espadas','3 de espadas','4 de espadas',
+    '5 de espadas','6 de espadas','7 de espadas','Sota de espadas',
+    'Caballo de espadas','Rey de espadas'
+  ];
 
   // Numero de cartas de cada jugador auxiliar
   List<int> cartas_jugadores = [10, 10, 10];
-  // Listado de cartas seleccionadas
+  // Lista de estado de cartas (seleccionadas)
   List<bool> cartasSeleccionadas = List.generate(10, (index) => false);
+  // Lista de cartas en la mesa
+  List<String> cartasEnMesa = [];
 
   void actualizarEstado() {
     setState(() {});
   }
 
-  void onCartaPressed(int index) {
-    setState(() {
-      cartasSeleccionadas[index] = !cartasSeleccionadas[index];
-    });
+  void tirarCartas() {
+    // Mover cartas seleccionadas a la mesa y eliminarlas de la mano
+    for (int i = 0; i < cartasSeleccionadas.length; i++) {
+      if (cartasSeleccionadas[i]) {
+        cartasEnMesa.add(cartasJugador[i]);
+        cartasJugador.removeAt(i);
+        cartasSeleccionadas.removeAt(i);
+        i--;
+      }
+    }
+    setState(() {});
   }
-
+  
 
   @override
   Widget build(BuildContext context) {
+    var num_cartas = cartasJugador.length;
     return Stack(
       children: [
         // Cartas auxiliares
@@ -111,21 +123,19 @@ class _MentirosoTableState extends State<MentirosoTable> {
           child: CartaExtra(con_numero: true, numero: cartas_jugadores.elementAt(2)),
         ),
 
-
         // Botón pedir carta
         Positioned(
           right: 20,
           top: 8,
           child: ElevatedButton(
-            onPressed: () {
-            },
+            onPressed: () {},
             child: Text("Levantar"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
               foregroundColor: MaterialStateProperty.all(Colors.black),
               textStyle: MaterialStateProperty.all(TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               )),
             ),
           ),
@@ -137,18 +147,20 @@ class _MentirosoTableState extends State<MentirosoTable> {
           child: ElevatedButton(
             onPressed: () {
               // Llamar a la función para tirar
+              tirarCartas();
             },
             child: Text("Tirar"),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.yellow),
               foregroundColor: MaterialStateProperty.all(Colors.black),
               textStyle: MaterialStateProperty.all(TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               )),
             ),
           ),
         ),
+
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -156,7 +168,8 @@ class _MentirosoTableState extends State<MentirosoTable> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 2; i++) CartaExtra(con_numero: false, numero: 0),
+                for (int i = 0; i < 2; i++)
+                  CartaExtra(con_numero: false, numero: 0),
                 Text(
                   cartas_jugadores.elementAt(0).toString(),
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
@@ -166,22 +179,35 @@ class _MentirosoTableState extends State<MentirosoTable> {
 
             // Espacio en el medio
             Expanded(
-                child: Container(
-                  width: 710,
-                  height: 625,
-                  margin: EdgeInsets.all(7),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.yellow, width: 2.0),
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                )
+              child: Container(
+                width: 710,
+                height: 625,
+                margin: EdgeInsets.all(7),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.yellow, width: 2.0),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
             ),
 
             // Cartas del jugador principal
-            CartasJugador(
-              lista: cartasJugador,
-              estado: actualizarEstado,
-              seleccionadas: cartasSeleccionadas,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (var carta in cartasJugador)
+                    Carta(
+                      cartaTexto: carta,
+                      seleccionada: cartasSeleccionadas[cartasJugador.indexOf(carta)],
+                      onPressed: () {
+                        setState(() {
+                          cartasSeleccionadas[cartasJugador.indexOf(carta)] = !cartasSeleccionadas[cartasJugador.indexOf(carta)];
+                        });
+                      },
+                    ),
+                ],
+              ),
             ),
           ],
         ),
@@ -189,9 +215,6 @@ class _MentirosoTableState extends State<MentirosoTable> {
     );
   }
 }
-
-
-
 
 class CartaExtra extends StatelessWidget {
   final bool con_numero;
@@ -203,26 +226,25 @@ class CartaExtra extends StatelessWidget {
   Widget build(BuildContext context) {
     if (con_numero) {
       return Column(
-          children: [
-            Container(
-              padding: EdgeInsets.all(5),
-              child: SizedBox(
-                width: 50, // Ancho de la imagen
-                height: 50, // Alto de la imagen
-                child: Image.asset(
-                  'assets/logo.png',
-                  fit: BoxFit.contain, // Ajustar la imagen al contenedor
-                ),
+        children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            child: SizedBox(
+              width: 50, // Ancho de la imagen
+              height: 50, // Alto de la imagen
+              child: Image.asset(
+                'assets/logo.png',
+                fit: BoxFit.contain, // Ajustar la imagen al contenedor
               ),
             ),
-            Text(
-              numero.toString(),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ]
+          ),
+          Text(
+            numero.toString(),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ],
       );
-    }
-    else {
+    } else {
       return Container(
         padding: EdgeInsets.all(5),
         child: SizedBox(
@@ -238,82 +260,12 @@ class CartaExtra extends StatelessWidget {
   }
 }
 
-
-class CartasJugador extends StatelessWidget {
-  final List<String> lista;
-  final List<bool> seleccionadas;
-  final Function estado;
-
-  CartasJugador({
-    required this.lista,
-    required this.estado,
-    required this.seleccionadas,
-  });
-
-
-  @override
-  Widget build(BuildContext context) {
-    var num_cartas = lista.length;
-    if (ocultar) {
-      if (num_cartas < 5) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var carta in lista) Carta(cartaTexto: carta, seleccionada: seleccionadas[lista.indexOf(carta)]),
-          ],
-        );
-      }
-      else {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < 4; i++) Carta(cartaTexto: lista.elementAt(i),seleccionada: seleccionadas[i]),
-            ElevatedButton(
-              onPressed: () {
-                ocultar = false;
-                estado();
-              },
-              child: Text("->"),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                textStyle: MaterialStateProperty.all(TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold
-                )),
-              ),
-            ),
-          ],
-        );
-      }
-    }
-    else {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var carta in lista) Carta(
-              cartaTexto: carta,
-              seleccionada: seleccionadas[lista.indexOf(carta)],
-            ),
-          ],
-        ),
-      );
-    }
-  }
-}
-
-
-
 class Carta extends StatelessWidget {
   final String cartaTexto;
   final bool seleccionada;
+  final VoidCallback onPressed;
 
-  Carta({
-    required this.cartaTexto,
-    required this.seleccionada,
-  });
+  Carta({required this.cartaTexto, required this.seleccionada, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -323,8 +275,7 @@ class Carta extends StatelessWidget {
         width: 144,
         height: 37,
         child: ElevatedButton(
-          onPressed: () {
-          },
+          onPressed: onPressed,
           child: Text(
             cartaTexto,
           ),
