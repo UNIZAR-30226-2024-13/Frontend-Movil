@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:CardVerse/menu.dart';
 import 'package:CardVerse/registro.dart';
 import 'package:CardVerse/blackjack.dart';
 import 'package:CardVerse/poker.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -160,21 +163,36 @@ class _InicioState extends State<Inicio> {
   }
 
 
-  void _verificarLogin() {
-    setState(() {
-      _user = _texto_user.text;
-      _pass = _texto_pass.text;
-      // not email in base || email in base and pass not pass of email
-      if (_user == "" || _pass == "") {
-        mostrarAlerta(context, "Los campos no pueden ser vacíos");
+  void _verificarLogin() async {
+    _user = _texto_user.text;
+    _pass = _texto_pass.text;
+    if (_user == "" || _pass == "") {
+      mostrarAlerta(context, "Los campos no pueden ser vacíos");
+    }
+    else {
+      Map<String, Object> payload = {
+        'tipo': 'byNombre',
+        'valor': _user,
+      };
+      // Cambiar IP a IP de la red local donde se esté ejecutando el backend de Java
+      var url = 'http://192.168.1.61:20000/getUsuario?tipo=${payload['tipo']}&valor=${payload['valor']}';
+      try {
+        http.Response respuesta_usuario = await http.get(Uri.parse(url));
+
+        if (respuesta_usuario.statusCode != 200) {
+          mostrarAlerta(context, 'Usuario o contraseña incorrectos');
+        }
+        else { // Usuario ya existe, login correcto
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => Menu(usuario : _user))
+          );
+        }
       }
-      else {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => Menu(usuario : _user))
-        );
+      catch (error) {
+        mostrarAlerta(context, 'Error no controlado');
       }
-    });
+    }
   }
 }
 
