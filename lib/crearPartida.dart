@@ -1,3 +1,5 @@
+//import 'package:CardVerse/menuCreacion.dart';
+import 'package:CardVerse/menu.dart';
 import 'package:flutter/material.dart';
 
 
@@ -68,7 +70,10 @@ class crearPartida extends StatelessWidget {
                       /************************************************************* */
                       //Además de insertar los datos del usuario en la base de datos 
                       /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
+                      )
                     },
                   ),
                 )

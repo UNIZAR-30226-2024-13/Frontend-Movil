@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:CardVerse/menuUnion.dart';
+import 'package:CardVerse/menu.dart';
 
 
 class unirsePartida extends StatelessWidget {
@@ -11,13 +13,20 @@ class unirsePartida extends StatelessWidget {
         backgroundColor: Colors.red,
         //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
-        leading: Container(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/logo.png'
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/logo.png'),
+            ),
           ),
-        ),
-        title: Text("Unirse"),
+
+        title: Text("Crear"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
@@ -54,7 +63,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Mentiroso"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -65,10 +74,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso",))
+                      )
                     },
                   ),
                 )
@@ -84,7 +93,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Cinquillo"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -95,10 +104,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo"))
+                      )
                     },
                   ),
                 )
@@ -114,7 +123,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("Póker"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -125,10 +134,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker"))
+                      )
                     },
                   ),
                 )
@@ -144,7 +153,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("BlackJack"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -160,10 +169,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack"))
+                      )
                     },
                   ),
                 )
@@ -179,7 +188,7 @@ class unirsePartida extends StatelessWidget {
                 ),
                 child: SizedBox(
                   width: 323.0,
-                  child: ElevatedButton(
+                  child: TextButton(
                     child: Text("UNO"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -190,10 +199,10 @@ class unirsePartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () =>{
-                      /************************************************************* */
-                      //Además de insertar los datos del usuario en la base de datos 
-                      /************************************************************* */
-                      Navigator.pop(context)
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno"))
+                      )
                     },
                   ),
                 )

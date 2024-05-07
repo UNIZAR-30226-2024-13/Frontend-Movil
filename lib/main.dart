@@ -211,7 +211,6 @@ Widget botonAcceder() {
 }
 
 
-//Text(_registrado ? "Ok" : "No registrado")
 void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,
