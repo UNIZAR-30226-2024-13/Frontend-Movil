@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:CardVerse/menu.dart';
 
-TextEditingController _texto_nombre = TextEditingController();
 TextEditingController _texto_pais = TextEditingController();
 TextEditingController _texto_email = TextEditingController();
 TextEditingController _texto_pass = TextEditingController();
