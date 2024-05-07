@@ -170,23 +170,25 @@ class _InicioState extends State<Inicio> {
       mostrarAlerta(context, "Los campos no pueden ser vacíos");
     }
     else {
-      Map<String, Object> payload = {
-        'tipo': 'byNombre',
-        'valor': _user,
-      };
       // Cambiar IP a IP de la red local donde se esté ejecutando el backend de Java
-      var url = 'http://192.168.1.61:20000/getUsuario?tipo=${payload['tipo']}&valor=${payload['valor']}';
+      var url = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + _user;
       try {
         http.Response respuesta_usuario = await http.get(Uri.parse(url));
 
-        if (respuesta_usuario.statusCode != 200) {
-          mostrarAlerta(context, 'Usuario o contraseña incorrectos');
+        if (respuesta_usuario.statusCode == 404) {
+          mostrarAlerta(context, 'Me cago en dios');
         }
-        else { // Usuario ya existe, login correcto
-          Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => Menu(usuario : _user))
-          );
+        else { // Petición correcta
+          Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+          if (!respuesta_json['status']) {  // Falta verificar contraseña
+            mostrarAlerta(context, 'Usuario o contraseña incorrectos');
+          }
+          else {
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => Menu(usuario : _user))
+            );
+          }
         }
       }
       catch (error) {

@@ -146,6 +146,19 @@ void _verificarRegistro(BuildContext context) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
+    Map<String, dynamic> payload = {
+      "usuario": {
+        "nombre" : _user,
+        "email" : _email,
+        "pais" : _pais
+      },
+      "login": {
+        "hashPasswd" : _pass
+      }
+    };
+
+    var url = Uri.parse('http://192.168.1.61:20000/newUsuario');
+
     // INSERTAR USUARIO EN LA BASE DE DATOS
     Navigator.push(
       context, 
