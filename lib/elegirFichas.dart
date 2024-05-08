@@ -4,6 +4,7 @@ import 'package:CardVerse/amigos.dart';
 import 'package:CardVerse/crearPartida.dart';
 import 'package:CardVerse/unirsePartida.dart';
 
+TextEditingController _text_fichas = TextEditingController();
 
 class ElegirFichas extends StatelessWidget {
   final String juego;
@@ -66,6 +67,7 @@ class ElegirFichas extends StatelessWidget {
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
+                        controller: _text_fichas,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "",
@@ -99,7 +101,13 @@ class ElegirFichas extends StatelessWidget {
                             ))
                           ), 
                           onPressed: () {
-                            //
+                            int num_fichas = sanitizar_fichas(_text_fichas.text);
+                            if (num_fichas == -1) { // AND num_fichas > fichas reales del usuario
+                              mostrarAlerta(context, "Debes seleccionar un número de fichas");
+                            }
+                            else {
+                              moverse_a_juego(juego, context);
+                            }
                           },
                         ),
                       ),
@@ -143,4 +151,34 @@ class ElegirFichas extends StatelessWidget {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Blackjack()));
     }
   }
+}
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Login incorrecto"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
+}
+
+int sanitizar_fichas(String input) {
+  String numeros = '';
+  for (int i = 0; i < input.length; i++) {
+    if (int.tryParse(input[i]) != null) {
+      numeros += input[i];
+    }
+  }
+  return int.tryParse(numeros) ?? -1;
 }
