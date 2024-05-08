@@ -175,7 +175,7 @@ class _InicioState extends State<Inicio> {
       try {
         http.Response respuesta_usuario = await http.get(Uri.parse(url));
 
-        if (respuesta_usuario.statusCode == 404) {
+        if (respuesta_usuario.statusCode != 200) {
           mostrarAlerta(context, 'Me cago en dios');
         }
         else { // Petición correcta
