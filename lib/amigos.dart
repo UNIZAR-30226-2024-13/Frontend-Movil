@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
+// ignore: must_be_immutable
 class amigos extends StatelessWidget {
 
   final String usuario;
