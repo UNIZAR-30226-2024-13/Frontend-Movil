@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:CardVerse/blackjack.dart';
 import 'package:CardVerse/poker.dart';
 import 'package:CardVerse/menu.dart';
+import 'package:CardVerse/elegirFichas.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
@@ -167,13 +168,10 @@ class _MenuUnionState extends State<MenuUnion> {
 
   void moverse_a_juego(String juego, BuildContext context) {
     // Tienes el ID en id_partida_publica
-    if (juego == "blackjack") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Blackjack()));
-    } else if (juego == "poker") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Poker()));
-    } else {
+    if (juego == "blackjack" || juego == "poker") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego)));
+    }
+    else {
       Navigator.pop(context);
     }
   }
