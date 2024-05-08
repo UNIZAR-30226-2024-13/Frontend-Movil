@@ -276,7 +276,7 @@ class CartaExtra extends StatelessWidget {
         width: 50, // Ancho de la imagen
         height: 50, // Alto de la imagen
         child: Image.asset(
-          'assets/logo.png',
+          'assets/carta.png',
           fit: BoxFit.contain, // Ajustar la imagen al contenedor
         ),
       ),

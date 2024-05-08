@@ -1,11 +1,8 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
 import 'package:CartaVerse/registro.dart';
-import 'package:CartaVerse/blackjack.dart';
-import 'package:CartaVerse/poker.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -139,22 +136,6 @@ class _InicioState extends State<Inicio> {
                     )
                   )
                 ),
-                Container(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 323.0,
-                  height: 45,
-                  child: ElevatedButton(
-                    child: Text("Pruebas"),
-                    onPressed: () =>{
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => Blackjack())
-                      )
-                    },
-                  )
-                )
-              ),
               ]
             )
           )
@@ -173,7 +154,7 @@ class _InicioState extends State<Inicio> {
       // Cambiar IP a IP de la red local donde se esté ejecutando el backend de Java
       var url = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + _user;
       try {
-        http.Response respuesta_usuario = await http.get(Uri.parse(url));
+        var respuesta_usuario = await http.get(Uri.parse(url));
 
         if (respuesta_usuario.statusCode != 200) {
           mostrarAlerta(context, 'Me cago en dios');

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/blackjack.dart';
-import 'package:CartaVerse/poker.dart';
 import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/elegirFichas.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
@@ -22,14 +21,18 @@ class _MenuUnionState extends State<MenuUnion> {
     "Partida 7",
   ];
 
-  String id_partida = "";
-
+  String id_partida_publica = "";
   String? _selectedPartida;
+
+  TextEditingController _id_partida_privada = TextEditingController();
+  String id_partida_privada = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Text("Unirse"),
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
@@ -66,13 +69,42 @@ class _MenuUnionState extends State<MenuUnion> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                Text(
+                  "Partida privada",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                  ),
+                ),
+                SizedBox(
+                  width: 320.0,
+                  height: 40.0,
+                  child: TextField(
+                    controller: _id_partida_privada,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "  ID de la partida privada",
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 45),
+                Text(
+                  "Partida pública",
+                  style: TextStyle(
+                    //fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.all(25),
                   height: 350,
+                  // Borde amarillo de la lista de partidas
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.yellow, width: 2.0),
                       borderRadius: BorderRadius.circular(20)),
@@ -90,7 +122,7 @@ class _MenuUnionState extends State<MenuUnion> {
                           setState(() {
                             _selectedPartida = partida;
                           });
-                          id_partida = partida;
+                          id_partida_publica = partida;
                         },
                         selected: _selectedPartida == partida,
                         tileColor: Colors.white,
@@ -98,9 +130,6 @@ class _MenuUnionState extends State<MenuUnion> {
                     },
                   ),
                 ),
-                Container(
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20))),
                 Container(
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
@@ -112,10 +141,21 @@ class _MenuUnionState extends State<MenuUnion> {
                             backgroundColor: MaterialStateProperty.all(Colors.yellow),
                             foregroundColor: MaterialStateProperty.all(Colors.black),
                             textStyle: MaterialStateProperty.all(TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold))),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold))),
                         onPressed: () {
-                          moverse_a_juego(widget.juego, context);
+                          if (id_partida_publica.isEmpty && _id_partida_privada.text.isEmpty) {
+                            mostrarAlerta(context, "Debes seleccionar una partida");
+                          }
+                          else if (!id_partida_publica.isEmpty && !_id_partida_privada.text.isEmpty) {
+                            mostrarAlerta(context, "Debes seleccionar una única partida");
+                          }
+                          else if (!id_partida_publica.isEmpty) {
+                            moverse_a_juego(widget.juego, context, id_partida_publica, false);
+                          }
+                          else if (!_id_partida_privada.text.isEmpty) {
+                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, true);
+                          }
                         },
                       ),
                     )),
@@ -125,16 +165,32 @@ class _MenuUnionState extends State<MenuUnion> {
     );
   }
 
-  void moverse_a_juego(String juego, BuildContext context) {
-    // Tienes el ID en id_partida
-    if (juego == "blackjack") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Blackjack()));
-    } else if (juego == "poker") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Poker()));
-    } else {
+  void moverse_a_juego(String juego, BuildContext context, String id_partida, bool privada) {
+    if (juego == "blackjack" || juego == "poker") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida, privada: privada)));
+    }
+    else {
       Navigator.pop(context);
     }
   }
+}
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Selección incorrecta"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }
