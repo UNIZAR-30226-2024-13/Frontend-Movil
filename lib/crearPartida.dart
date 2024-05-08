@@ -46,9 +46,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_española.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -76,9 +81,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_española.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -106,9 +116,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -136,9 +151,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -171,9 +191,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_UNO.webp'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
