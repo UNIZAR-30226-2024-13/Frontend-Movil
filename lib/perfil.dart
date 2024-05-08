@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/cambiar_texto.dart';
-import 'package:frontend_movil/main.dart';
-
-/*
-  Botón cambiar usuario
-  Botón cambiar contraseña
-  Botón cambiar icono perfil
-  Botón cerrar sesión
-*/
+import 'package:CartaVerse/cambiar_texto.dart';
+import 'package:CartaVerse/main.dart';
 
 class Perfil extends StatelessWidget {
   final String usuario;

@@ -1,8 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/MenuUnion.dart';
-import 'package:frontend_movil/home.dart';
+import 'package:CartaVerse/menuUnion.dart';
+import 'package:CartaVerse/menu.dart';
 
 
 class unirsePartida extends StatelessWidget {
@@ -21,7 +21,7 @@ class unirsePartida extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => Home(usuario: usuario))
+                MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
               );
             },
             child: Container(
@@ -59,9 +59,14 @@ class unirsePartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.png'),
-                    fit: BoxFit.cover
+                    image: AssetImage('assets/baraja_española.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -80,7 +85,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso",))
                       )
                     },
                   ),
@@ -89,9 +94,14 @@ class unirsePartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.png'),
-                    fit: BoxFit.cover
+                    image: AssetImage('assets/baraja_española.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -110,7 +120,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo"))
                       )
                     },
                   ),
@@ -119,11 +129,16 @@ class unirsePartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: SizedBox(
                   width: 323.0,
@@ -134,24 +149,30 @@ class unirsePartida extends StatelessWidget {
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold
-                      ))
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // Puedes ajustar el color del texto aquí
+                      )),
                     ),
-                    onPressed: () =>{
+                    onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker"))
                       )
                     },
                   ),
-                )
+                ),
               ),
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -169,13 +190,14 @@ class unirsePartida extends StatelessWidget {
                       ),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
                       ))
                     ),
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack"))
                       )
                     },
                   ),
@@ -184,9 +206,14 @@ class unirsePartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_UNO.webp'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -199,13 +226,13 @@ class unirsePartida extends StatelessWidget {
                       foregroundColor: MaterialStateProperty.all(Colors.white),
                       textStyle: MaterialStateProperty.all(TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                       ))
                     ),
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno"))
                       )
                     },
                   ),

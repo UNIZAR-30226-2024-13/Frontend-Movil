@@ -1,6 +1,6 @@
+import 'package:CartaVerse/menu.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/MenuCreacion.dart';
-import 'package:frontend_movil/home.dart';
+import 'package:CartaVerse/menuCreacion.dart';
 
 
 class crearPartida extends StatelessWidget {
@@ -18,7 +18,7 @@ class crearPartida extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => Home(usuario: usuario))
+                MaterialPageRoute(builder: (context) => Menu(usuario: usuario))
               );
             },
             child: Container(
@@ -26,7 +26,7 @@ class crearPartida extends StatelessWidget {
               child: Image.asset('assets/logo.png'),
             ),
           ),
-        title: Text("Crear"),
+        title: Text("Crear partida"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
@@ -55,9 +55,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.png'),
-                    fit: BoxFit.cover
+                    image: AssetImage('assets/baraja_española.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -73,11 +78,8 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
-                      )
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso",)));
                     },
                   ),
                 )
@@ -85,9 +87,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
-                    image: AssetImage('assets/baraja_española.png'),
-                    fit: BoxFit.cover
+                    image: AssetImage('assets/baraja_española.jpg'),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -103,11 +110,8 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
-                      )
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo",)));
                     },
                   ),
                 )
@@ -115,9 +119,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -133,11 +142,8 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
-                      )
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker",)));
                     },
                   ),
                 )
@@ -145,9 +151,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_francesa.jpg'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -168,11 +179,8 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
-                      )
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack",)));
                     },
                   ),
                 )
@@ -180,9 +188,14 @@ class crearPartida extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(1),
                   image: DecorationImage(
                     image: AssetImage('assets/baraja_UNO.webp'),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white.withOpacity(0.65),
+                      BlendMode.dstATop,
+                    ),
                   ),
                   borderRadius: BorderRadius.circular(20)
                 ),
@@ -198,11 +211,8 @@ class crearPartida extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => MenuCreacion(usuario: usuario,))
-                      )
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno",)));
                     },
                   ),
                 )

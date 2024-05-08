@@ -1,41 +1,8 @@
+import 'package:CartaVerse/elegirFichas.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/home.dart';
+import 'package:CartaVerse/menu.dart';
 
-class SwitchTorneo extends StatefulWidget {
-  const SwitchTorneo({super.key});
-
-  @override
-  State<SwitchTorneo> createState() => _SwitchTorneoState();
-}
-
-class _SwitchTorneoState extends State<SwitchTorneo> {
-  bool torneo = false;
-
-  final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Switch(
-      thumbIcon: thumbIcon,
-      value: torneo,
-      activeColor: Colors.yellow,
-      onChanged: (bool value) {
-        // This is called when the user toggles the switch.
-        setState(() {
-          torneo = value;
-        });
-      },
-    );
-  }
-}
+bool privada = false;
 
 class SwitchPrivada extends StatefulWidget {
   const SwitchPrivada({super.key});
@@ -45,7 +12,6 @@ class SwitchPrivada extends StatefulWidget {
 }
 
 class _SwitchPrivadaState extends State<SwitchPrivada> {
-  bool privada = false;
 
   final MaterialStateProperty<Icon?> thumbIcon =
       MaterialStateProperty.resolveWith<Icon?>(
@@ -64,7 +30,6 @@ class _SwitchPrivadaState extends State<SwitchPrivada> {
       value: privada,
       activeColor: Colors.yellow,
       onChanged: (bool value) {
-        // This is called when the user toggles the switch.
         setState(() {
           privada = value;
         });
@@ -73,33 +38,25 @@ class _SwitchPrivadaState extends State<SwitchPrivada> {
   }
 }
 
+TextEditingController _id_partida = TextEditingController();
 
 class MenuCreacion extends StatelessWidget {
-  final String usuario;
-
-  const MenuCreacion({required this.usuario});
+  final String juego;
+  const MenuCreacion({required this.juego});
 
   @override
   Widget build(BuildContext context){
 
-    final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>((Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },);
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => Home(usuario: usuario))
+              MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
             );
           },
           child: Container(
@@ -107,7 +64,7 @@ class MenuCreacion extends StatelessWidget {
             child: Image.asset('assets/logo.png'),
           ),
         ),
-        title: Text("Crear"),
+        title: Text("Crear partida"),
         actions: <Widget>[
           Text("400 Fichas"),
           Container(
@@ -141,10 +98,11 @@ class MenuCreacion extends StatelessWidget {
                 child: SizedBox(
                   width: 323.0,
                   child: TextField(
+                    controller: _id_partida,
                     style: TextStyle(
                       color: Colors.black
                     ),
-                    cursorColor: Colors.yellow,
+                    cursorColor: Colors.black,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -156,10 +114,10 @@ class MenuCreacion extends StatelessWidget {
                           color: Colors.yellow
                         )
                       ),
-                      labelText: 'Nombre',
-                      labelStyle: TextStyle(
-                        color: Colors.yellow
-                      )
+                      labelText: 'ID de la partida',
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                   ),
                 )
@@ -180,14 +138,6 @@ class MenuCreacion extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text("Torneo",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5,
-                    )
-                  ),
-                  SwitchTorneo()
                 ],
               ),
               Container(
@@ -207,8 +157,13 @@ class MenuCreacion extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ),
-                    onPressed: () =>{
-                      Navigator.pop(context)
+                    onPressed: () {
+                      if (_id_partida.text.isEmpty) {
+                        mostrarAlerta(context, "Se debe elegir un identificador de la partida");
+                      }
+                      else {
+                        verificar_creacion(_id_partida.text, privada, juego, context);
+                      }
                     },
                   ),
                 )
@@ -219,4 +174,33 @@ class MenuCreacion extends StatelessWidget {
       )
     );
   }
+}
+
+void verificar_creacion(String id_partida, bool privada, String juego, BuildContext context) {
+  if (juego == "poker" || juego == "blackjack") {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego: juego, id_partida: id_partida, privada: privada)));
+  }
+  else {
+    Navigator.pop(context);
+  }
+}
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Creación de partida incorrecta"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }

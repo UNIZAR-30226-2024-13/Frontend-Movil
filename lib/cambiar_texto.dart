@@ -30,26 +30,16 @@ class CambiarTexto extends StatelessWidget {
 
     void _verificar_cambio() {
       String texto_leido = _texto_input.text;
-      /*
-      CAMBIAR CONTRASEÑA O USUARIO
-      if (cambiar_contrasegna) {
-        if (todo_bien) {
-          modificar_contrasegna()
-        }
-        else {
-          mostrarAlerta(context, "Contraseña vacía")
-        }
+      if (texto_leido == "") {
+        mostrarAlerta(context, "El campo a rellenar no puede ser vacío");
+      }
+      else if (cambiar_contrasegna && (texto_leido.length <= 7 || !( texto_leido.contains(RegExp(r'[a-z]'))) ||
+                !(texto_leido.contains(RegExp(r'[A-Z]'))) || !(texto_leido.contains(RegExp(r'[0-9]'))))) {
+        mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
       }
       else {
-        if (todo_bien) {
-          modificar_usuario()
-        }
-        else {
-          mostrarAlerta(context, "Usuario nulo o ya existente")
-        }
+        Navigator.of(context).pop();
       }
-      */
-      Navigator.of(context).pop();
     }
 
 return Scaffold(
@@ -78,22 +68,21 @@ return Scaffold(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.yellow, width: 2.0),
-            borderRadius: BorderRadius.circular(20)
-          ),
+          padding: EdgeInsets.all(10),
           child: SizedBox(
             width: 323.0,
             child: TextField(
+              obscureText: cambiar_contrasegna,
               controller: _texto_input,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
                 labelText: texto_a_mostrar,
-                labelStyle: TextStyle(color: Colors.yellow),
+                labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ),
-          ),
+          )
         ),
         ElevatedButton(
           child: Text("Confirmar"),

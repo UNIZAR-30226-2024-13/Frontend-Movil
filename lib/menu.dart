@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/amigos.dart';
-import 'package:frontend_movil/crearPartida.dart';
-import 'package:frontend_movil/partidasPausadas.dart';
-import 'package:frontend_movil/perfil.dart';
-import 'package:frontend_movil/unirsePartida.dart';
+import 'package:CartaVerse/amigos.dart';
+import 'package:CartaVerse/crearPartida.dart';
+import 'package:CartaVerse/perfil.dart';
+import 'package:CartaVerse/unirsePartida.dart';
 
-class Home extends StatelessWidget {
+
+class Menu extends StatelessWidget {
   final String usuario;
 
-  const Home({required this.usuario});
+  const Menu({required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
-
         leading: Container(
           padding: EdgeInsets.all(5),
           child: Image.asset(
@@ -147,10 +145,7 @@ class Home extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () => {
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => PartidasPausadas(usuario: usuario))
-                      )
+                      Navigator.pop(context)
                     },
                   )
                 )
