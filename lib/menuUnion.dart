@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/blackjack.dart';
-import 'package:CardVerse/poker.dart';
-import 'package:CardVerse/menu.dart';
+import 'package:CartaVerse/blackjack.dart';
+import 'package:CartaVerse/poker.dart';
+import 'package:CartaVerse/menu.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;

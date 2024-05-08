@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:CardVerse/menu.dart';
-import 'package:CardVerse/registro.dart';
-import 'package:CardVerse/blackjack.dart';
-import 'package:CardVerse/poker.dart';
+import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/registro.dart';
+import 'package:CartaVerse/blackjack.dart';
+import 'package:CartaVerse/poker.dart';
 import 'package:http/http.dart' as http;
 
 void main() {

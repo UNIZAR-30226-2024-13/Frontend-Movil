@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/menuUnion.dart';
-import 'package:CardVerse/menu.dart';
+import 'package:CartaVerse/menuUnion.dart';
+import 'package:CartaVerse/menu.dart';
 
 
 class unirsePartida extends StatelessWidget {

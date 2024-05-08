@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/menu.dart';
+import 'package:CartaVerse/menu.dart';
 
 TextEditingController _texto_pais = TextEditingController();
 TextEditingController _texto_email = TextEditingController();
