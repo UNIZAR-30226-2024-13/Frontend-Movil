@@ -77,7 +77,11 @@ class _MentirosoTableState extends State<MentirosoTable> {
   List<bool> cartasSeleccionadas = List.generate(10, (index) => false);
   // Lista de cartas en la mesa
   List<String> cartasEnMesa = [];
-  bool pantallaMostrada = false;
+  int numeroSeleccionado = 0;
+  int numeroCartasSeleccionadas = 0;
+  String mensajeSuperior = '';
+
+
 
 
   void actualizarEstado() {
@@ -86,10 +90,6 @@ class _MentirosoTableState extends State<MentirosoTable> {
 
   void tirarCartas() {
     // Verificar si hay al menos una carta seleccionada y si la pantalla no se ha mostrado
-    if (cartasSeleccionadas.contains(true) && !pantallaMostrada) {
-      _ElegirNumero(); // Elige que carta dice que va a tirar
-      pantallaMostrada = true; // Marcar que la pantalla ya se mostró
-    }
     // Mover cartas seleccionadas a la mesa y eliminarlas de la mano del jugador
     for (int i = 0; i < cartasSeleccionadas.length; i++) {
       if (cartasSeleccionadas[i]) {
@@ -114,42 +114,73 @@ class _MentirosoTableState extends State<MentirosoTable> {
   }
 
 
-  // Método para mostrar el cuadro de diálogo
+// Método para mostrar el cuadro de diálogo
   Future<void> _ElegirNumero() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // Permite cerrar el cuadro de diálogo haciendo clic fuera de él
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Selecciona que número de carta dices que tiras'),
+          backgroundColor: Color.fromARGB(255, 27, 123, 22),
+          title: Text(
+            'Selecciona qué número de carta dices que tiras',
+            style: TextStyle(color: Colors.white),
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+                SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Dividir los botones en dos filas
                     ...List.generate(6, (index) {
                       return ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                          Navigator.of(context).pop();
+                          numeroSeleccionado = index + 1;
+                          numeroCartasSeleccionadas = cartasSeleccionadas.where((element) => element).length;
+                          tirarCartas();
+                          setState(() {
+                            mensajeSuperior = 'Ha tirado $numeroCartasSeleccionadas cartas del número $numeroSeleccionado';
+                          });
                         },
                         child: Text('${index + 1}'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                          foregroundColor: MaterialStateProperty.all(Colors.black),
+                          textStyle: MaterialStateProperty.all(TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                        ),
                       );
                     }),
                   ],
                 ),
-                SizedBox(height: 15), // Añadir espacio entre las filas
+                SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Segunda fila de botones
                     ...List.generate(6, (index) {
                       return ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                          Navigator.of(context).pop();
+                          numeroSeleccionado = index + 7;
+                          numeroCartasSeleccionadas = cartasSeleccionadas.where((element) => element).length;
+                          tirarCartas();
+                          setState(() {
+                            mensajeSuperior = 'Ha tirado $numeroCartasSeleccionadas cartas del número $numeroSeleccionado';
+                          });
                         },
                         child: Text('${index + 7}'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                          foregroundColor: MaterialStateProperty.all(Colors.black),
+                          textStyle: MaterialStateProperty.all(TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          )),
+                        ),
                       );
                     }),
                   ],
@@ -159,9 +190,9 @@ class _MentirosoTableState extends State<MentirosoTable> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cerrar'),
+              child: Text('Cerrar', style: TextStyle(color: Colors.white)),
               onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el cuadro de diálogo
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -171,11 +202,28 @@ class _MentirosoTableState extends State<MentirosoTable> {
   }
 
 
+
+
+
   @override
   Widget build(BuildContext context) {
     var num_cartas = cartasJugador.length;
     return Stack(
       children: [
+        // Texto en la parte superior
+        Positioned(
+          top: 120,
+          left: 0,
+          right: 0,
+          child: Container(
+            color: Colors.transparent,
+            alignment: Alignment.center,
+            child: Text(
+              mensajeSuperior,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ),
         // Cartas auxiliares
         Positioned(
           left: 0,
@@ -223,8 +271,10 @@ class _MentirosoTableState extends State<MentirosoTable> {
           top: 8,
           child: ElevatedButton(
             onPressed: () {
-              // Llamar a la función para tirar
-              tirarCartas();
+              // Llamar a la función para
+              if (cartasSeleccionadas.contains(true)) {
+                _ElegirNumero(); // Elige que carta dice que va a tirar
+              }
             },
             child: Text("Tirar"),
             style: ButtonStyle(
