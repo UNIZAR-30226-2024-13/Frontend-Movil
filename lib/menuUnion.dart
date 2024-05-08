@@ -93,7 +93,7 @@ class _MenuUnionState extends State<MenuUnion> {
                     ),
                   ),
                 ),
-                SizedBox(height: 0.01,),
+                SizedBox(height: 45),
                 Text(
                   "Partida pública",
                   style: TextStyle(
@@ -152,10 +152,10 @@ class _MenuUnionState extends State<MenuUnion> {
                             mostrarAlerta(context, "Debes seleccionar una única partida");
                           }
                           else if (!id_partida_publica.isEmpty) {
-                            moverse_a_juego(widget.juego, context);
+                            moverse_a_juego(widget.juego, context, id_partida_publica);
                           }
                           else if (!_id_partida_privada.text.isEmpty) {
-                            moverse_a_juego(widget.juego, context);
+                            moverse_a_juego(widget.juego, context, _id_partida_privada.text);
                           }
                         },
                       ),
@@ -166,10 +166,9 @@ class _MenuUnionState extends State<MenuUnion> {
     );
   }
 
-  void moverse_a_juego(String juego, BuildContext context) {
-    // Tienes el ID en id_partida_publica
+  void moverse_a_juego(String juego, BuildContext context, String id_partida) {
     if (juego == "blackjack" || juego == "poker") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida)));
     }
     else {
       Navigator.pop(context);

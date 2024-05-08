@@ -1,3 +1,4 @@
+import 'package:CardVerse/blackjack.dart';
 import 'package:flutter/material.dart';
 import 'package:CardVerse/amigos.dart';
 import 'package:CardVerse/crearPartida.dart';
@@ -6,8 +7,9 @@ import 'package:CardVerse/unirsePartida.dart';
 
 class ElegirFichas extends StatelessWidget {
   final String juego;
+  final String id_partida;
 
-  const ElegirFichas({required this.juego});
+  const ElegirFichas({required this.juego, required this.id_partida});
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +119,7 @@ class ElegirFichas extends StatelessWidget {
                             ))
                           ), 
                           onPressed: () {
-                            //
+                            Navigator.pop(context);
                           },
                         ),
                       ),
@@ -130,5 +132,15 @@ class ElegirFichas extends StatelessWidget {
         )
       )
     );
+  }
+
+  void moverse_a_juego(String juego, BuildContext context) {
+    // Tienes el ID en id_partida_publica
+    if (juego == "blackjack") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Blackjack()));
+    }
+    else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Blackjack()));
+    }
   }
 }
