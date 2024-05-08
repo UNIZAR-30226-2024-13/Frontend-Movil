@@ -78,7 +78,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => amigos())
+                        MaterialPageRoute(builder: (context) => amigos(usuario: usuario))
                       )
                     },
                   )
