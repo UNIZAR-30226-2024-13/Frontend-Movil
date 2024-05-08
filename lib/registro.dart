@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:io';
 
 TextEditingController _texto_pais = TextEditingController();
 TextEditingController _texto_email = TextEditingController();
@@ -149,9 +148,6 @@ void _verificarRegistro(BuildContext context) async {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
-    var check_usuario = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + _user;
-
-
     try {
       Map<String, dynamic> payload = {
         "usuario": {

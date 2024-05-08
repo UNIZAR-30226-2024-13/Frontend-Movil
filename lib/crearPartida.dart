@@ -1,4 +1,3 @@
-import 'package:CartaVerse/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuCreacion.dart';
 
