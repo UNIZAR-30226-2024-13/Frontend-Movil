@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/menu.dart';
-import 'package:CardVerse/registro.dart';
-import 'package:CardVerse/blackjack.dart';
+import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/registro.dart';
+import 'package:CartaVerse/blackjack.dart';
 
 void main() {
   runApp(const MyApp());

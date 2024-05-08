@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/amigos.dart';
-import 'package:CardVerse/crearPartida.dart';
-import 'package:CardVerse/perfil.dart';
-import 'package:CardVerse/unirsePartida.dart';
+import 'package:CartaVerse/amigos.dart';
+import 'package:CartaVerse/crearPartida.dart';
+import 'package:CartaVerse/perfil.dart';
+import 'package:CartaVerse/unirsePartida.dart';
 
 
 class Menu extends StatelessWidget {

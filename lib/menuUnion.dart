@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:CardVerse/blackjack.dart';
-import 'package:CardVerse/poker.dart';
-import 'package:CardVerse/menu.dart';
-import 'package:CardVerse/elegirFichas.dart';
+import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/elegirFichas.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
@@ -34,6 +32,7 @@ class _MenuUnionState extends State<MenuUnion> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Text("Unirse"),
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
@@ -152,10 +151,10 @@ class _MenuUnionState extends State<MenuUnion> {
                             mostrarAlerta(context, "Debes seleccionar una única partida");
                           }
                           else if (!id_partida_publica.isEmpty) {
-                            moverse_a_juego(widget.juego, context, id_partida_publica);
+                            moverse_a_juego(widget.juego, context, id_partida_publica, false);
                           }
                           else if (!_id_partida_privada.text.isEmpty) {
-                            moverse_a_juego(widget.juego, context, _id_partida_privada.text);
+                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, true);
                           }
                         },
                       ),
@@ -166,9 +165,9 @@ class _MenuUnionState extends State<MenuUnion> {
     );
   }
 
-  void moverse_a_juego(String juego, BuildContext context, String id_partida) {
+  void moverse_a_juego(String juego, BuildContext context, String id_partida, bool privada) {
     if (juego == "blackjack" || juego == "poker") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida, privada: privada)));
     }
     else {
       Navigator.pop(context);

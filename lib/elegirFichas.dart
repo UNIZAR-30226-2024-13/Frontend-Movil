@@ -1,22 +1,23 @@
-import 'package:CardVerse/blackjack.dart';
+import 'package:CartaVerse/blackjack.dart';
+import 'package:CartaVerse/poker.dart';
 import 'package:flutter/material.dart';
-import 'package:CardVerse/amigos.dart';
-import 'package:CardVerse/crearPartida.dart';
-import 'package:CardVerse/unirsePartida.dart';
+
 
 TextEditingController _text_fichas = TextEditingController();
 
 class ElegirFichas extends StatelessWidget {
   final String juego;
   final String id_partida;
+  final bool privada;
 
-  const ElegirFichas({required this.juego, required this.id_partida});
+  const ElegirFichas({required this.juego, required this.id_partida, required this.privada});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Text("Elegir fichas"),
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: Container(
@@ -148,7 +149,7 @@ class ElegirFichas extends StatelessWidget {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Blackjack()));
     }
     else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Blackjack()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Poker()));
     }
   }
 }

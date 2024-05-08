@@ -1,4 +1,4 @@
-package com.example.frontend_movil
+package com.example.CartaVerse
 
 import io.flutter.embedding.android.FlutterActivity
 
