@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 TextEditingController _texto_pais = TextEditingController();
 TextEditingController _texto_email = TextEditingController();
@@ -129,7 +132,7 @@ class Registro extends StatelessWidget {
 }
 
 
-void _verificarRegistro(BuildContext context) {
+void _verificarRegistro(BuildContext context) async {
   _pais = _texto_pais.text;
   _email = _texto_email.text;
   _pass = _texto_pass.text;
@@ -146,24 +149,40 @@ void _verificarRegistro(BuildContext context) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
-    Map<String, dynamic> payload = {
-      "usuario": {
-        "nombre" : _user,
-        "email" : _email,
-        "pais" : _pais
-      },
-      "login": {
-        "hashPasswd" : _pass
+    var check_usuario = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + _user;
+
+
+    try {
+      Map<String, dynamic> payload = {
+        "usuario": {
+          "nombre" : _user,
+          "email" : _email,
+          "pais" : _pais
+        },
+        "login": {
+          "hashPasswd" : _pass
+        }
+      };
+      var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/newUsuario');
+      var body = json.encode(payload);
+
+      var respuesta_registro = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+      if (respuesta_registro.statusCode != 200) {
+        mostrarAlerta(context, 'Me cago en dios');
       }
-    };
-
-    var url = Uri.parse('http://192.168.1.61:20000/newUsuario');
-
-    // INSERTAR USUARIO EN LA BASE DE DATOS
-    Navigator.push(
-      context, 
-      MaterialPageRoute(builder: (context) => Menu(usuario : _user))
-    );
+      else {
+        Map<String, dynamic> respuesta_json = jsonDecode(respuesta_registro.body);
+        if (!respuesta_json['status']) {
+          mostrarAlerta(context, 'Usuario o email ya registrado');
+        }
+        else {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user)));
+        }
+      }
+    }
+    catch (error) {
+      mostrarAlerta(context, "Error no controlado");
+    }
   }
 }
 
