@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -5,6 +7,7 @@ import 'package:http/http.dart' as http;
 class Amigos extends StatelessWidget {
   final String usuario;
   List<String> items = [];
+  TextEditingController _texto_amigo = TextEditingController();
 
   Amigos({required this.usuario});
 
@@ -38,7 +41,7 @@ class Amigos extends StatelessWidget {
               ),
               title: Text("Amigos"),
               actions: <Widget>[
-                Text("400 Fichas"), //Esto se tendrá que sacar de la base de datos
+                Text("400 Fichas"),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Image.asset('assets/silueta.jpg'),
@@ -56,15 +59,14 @@ class Amigos extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _texto_amigo,
                       decoration: InputDecoration(
                         labelText: "Buscar amigos",
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
                         fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(),
                       ),
-                      onChanged: (text) {
-                        // Aquí puedes implementar la lógica de búsqueda
-                      },
                     ),
                   ),
                   Padding(
@@ -83,7 +85,7 @@ class Amigos extends StatelessWidget {
                             ))
                           ), 
                           onPressed: () {
-                            // Añadir amigo
+                            agnadir_amigo(context, usuario, _texto_amigo.text, items);
                           },
                         ),
                         ElevatedButton(
@@ -135,4 +137,39 @@ class Amigos extends StatelessWidget {
       },
     );
   }
+}
+
+
+void agnadir_amigo(BuildContext context, String usuario, String amigo, List<String >items) async {
+  if (items.contains(amigo)) {
+    mostrarAlerta(context, "Amigo ya registrado");
+  }
+  else {
+    var url = 'http://192.168.1.61:20000/api/usuarios/addAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo;
+    var respuestaUsuario = await http.post(Uri.parse(url));
+
+    Map<String, dynamic> respuestaJson = jsonDecode(respuestaUsuario.body);
+    
+  }
+}
+
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Error"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }
