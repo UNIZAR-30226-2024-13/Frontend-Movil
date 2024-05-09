@@ -1,6 +1,6 @@
+import 'package:CartaVerse/main.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menu.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -142,9 +142,9 @@ void _verificarRegistro(BuildContext context) async {
   if (_pais == "" || _email == "" || _pass == "" || _user == "") {
     mostrarAlerta(context, "Todos los campos han de ser rellenados");
   }
-  else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
-    mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
-  }
+  //else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
+    //mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
+  //}
   else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(_email)) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
@@ -157,7 +157,7 @@ void _verificarRegistro(BuildContext context) async {
           "pais" : _pais
         },
         "login": {
-          "hashPasswd" : _pass
+          "hashPasswd" : BCrypt.hashpw(_pass, BCrypt.gensalt())
         }
       };
       var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/newUsuario');
@@ -168,24 +168,17 @@ void _verificarRegistro(BuildContext context) async {
         mostrarAlerta(context, 'Me cago en dios');
       }
       else {
-        Map<String, dynamic> respuesta_json = jsonDecode(respuesta_registro.body);
-        if (!respuesta_json['status']) {
-          mostrarAlerta(context, 'Usuario o email ya registrado');
+        try {
+          Map<String, dynamic> respuesta_json = jsonDecode(respuesta_registro.body);
+          if (!respuesta_json['status']) {
+            mostrarAlerta(context, 'Usuario o email ya registrado');
+          }
+          else {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Inicio()));
+          }
         }
-        else {
-          Map<String, dynamic> payload2 = {
-            "usuario" : _user,
-            "hashPasswd" : BCrypt.hashpw(_pass, BCrypt.gensalt()),
-          };
-          var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/login');
-          var body = json.encode(payload2);
-          var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
-
-          Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
-          var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
-          var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: sesion_id, sessionToken: sesion_token)));
+        catch (error) {
+          mostrarAlerta(context, "Error no controlado 2");
         }
       }
     }
