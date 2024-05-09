@@ -1,13 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class CambiarTexto extends StatelessWidget {
   final TextEditingController _texto_input = TextEditingController();
   final String usuario;
-  final Function funcion_fichas;
   final bool cambiar_contrasegna;
+  final String sessionId;
+  final String sessionToken;
+
   String texto_a_mostrar = "";
 
-  CambiarTexto({required this.usuario, required this.funcion_fichas, required this.cambiar_contrasegna});
+  CambiarTexto({required this.usuario, required this.cambiar_contrasegna, required this.sessionId, required this.sessionToken});
 
 
   @override
@@ -18,14 +22,6 @@ class CambiarTexto extends StatelessWidget {
     }
     else {
       texto_a_mostrar = "Introduzca un usuario nuevo";
-    }
-
-    void modificar_usuario() {
-
-    }
-
-    void modificar_contrasegna() {
-      
     }
 
     void _verificar_cambio() {
@@ -42,66 +38,66 @@ class CambiarTexto extends StatelessWidget {
       }
     }
 
-return Scaffold(
-  appBar: AppBar(
-    backgroundColor: Colors.red,
-    leading: Container(
-      padding: EdgeInsets.all(5),
-      child: Image.asset('assets/logo.png'),
-    ),
-    title: Text("CartaVerse"),
-    actions: <Widget>[
-      Text(funcion_fichas() + " Fichas"),
-      Container(
-        padding: EdgeInsets.all(5),
-        child: Image.asset('assets/silueta.jpg'),
-      ),
-    ]
-  ),
-  body: Container(
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: Color.fromARGB(255, 27, 123, 22),
-      border: Border.all(color: Colors.black, width: 2.0),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          child: SizedBox(
-            width: 323.0,
-            child: TextField(
-              obscureText: cambiar_contrasegna,
-              controller: _texto_input,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                fillColor: Colors.white,
-                labelText: texto_a_mostrar,
-                labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              ),
-            ),
-          )
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        leading: Container(
+          padding: EdgeInsets.all(5),
+          child: Image.asset('assets/logo.png'),
         ),
-        ElevatedButton(
-          child: Text("Confirmar"),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.yellow),
-            foregroundColor: MaterialStateProperty.all(Colors.black),
-            textStyle: MaterialStateProperty.all(TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold
-            ))
-          ), 
-          onPressed: () {
-            _verificar_cambio();
-          },
-        )
-      ],
-    ),
-  ),
-);
+        title: Text("CartaVerse"),
+        actions: <Widget>[
+          Text("20 Fichas"),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset('assets/silueta.jpg'),
+          ),
+        ]
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 27, 123, 22),
+          border: Border.all(color: Colors.black, width: 2.0),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              child: SizedBox(
+                width: 323.0,
+                child: TextField(
+                  obscureText: cambiar_contrasegna,
+                  controller: _texto_input,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: texto_a_mostrar,
+                    labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                  ),
+                ),
+              )
+            ),
+            ElevatedButton(
+              child: Text("Confirmar"),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                textStyle: MaterialStateProperty.all(TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                ))
+              ), 
+              onPressed: () {
+                _verificar_cambio();
+              },
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuUnion.dart';
-import 'package:CartaVerse/menu.dart';
-
 
 class unirsePartida extends StatelessWidget {
   const unirsePartida({ Key? key }) : super(key: key);
@@ -11,14 +9,9 @@ class unirsePartida extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
-              );
             },
             child: Container(
               padding: EdgeInsets.all(5),

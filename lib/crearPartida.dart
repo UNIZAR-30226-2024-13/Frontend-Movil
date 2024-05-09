@@ -10,7 +10,6 @@ class crearPartida extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: Container(
           padding: EdgeInsets.all(5),

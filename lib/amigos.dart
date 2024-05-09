@@ -4,8 +4,10 @@ import 'package:http/http.dart' as http;
 
 class Amigos extends StatefulWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  Amigos({required this.usuario});
+  Amigos({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   _AmigosState createState() => _AmigosState();
@@ -22,14 +24,15 @@ class _AmigosState extends State<Amigos> {
   }
 
   Future<void> listarAmigos() async {
-    var url = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + widget.usuario;
+    var url = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + widget.usuario
+              + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
     var respuestaUsuario = await http.get(Uri.parse(url));
 
     Map<String, dynamic> respuestaJson = jsonDecode(respuestaUsuario.body);
     List<dynamic> amigos = respuestaJson['datos']['amigos'];
 
     setState(() {
-      items.clear(); // Limpiamos la lista actual antes de agregar los amigos
+      items.clear();
       for (var amigo in amigos) {
         items.add(amigo['nombre']);
       }
@@ -148,7 +151,9 @@ class _AmigosState extends State<Amigos> {
       if (items.contains(amigo)) {
         mostrarAlerta(context, "Amigo ya registrado");
       } else {
-        var url = 'http://192.168.1.61:20000/api/usuarios/addAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo;
+        var url = 'http://192.168.1.61:20000/api/usuarios/addAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
+        + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
+
         var respuestaUsuario = await http.post(Uri.parse(url));
         Map<String, dynamic> respuesta_json = jsonDecode(respuestaUsuario.body);
         if (respuesta_json['status']) {
@@ -170,7 +175,9 @@ class _AmigosState extends State<Amigos> {
       if (!items.contains(amigo)) {
         mostrarAlerta(context, "Amigo no registrado");
       } else {
-        var url = 'http://192.168.1.61:20000/api/usuarios/deleteAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo;
+        var url = 'http://192.168.1.61:20000/api/usuarios/deleteAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
+        + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
+        
         var respuestaUsuario = await http.delete(Uri.parse(url));
         Map<String, dynamic> respuesta_json = jsonDecode(respuestaUsuario.body);
         if (respuesta_json['status']) {

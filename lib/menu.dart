@@ -7,8 +7,10 @@ import 'package:CartaVerse/unirsePartida.dart';
 
 class Menu extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const Menu({required this.usuario});
+  const Menu({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class Menu extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, funcion_fichas : _mostrarFichas))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken))
               );
             },
             child: Container(
@@ -78,7 +80,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario))
+                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )

@@ -1,6 +1,5 @@
 import 'package:CartaVerse/elegirFichas.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menu.dart';
 
 bool privada = false;
 
@@ -53,12 +52,6 @@ class MenuCreacion extends StatelessWidget {
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
-            );
-          },
           child: Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/logo.png'),

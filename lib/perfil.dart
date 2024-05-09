@@ -4,16 +4,16 @@ import 'package:CartaVerse/main.dart';
 
 class Perfil extends StatelessWidget {
   final String usuario;
-  final Function funcion_fichas;
+  final String sessionId;
+  final String sessionToken;
 
-  const Perfil({required this.usuario, required this.funcion_fichas});
+  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
 
         leading: Container(
@@ -24,7 +24,7 @@ class Perfil extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(funcion_fichas() + " Fichas"),
+          Text("Fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -66,7 +66,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contrasegna: false))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -89,7 +89,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contrasegna: true,))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -110,12 +110,7 @@ class Perfil extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () => {
-                      /*
-                      Navigator.push(
-                        context, 
-                        //MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contraseña: ,))
-                      )
-                      */
+                      // Cambiar icono
                     },
                   )
                 )
@@ -142,7 +137,6 @@ class Perfil extends StatelessWidget {
                         ),
                         (route) => false,
                       );
-                      // Ir a main y borrar el historial de ruta de pantallas
                     },
                   )
                 )

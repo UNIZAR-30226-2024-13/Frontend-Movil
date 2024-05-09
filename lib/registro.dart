@@ -1,3 +1,4 @@
+import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
 import 'package:http/http.dart' as http;
@@ -172,7 +173,19 @@ void _verificarRegistro(BuildContext context) async {
           mostrarAlerta(context, 'Usuario o email ya registrado');
         }
         else {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user)));
+          Map<String, dynamic> payload2 = {
+            "usuario" : _user,
+            "hashPasswd" : BCrypt.hashpw(_pass, BCrypt.gensalt()),
+          };
+          var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/login');
+          var body = json.encode(payload2);
+          var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+
+          Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+          var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
+          var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: sesion_id, sessionToken: sesion_token)));
         }
       }
     }
