@@ -80,6 +80,7 @@ class _MentirosoTableState extends State<MentirosoTable> {
   int numeroSeleccionado = 0;
   int numeroCartasSeleccionadas = 0;
   String mensajeSuperior = '';
+  int _cartasMesaInicioIndex = 0; // Índice de inicio de las cartas mostradas en la mesa
 
 
 
@@ -111,6 +112,25 @@ class _MentirosoTableState extends State<MentirosoTable> {
       i--;
     }
     setState(() {});
+  }
+
+
+  // Lógica para desplazar a la izquierda
+  void _scrollLeft() {
+    setState(() {
+      if (_cartasMesaInicioIndex > 0) {
+        _cartasMesaInicioIndex--;
+      }
+    });
+  }
+
+  // Lógica para desplazar a la derecha
+  void _scrollRight() {
+    setState(() {
+      if (_cartasMesaInicioIndex < cartasEnMesa.length - 3) {
+        _cartasMesaInicioIndex++;
+      }
+    });
   }
 
 
@@ -207,9 +227,49 @@ class _MentirosoTableState extends State<MentirosoTable> {
 
   @override
   Widget build(BuildContext context) {
-    var num_cartas = cartasJugador.length;
     return Stack(
       children: [
+        // ListView horizontal para cartas en la mesa
+        Positioned(
+          top: MediaQuery.of(context).size.height / 2 - 35, // Posición vertical centrada
+          left: MediaQuery.of(context).size.width / 2 - 230,
+          right: 0,
+          child: Container(
+            height: 40,
+            child: ListView.builder(
+              itemCount: (cartasEnMesa.length) > 3 ? 3 : cartasEnMesa.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Carta(cartaTexto: cartasEnMesa[index + _cartasMesaInicioIndex], seleccionada: false,
+                  onPressed: () {},);
+              },
+            ),
+          ),
+        ),
+
+        // Botones de flecha para desplazamiento lateral
+        if (cartasEnMesa.length > 3) ...[
+          Positioned(
+            left: 107,
+            top: MediaQuery.of(context).size.height / 2 - 56,
+            child: IconButton(
+              icon: Icon(Icons.arrow_left),
+              iconSize: 65,
+              onPressed: _scrollLeft,
+              color: Colors.yellow,
+            ),
+          ),
+          Positioned(
+            right: 110,
+            top: MediaQuery.of(context).size.height / 2 - 56,
+            child: IconButton(
+              icon: Icon(Icons.arrow_right),
+              iconSize: 65,
+              onPressed: _scrollRight,
+              color: Colors.yellow,
+            ),
+          ),
+        ],
         // Texto en la parte superior
         Positioned(
           top: 120,
