@@ -107,7 +107,7 @@ class _AmigosState extends State<Amigos> {
                         ))
                     ),
                     onPressed: () {
-                      // Eliminar amigo
+                      eliminar_amigo(context, widget.usuario, _texto_amigo.text);
                     },
                   ),
                 ],
@@ -142,6 +142,7 @@ class _AmigosState extends State<Amigos> {
     );
   }
 
+
   void agnadir_amigo(BuildContext context, String usuario, String amigo) async {
     if (!amigo.isEmpty) {
       if (items.contains(amigo)) {
@@ -159,9 +160,32 @@ class _AmigosState extends State<Amigos> {
       }
     }
     else {
-      mostrarAlerta(context, "Debes escribir el nombre de un usuario para añadirlo o eliminarlo como amigo");
+      mostrarAlerta(context, "Debes escribir el nombre de un usuario para añadirlo como amigo");
     }
   }
+
+
+  void eliminar_amigo(BuildContext context, String usuario, String amigo) async {
+    if (!amigo.isEmpty) {
+      if (!items.contains(amigo)) {
+        mostrarAlerta(context, "Amigo no registrado");
+      } else {
+        var url = 'http://192.168.1.61:20000/api/usuarios/deleteAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo;
+        var respuestaUsuario = await http.delete(Uri.parse(url));
+        Map<String, dynamic> respuesta_json = jsonDecode(respuestaUsuario.body);
+        if (respuesta_json['status']) {
+          listarAmigos();
+        }
+        else {
+          mostrarAlerta(context, "El usuario escrito no existe");
+        }
+      }
+    }
+    else {
+      mostrarAlerta(context, "Debes escribir el nombre de un usuario para eliminarlo como amigo");
+    }
+  }
+
 
   void mostrarAlerta(BuildContext context, String mensaje) {
     showDialog(
