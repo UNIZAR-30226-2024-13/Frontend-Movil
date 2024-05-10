@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_movil/home.dart';
+import 'package:CartaVerse/menu.dart';
 
 class PartidasPausadas extends StatelessWidget {
   final String usuario;
@@ -37,7 +37,7 @@ class PartidasPausadas extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => Home(usuario: usuario,))
+              MaterialPageRoute(builder: (context) => Menu(usuario: usuario,))
             );
           },
           child: Container(
