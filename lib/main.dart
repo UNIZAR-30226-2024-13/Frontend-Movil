@@ -149,7 +149,7 @@ void mostrarAlerta(BuildContext context){
         ElevatedButton(
           onPressed: (){
             Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => CinquilloGame())
+                        context, MaterialPageRoute(builder: (context) => Cinquillo())
                       );
           }, 
           child: Text("No")
