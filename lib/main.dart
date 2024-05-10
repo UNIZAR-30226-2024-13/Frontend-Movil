@@ -155,9 +155,12 @@ class _InicioState extends State<Inicio> {
       try {
         Map<String, dynamic> payload = {
           "usuario" : _user,
-          "hashPasswd" : BCrypt.hashpw(_pass, BCrypt.gensalt()),
+          "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$iBfAxRuPmU.yrlw.MXwqpe"),
         };
-
+        /* Usuario registrado:
+          yoXXX
+          yoMismo0
+        */
         var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/login');
         var body = json.encode(payload);
         var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
@@ -167,10 +170,10 @@ class _InicioState extends State<Inicio> {
           mostrarAlerta(context, 'Usuario o contraseña incorrectos');
         }
         else {
-          var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
+          //var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
           var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
           Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: sesion_id, sessionToken: sesion_token))
+            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token))
           );
         }
       }

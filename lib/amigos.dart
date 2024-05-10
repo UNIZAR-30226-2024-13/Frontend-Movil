@@ -29,14 +29,18 @@ class _AmigosState extends State<Amigos> {
     var respuestaUsuario = await http.get(Uri.parse(url));
 
     Map<String, dynamic> respuestaJson = jsonDecode(respuestaUsuario.body);
-    List<dynamic> amigos = respuestaJson['datos']['amigos'];
-
-    setState(() {
-      items.clear();
-      for (var amigo in amigos) {
-        items.add(amigo['nombre']);
-      }
-    });
+    if (respuestaJson['status']) {
+      List<dynamic> amigos = respuestaJson['datos']['amigos'];
+      setState(() {
+        items.clear();
+        for (var amigo in amigos) {
+          items.add(amigo['nombre']);
+        }
+      });
+    }
+    else {
+      mostrarAlerta(context, "Error");
+    }
   }
 
   @override

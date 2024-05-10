@@ -142,13 +142,14 @@ void _verificarRegistro(BuildContext context) async {
   if (_pais == "" || _email == "" || _pass == "" || _user == "") {
     mostrarAlerta(context, "Todos los campos han de ser rellenados");
   }
-  //else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
-    //mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
-  //}
+  else if (_pass.length <= 7 || !( _pass.contains(RegExp(r'[a-z]'))) || !(_pass.contains(RegExp(r'[A-Z]'))) || !(_pass.contains(RegExp(r'[0-9]')))) {
+    mostrarAlerta(context, "La contraseña debe ser mayor de 7 carácteres, y tener al menos una mayúscula, una minúscula y un dígito");
+  }
   else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(_email)) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
+    var password = BCrypt.hashpw(_pass, "\$2a\$10\$iBfAxRuPmU.yrlw.MXwqpe");
     try {
       Map<String, dynamic> payload = {
         "usuario": {
@@ -157,7 +158,7 @@ void _verificarRegistro(BuildContext context) async {
           "pais" : _pais
         },
         "login": {
-          "hashPasswd" : BCrypt.hashpw(_pass, BCrypt.gensalt())
+          "hashPasswd" : password
         }
       };
       var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/newUsuario');
