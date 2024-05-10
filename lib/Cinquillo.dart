@@ -253,10 +253,8 @@ bool _esMasBaja(int carta, List<String> cartasPalo) {
   }
   int valor =  int.parse(cartasPalo[cartasPalo.length - 1].split('\n')[0]);
   if(carta < valor){
-      print("True");
       return true;
   }
-  print("false");
   return false;
 }
 
