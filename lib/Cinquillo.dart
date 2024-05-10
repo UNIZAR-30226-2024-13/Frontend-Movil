@@ -42,25 +42,22 @@ class CinquilloTable extends StatefulWidget {
 class _CinquilloTableState extends State<CinquilloTable> {
   //Se debería repartir de forma aleatoria
   List<String> cartasJugador = [
-    '10 Or',
-    '9 Co',
-    '5 Or',
-    '8 Ba',
-    '7 Or',
-    '5 Co',
-    '10 Es',
-    '2 Ba',
-    '3 Or',
-    '9 Co',
+    '10\nOr',
+    '9\nCo',
+    '5\nOr',
+    '8\nBa',
+    '7\nOr',
+    '5\nCo',
+    '1\n Es',
+    '2\nBa',
+    '3\nOr',
+    '9\nCo',
   ];
 
   // Ejemplo de número de cartas para cada jugador
   int numCartasJugador1 = 10;
   int numCartasJugador2 = 10;
   int numCartasJugador3 = 10;
-
-  // Variable para controlar si se muestran todas las cartas
-  bool mostrarTodasLasCartas = false;
 
   Map<String, List<String>> cartasJugadas = {
     'Or': [],
@@ -73,8 +70,8 @@ class _CinquilloTableState extends State<CinquilloTable> {
   void _cartaSeleccionada(String carta) {
     setState(() {
       // Agregar la carta jugada al centro
-      String palo = carta.split(' ')[1];
-      String valor = carta.split(' ')[0];
+      String palo = carta.split('\n')[1];
+      String valor = carta.split('\n')[0];
 
       if (cartasJugadas.containsKey(palo)) {
         List<String> cartasPalo = cartasJugadas[palo]!;
@@ -90,31 +87,6 @@ class _CinquilloTableState extends State<CinquilloTable> {
       cartasJugador.remove(carta);
     });
   }
-
-  bool _esMasBaja(int carta, List<String> cartasPalo) {
-    if (cartasPalo.isEmpty) {
-      return true;
-    }
-    int valor =  int.parse(cartasPalo[0].split(' ')[0]);
-    if(carta < valor){
-        print("True");
-        return true;
-    }
-    print("false");
-    return false;
-  }
-
-  bool _esMasAlta(int carta, List<String> cartasPalo) {
-    if (cartasPalo.isNotEmpty) {
-      int valor =  int.parse(cartasPalo[cartasPalo.length - 1].split(' ')[0]);
-      if(carta > valor){
-      return true;
-      }
-    }
-    return false;
-  }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +114,7 @@ class _CinquilloTableState extends State<CinquilloTable> {
                         onPressed: () {},
                         child: Text(carta),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                          backgroundColor: MaterialStateProperty.all(_colorPalo(palo)),
                           foregroundColor: MaterialStateProperty.all(Colors.black),
                           textStyle: MaterialStateProperty.all(TextStyle(
                             fontSize: 15,
@@ -242,8 +214,7 @@ class _CinquilloTableState extends State<CinquilloTable> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            for (int i = 0; i < (mostrarTodasLasCartas ? cartasJugador.length : 5) && i < cartasJugador
-                            .length; i++)
+                            for (int i = 0; i < cartasJugador.length; i++)
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: ElevatedButton(
@@ -274,4 +245,44 @@ class _CinquilloTableState extends State<CinquilloTable> {
       ),
     );
   }
+}
+
+bool _esMasBaja(int carta, List<String> cartasPalo) {
+  if (cartasPalo.isEmpty) {
+    return true;
+  }
+  int valor =  int.parse(cartasPalo[cartasPalo.length - 1].split('\n')[0]);
+  if(carta < valor){
+      print("True");
+      return true;
+  }
+  print("false");
+  return false;
+}
+
+bool _esMasAlta(int carta, List<String> cartasPalo) {
+  if (cartasPalo.isNotEmpty) {
+    int valor =  int.parse(cartasPalo[0].split('\n')[0]);
+    if(carta > valor){
+    return true;
+    }
+  }
+  return false;
+}
+
+Color _colorPalo(String palo){
+  switch(palo){
+    case 'Or':
+      return Colors.yellow;
+
+    case 'Co':
+      return Colors.red;
+
+    case 'Es':
+      return Colors.blue;
+    
+    case 'Ba':
+      return Colors.green;
+  }
+  return Color.fromARGB(255, 238, 0, 255);
 }
