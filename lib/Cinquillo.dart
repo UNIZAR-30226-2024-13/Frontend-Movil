@@ -1,41 +1,58 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(CinquilloGame());
+class Cinquillo extends StatefulWidget {
+  @override
+  _CinquilloState createState() => _CinquilloState();
 }
 
-class CinquilloGame extends StatelessWidget {
+class _CinquilloState extends State<Cinquillo> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CinquilloGamePage(),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBar(
+          backgroundColor: Colors.red,
+          automaticallyImplyLeading: false,
+          title : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Cinquillo', style: TextStyle(fontSize: 19.5)),
+            ],
+          ),
+        ),
+      ),
+      body: Container(
+        color: Color.fromARGB(255, 27, 123, 22),
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: CinquilloTable(),
+          ),
+      ),
     );
   }
 }
 
-class CinquilloGamePage extends StatefulWidget {
+class CinquilloTable extends StatefulWidget {
   @override
-  _CinquilloGamePageState createState() => _CinquilloGamePageState();
+  _CinquilloTableState createState() => _CinquilloTableState();
 }
 
-class _CinquilloGamePageState extends State<CinquilloGamePage> {
-  List<String> playerCards = [
-    'Rey de Oros',
-    'Caballo de Copas',
-    'As de Espadas',
-    'Sota de Bastos',
-    '7 de Oros',
-    '5 de Copas',
-    '10 de Espadas',
-    '2 de Bastos',
-    '3 de Oros',
-    '9 de Copas',
-    // Agregar más cartas según sea necesario
+class _CinquilloTableState extends State<CinquilloTable> {
+  //Se debería repartir de forma aleatoria
+  List<String> cartasJugador = [
+    '10 Or',
+    '9 Co',
+    '5 Or',
+    '8 Ba',
+    '7 Or',
+    '5 Co',
+    '10 Es',
+    '2 Ba',
+    '3 Or',
+    '9 Co',
   ];
-
-  List<String> playedCards = [
-    '2 de Oros'
-  ]; // Cartas jugadas en el centro
 
   // Ejemplo de número de cartas para cada jugador
   int numCartasJugador1 = 10;
@@ -45,76 +62,63 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
   // Variable para controlar si se muestran todas las cartas
   bool mostrarTodasLasCartas = false;
 
-  // Mapa para almacenar la última carta jugada por palo
-  Map<String, String> lastPlayedBySuit = {
-    'Oros': '',
-    'Copas': '',
-    'Espadas': '',
-    'Bastos': '',
+  Map<String, List<String>> cartasJugadas = {
+    'Or': [],
+    'Co': [],
+    'Es': [],
+    'Ba': [],
   };
 
-  // Método para manejar la selección de una carta
-  void _onCardSelected(String card) {
+  // Método para manejar la selección de una carta 'Rey de Oros'
+  void _cartaSeleccionada(String carta) {
     setState(() {
       // Agregar la carta jugada al centro
-      playedCards.add(card);
-      // Guardar la última carta jugada por palo
-      String? suit = card.split(' ')[2]; // Verificación de nulidad agregada aquí
-      if (suit != null && lastPlayedBySuit.containsKey(suit)) {
-        lastPlayedBySuit[suit] = card;
+      String palo = carta.split(' ')[1];
+      String valor = carta.split(' ')[0];
+
+      if (cartasJugadas.containsKey(palo)) {
+        List<String> cartasPalo = cartasJugadas[palo]!;
+
+        if (_esMasBaja(int.parse(valor), cartasPalo)) {
+          cartasPalo.add(carta);
+        }else if(_esMasAlta(int.parse(valor), cartasPalo)){
+          cartasPalo.insert(0, carta);
+        }
       }
+
       // Eliminar la carta seleccionada de las cartas del jugador
-      playerCards.remove(card);
+      cartasJugador.remove(carta);
     });
   }
 
-  // Método para manejar el botón "Ver todas"
-  void _onVerTodasPressed() {
-    setState(() {
-      mostrarTodasLasCartas = true;
-    });
+  bool _esMasBaja(int carta, List<String> cartasPalo) {
+    if (cartasPalo.isEmpty) {
+      return true;
+    }
+    int valor =  int.parse(cartasPalo[0].split(' ')[0]);
+    if(carta < valor){
+        print("True");
+        return true;
+    }
+    print("false");
+    return false;
   }
 
-  // Método para manejar el botón de robar carta
-  void _onRobarCarta() {
-    setState(() {
-      // Agregar una nueva carta al jugador
-      playerCards.add('Nueva Carta');
-    });
+  bool _esMasAlta(int carta, List<String> cartasPalo) {
+    if (cartasPalo.isNotEmpty) {
+      int valor =  int.parse(cartasPalo[cartasPalo.length - 1].split(' ')[0]);
+      if(carta > valor){
+      return true;
+      }
+    }
+    return false;
   }
+  
 
-  // Método para manejar el botón "Nueva Carta"
-  void _onNuevaCarta() {
-    // Aquí puedes agregar lógica adicional si es necesario
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cinquillo'),
-        backgroundColor: Colors.red,
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                onPressed: _onRobarCarta,
-                child: Text('Robar Carta'),
-                style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
-                        ),
-              ),
-              Container(width: 300), // Contenedor transparente a la derecha
-            ],
-          ),
-        ],
-      ),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -130,65 +134,24 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Visibility(
-                    visible: lastPlayedBySuit['Copas'] != '',
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(lastPlayedBySuit['Copas'] ?? ''),
-                      style: ButtonStyle(
+                  for(var palo in ['Co', 'Or', 'Es', 'Ba'])
+                  Column(
+                    children: [
+                      for (var carta in cartasJugadas[palo]!)
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text(carta),
+                        style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.yellow),
                           foregroundColor: MaterialStateProperty.all(Colors.black),
                           textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          )),
                         ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: lastPlayedBySuit['Oros'] != '',
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(lastPlayedBySuit['Oros'] ?? ''),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
-                        ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: lastPlayedBySuit['Espadas'] != '',
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(lastPlayedBySuit['Espadas'] ?? ''),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
-                        ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: lastPlayedBySuit['Bastos'] != '',
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(lastPlayedBySuit['Bastos'] ?? ''),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
-                        ),
-                    ),
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ],
               ),
@@ -279,15 +242,15 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            for (int i = 0; i < (mostrarTodasLasCartas ? playerCards.length : 5) && i < playerCards.length; i++)
+                            for (int i = 0; i < (mostrarTodasLasCartas ? cartasJugador.length : 5) && i < cartasJugador
+                            .length; i++)
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Lógica para manejar la selección de la carta
-                                    _onCardSelected(playerCards[i]);
+                                    _cartaSeleccionada(cartasJugador[i]);
                                   },
-                                  child: Text(playerCards[i]),
+                                  child: Text(cartasJugador[i]),
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(Colors.yellow),
                                     foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -302,19 +265,6 @@ class _CinquilloGamePageState extends State<CinquilloGamePage> {
                         ),
                       ),
                     ),
-                    if (playerCards.length > 5 && !mostrarTodasLasCartas)
-                      ElevatedButton(
-                        onPressed: _onVerTodasPressed,
-                        child: Text('Ver todas'),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.yellow),
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ))
-                        ),
-                      ),
                   ],
                 ),
               ),
