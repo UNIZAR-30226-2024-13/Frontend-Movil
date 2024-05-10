@@ -48,7 +48,7 @@ class _CinquilloTableState extends State<CinquilloTable> {
     '8\nBa',
     '7\nOr',
     '5\nCo',
-    '1\n Es',
+    '1\nEs',
     '2\nBa',
     '3\nOr',
     '9\nCo',
