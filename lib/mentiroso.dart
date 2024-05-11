@@ -250,23 +250,31 @@ class _MentirosoTableState extends State<MentirosoTable> {
         // Botones de flecha para desplazamiento lateral
         if (cartasEnMesa.length > 3) ...[
           Positioned(
-            left: 107,
-            top: MediaQuery.of(context).size.height / 2 - 56,
-            child: IconButton(
-              icon: Icon(Icons.arrow_left),
-              iconSize: 65,
+            left: 95,
+            top: MediaQuery.of(context).size.height / 2 - 40,
+            child: ElevatedButton(
               onPressed: _scrollLeft,
-              color: Colors.yellow,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+              ),
+              child: Text(
+                "<",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
             ),
           ),
           Positioned(
-            right: 110,
-            top: MediaQuery.of(context).size.height / 2 - 56,
-            child: IconButton(
-              icon: Icon(Icons.arrow_right),
-              iconSize: 65,
+            right: 100,
+            top: MediaQuery.of(context).size.height / 2 - 40,
+            child: ElevatedButton(
               onPressed: _scrollRight,
-              color: Colors.yellow,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+              ),
+              child: Text(
+                ">",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
             ),
           ),
         ],
