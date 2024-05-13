@@ -1,12 +1,12 @@
+import 'package:CartaVerse/reverso_cartas.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/cambiar_texto.dart';
 import 'package:CartaVerse/main.dart';
 
 class Perfil extends StatelessWidget {
   final String usuario;
-  final Function funcion_fichas;
 
-  const Perfil({required this.usuario, required this.funcion_fichas});
+  const Perfil({required this.usuario});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class Perfil extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(funcion_fichas() + " Fichas"),
+          Text("400 Fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -54,7 +54,7 @@ class Perfil extends StatelessWidget {
                 child: SizedBox(
                   width: 323.0,
                   child: ElevatedButton(
-                    child: Text("Modificar usuario"),
+                    child: Text("Cambiar usuario"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.yellow),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -66,7 +66,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contrasegna: false))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false))
                       )
                     },
                   )
@@ -77,7 +77,7 @@ class Perfil extends StatelessWidget {
                 child: SizedBox(
                   width: 323.0,
                   child: ElevatedButton(
-                    child: Text("Modificar contraseña"),
+                    child: Text("Cambiar contraseña"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.yellow),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -89,7 +89,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contrasegna: true,))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true,))
                       )
                     },
                   )
@@ -100,7 +100,7 @@ class Perfil extends StatelessWidget {
                 child: SizedBox(
                   width: 323.0,
                   child: ElevatedButton(
-                    child: Text("Modificar icono"),
+                    child: Text("Cambiar foto perfil"),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.yellow),
                       foregroundColor: MaterialStateProperty.all(Colors.black),
@@ -116,6 +116,49 @@ class Perfil extends StatelessWidget {
                         //MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contraseña: ,))
                       )
                       */
+                    },
+                  )
+                )
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: SizedBox(
+                  width: 323.0,
+                  child: ElevatedButton(
+                    child: Text("Cambiar color cartas"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ))
+                    ), 
+                    onPressed: () {
+                      //
+                    },
+                  )
+                )
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: SizedBox(
+                  width: 323.0,
+                  child: ElevatedButton(
+                    child: Text("Cambiar reverso cartas"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                      foregroundColor: MaterialStateProperty.all(Colors.black),
+                      textStyle: MaterialStateProperty.all(TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ))
+                    ), 
+                    onPressed: () {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => ReversoCartas())
+                      );
                     },
                   )
                 )

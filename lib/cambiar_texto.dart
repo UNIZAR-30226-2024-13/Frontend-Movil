@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 class CambiarTexto extends StatelessWidget {
   final TextEditingController _texto_input = TextEditingController();
   final String usuario;
-  final Function funcion_fichas;
   final bool cambiar_contrasegna;
   String texto_a_mostrar = "";
 
-  CambiarTexto({required this.usuario, required this.funcion_fichas, required this.cambiar_contrasegna});
+  CambiarTexto({required this.usuario, required this.cambiar_contrasegna});
 
 
   @override
@@ -51,7 +50,7 @@ return Scaffold(
     ),
     title: Text("CartaVerse"),
     actions: <Widget>[
-      Text(funcion_fichas() + " Fichas"),
+      Text("400 Fichas"),
       Container(
         padding: EdgeInsets.all(5),
         child: Image.asset('assets/silueta.jpg'),

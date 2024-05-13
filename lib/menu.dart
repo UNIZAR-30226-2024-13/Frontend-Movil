@@ -12,12 +12,6 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _mostrarFichas() {
-      String fichas = "1M";
-
-      return fichas;
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -30,12 +24,12 @@ class Menu extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(_mostrarFichas() + " Fichas"),
+          Text("400 Fichas"),
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, funcion_fichas : _mostrarFichas))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario))
               );
             },
             child: Container(

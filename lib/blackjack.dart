@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'globals.dart';
 
 var ocultar;
 
@@ -309,7 +310,7 @@ class CartaExtra extends StatelessWidget {
             width: 50, // Ancho de la imagen
             height: 50, // Alto de la imagen
             child: Image.asset(
-              'assets/carta.png',
+              path_reverso,
               fit: BoxFit.contain, // Ajustar la imagen al contenedor
             ),
           ),
@@ -328,7 +329,7 @@ class CartaExtra extends StatelessWidget {
           width: 50, // Ancho de la imagen
           height: 50, // Alto de la imagen
           child: Image.asset(
-            'assets/carta.png',
+            path_reverso,
             fit: BoxFit.contain, // Ajustar la imagen al contenedor
           ),
         ),
