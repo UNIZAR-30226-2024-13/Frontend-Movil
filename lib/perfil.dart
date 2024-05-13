@@ -1,3 +1,4 @@
+import 'package:CartaVerse/color_cartas.dart';
 import 'package:CartaVerse/reverso_cartas.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/cambiar_texto.dart';
@@ -135,7 +136,10 @@ class Perfil extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () {
-                      //
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => ColorCartas())
+                      );
                     },
                   )
                 )

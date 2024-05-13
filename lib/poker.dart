@@ -302,7 +302,7 @@ class Carta extends StatelessWidget {
             cartaTexto,
           ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.yellow),
+            backgroundColor: MaterialStateProperty.all(color_carta()),
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle: MaterialStateProperty.all(
               TextStyle(
@@ -315,4 +315,18 @@ class Carta extends StatelessWidget {
       ),
     );
   }
+}
+
+Color? color_carta() {
+  switch (color_cartas) {
+    case "amarillo":
+      return Colors.yellow;
+    case "azul":
+      return Colors.blue;
+    case "naranja":
+      return Colors.orange;
+    case "morado":
+      return Colors.purple;
+  }
+  return null;
 }

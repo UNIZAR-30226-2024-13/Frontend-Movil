@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'globals.dart';
 
-class ReversoCartas extends StatefulWidget {
+class ColorCartas extends StatefulWidget {
   @override
-  _ReversoCartasState createState() => _ReversoCartasState();
+  _ColorCartasState createState() => _ColorCartasState();
 }
 
 
-class _ReversoCartasState extends State<ReversoCartas> {
+class _ColorCartasState extends State<ColorCartas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,23 +40,12 @@ class _ReversoCartasState extends State<ReversoCartas> {
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Botones para cambiar el color del reverso de las cartas
-              _buildColorButton(context, "Reverso azul", Colors.blue, 'assets/reverso_azul.jpg'),
-              _buildColorButton(context, "Reverso naranja", Colors.orange, 'assets/reverso_naranja.jpg'),
-              _buildColorButton(context, "Reverso rojo", Colors.red, 'assets/reverso_rojo.jpg'),
-              _buildColorButton(context, "Reverso morado", Colors.purple, 'assets/reverso_morado.jpg'),
-              Container(
-                padding: EdgeInsets.all(5),
-                child: SizedBox(
-                  width: 200, // Ancho de la imagen
-                  height: 200, // Alto de la imagen
-                  child: Image.asset(
-                    path_reverso, // Cambia el color de la imagen según la variable global
-                    fit: BoxFit.contain, // Ajustar la imagen al contenedor
-                  ),
-                ),
-              ),
+            children: <Widget> [
+              // Botones para cambiar el color de las cartas
+              _buildColorButton(context, "Color amarillo", "amarillo"),
+              _buildColorButton(context, "Color azul", "azul"),
+              _buildColorButton(context, "Color naranja", "naranja"),
+              _buildColorButton(context, "Color morado", "morado"),
               Container(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
@@ -84,7 +73,7 @@ class _ReversoCartasState extends State<ReversoCartas> {
   }
 
 
-  Widget _buildColorButton(BuildContext context, String text, Color color, String path) {
+  Widget _buildColorButton(BuildContext context, String text, String color) {
     return Container(
       padding: EdgeInsets.all(10),
       child: SizedBox(
@@ -97,12 +86,12 @@ class _ReversoCartasState extends State<ReversoCartas> {
               textStyle: MaterialStateProperty.all(TextStyle(
                   fontSize: 18, fontWeight: FontWeight.bold))),
           onPressed: () {
-            // Actualiza el color del reverso de las cartas
+            // Actualiza el color de las cartas
             setState(() {
-              path_reverso = path;
+              color_cartas = color;
             });
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Color de reverso de cartas cambiado a ${text.split(' ').last}"),
+              content: Text("Color de cartas cambiado a ${text.split(' ').last}"),
             ));
           },
         ),
