@@ -1,4 +1,5 @@
 import 'package:CartaVerse/main.dart';
+import 'package:CartaVerse/globals.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -161,7 +162,7 @@ void _verificarRegistro(BuildContext context) async {
           "hashPasswd" : password
         }
       };
-      var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/newUsuario');
+      var url = Uri.parse('http://' + ip + ':20000/api/usuarios/newUsuario');
       var body = json.encode(payload);
 
       var respuesta_registro = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);

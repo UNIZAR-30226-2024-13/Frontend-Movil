@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:CartaVerse/globals.dart';
 
 class Amigos extends StatefulWidget {
   final String usuario;
@@ -24,7 +25,7 @@ class _AmigosState extends State<Amigos> {
   }
 
   Future<void> listarAmigos() async {
-    var url = 'http://192.168.1.61:20000/api/usuarios/getUsuario?tipo=byNombre&value=' + widget.usuario
+    var url = 'http://' + ip + ':20000/api/usuarios/getUsuario?tipo=byNombre&value=' + widget.usuario
               + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
     var respuestaUsuario = await http.get(Uri.parse(url));
 
@@ -155,7 +156,7 @@ class _AmigosState extends State<Amigos> {
       if (items.contains(amigo)) {
         mostrarAlerta(context, "Amigo ya registrado");
       } else {
-        var url = 'http://192.168.1.61:20000/api/usuarios/addAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
+        var url = 'http://' + ip + ':20000/api/usuarios/addAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
         + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
 
         var respuestaUsuario = await http.post(Uri.parse(url));
@@ -179,7 +180,7 @@ class _AmigosState extends State<Amigos> {
       if (!items.contains(amigo)) {
         mostrarAlerta(context, "Amigo no registrado");
       } else {
-        var url = 'http://192.168.1.61:20000/api/usuarios/deleteAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
+        var url = 'http://' + ip + ':20000/api/usuarios/deleteAmigo?nombreUsuario=' + usuario + '&nombreAmigo=' + amigo
         + "&usuarioSesion=" + widget.sessionId + "&sessionToken=" + widget.sessionToken;
         
         var respuestaUsuario = await http.delete(Uri.parse(url));

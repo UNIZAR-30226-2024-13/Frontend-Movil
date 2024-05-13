@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
 import 'package:CartaVerse/registro.dart';
+import 'package:CartaVerse/globals.dart';
 
 void main() {
   runApp(const MyApp());
@@ -161,7 +162,7 @@ class _InicioState extends State<Inicio> {
           yoXXX
           yoMismo0
         */
-        var url = Uri.parse('http://192.168.1.61:20000/api/usuarios/login');
+        var url = Uri.parse('http://' + ip + ':20000/api/usuarios/login');
         var body = json.encode(payload);
         var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
 
