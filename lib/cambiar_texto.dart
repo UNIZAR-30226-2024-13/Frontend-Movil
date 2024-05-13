@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CambiarTexto extends StatelessWidget {
   final TextEditingController _texto_input = TextEditingController();
   final String usuario;
@@ -17,14 +18,6 @@ class CambiarTexto extends StatelessWidget {
     }
     else {
       texto_a_mostrar = "Introduzca un usuario nuevo";
-    }
-
-    void modificar_usuario() {
-
-    }
-
-    void modificar_contrasegna() {
-      
     }
 
     void _verificar_cambio() {
