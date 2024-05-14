@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Frontend-Movil",
+            "name": "CartaVerse",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "Frontend-Movil (profile mode)",
+            "name": "CartaVerse (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "Frontend-Movil (release mode)",
+            "name": "CartaVerse (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
