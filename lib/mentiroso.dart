@@ -251,7 +251,7 @@ class _MentirosoTableState extends State<MentirosoTable> {
         if (cartasEnMesa.length > 3) ...[
           Positioned(
             left: 95,
-            top: MediaQuery.of(context).size.height / 2 - 40,
+            top: MediaQuery.of(context).size.height / 2 - 190,
             child: ElevatedButton(
               onPressed: _scrollLeft,
               style: ButtonStyle(
@@ -264,8 +264,8 @@ class _MentirosoTableState extends State<MentirosoTable> {
             ),
           ),
           Positioned(
-            right: 100,
-            top: MediaQuery.of(context).size.height / 2 - 40,
+            right: 550,
+            top: MediaQuery.of(context).size.height / 2 - 190,
             child: ElevatedButton(
               onPressed: _scrollRight,
               style: ButtonStyle(
