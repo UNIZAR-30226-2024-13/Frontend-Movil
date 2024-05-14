@@ -1,4 +1,5 @@
 import 'package:CartaVerse/blackjack.dart';
+import 'package:CartaVerse/globals.dart';
 import 'package:CartaVerse/poker.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class ElegirFichas extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          Text("1M Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           GestureDetector(
             child: Container(
               padding: EdgeInsets.all(5),

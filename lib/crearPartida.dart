@@ -1,12 +1,13 @@
-import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuCreacion.dart';
 
-
 class crearPartida extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const crearPartida({required this.usuario,});
+  const crearPartida({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +16,14 @@ class crearPartida extends StatelessWidget {
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => Menu(usuario: usuario))
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Image.asset('assets/logo.png'),
-            ),
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset('assets/logo.png'),
           ),
+        ),
         title: Text("Crear partida"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -79,7 +74,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso",)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -111,7 +106,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo",)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -143,7 +138,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker",)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -180,7 +175,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack",)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -212,7 +207,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno",)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )

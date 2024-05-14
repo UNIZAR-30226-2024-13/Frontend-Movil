@@ -1,7 +1,11 @@
 import 'package:CartaVerse/Cinquillo.dart';
 import 'package:CartaVerse/elegirFichas.dart';
+import 'package:CartaVerse/globals.dart';
+import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/UNO.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 bool privada = false;
 
@@ -43,7 +47,10 @@ TextEditingController _id_partida = TextEditingController();
 
 class MenuCreacion extends StatelessWidget {
   final String juego;
-  const MenuCreacion({required this.juego});
+  final String sessionId;
+  final String sessionToken;
+
+  const MenuCreacion({required this.juego, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context){
@@ -61,7 +68,7 @@ class MenuCreacion extends StatelessWidget {
         ),
         title: Text("Crear partida"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -157,7 +164,7 @@ class MenuCreacion extends StatelessWidget {
                         mostrarAlerta(context, "Se debe elegir un identificador de la partida");
                       }
                       else {
-                        verificar_creacion(_id_partida.text, privada, juego, context);
+                        verificar_creacion(_id_partida.text, privada, juego, context, sessionId, sessionToken);
                       }
                     },
                   ),
@@ -171,15 +178,28 @@ class MenuCreacion extends StatelessWidget {
   }
 }
 
-void verificar_creacion(String id_partida, bool privada, String juego, BuildContext context) {
+Future<void> verificar_creacion(String id_partida, bool privada, String juego, BuildContext context, String sessionId, String sessionToken) async {
   if (juego == "poker" || juego == "blackjack") {
     Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego: juego, id_partida: id_partida, privada: privada)));
   }
-  else if (juego == "cinquillo"){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
+  else if (juego == "mentiroso"){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Mentiroso()));
   }
   else if (juego == "cinquillo") {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
+    try {
+      Map<String, dynamic> payload = {
+        "usuarioSesion" : sessionId,
+        "sessionToken" : sessionToken,
+        "esPrivada" : privada,
+      };
+
+      var url = Uri.parse('http://' + ip + ':20000/api/juegos/mentiroso/addMentiroso');
+      var body = json.encode(payload);
+      var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
+    }
+    catch (error) {}
   }
   else if (juego == "uno") {
     Navigator.push(context, MaterialPageRoute(builder: (context) => UnoGame()));

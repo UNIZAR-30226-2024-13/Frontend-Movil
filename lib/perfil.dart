@@ -1,16 +1,17 @@
 import 'package:CartaVerse/color_cartas.dart';
+import 'package:CartaVerse/globals.dart';
 import 'package:CartaVerse/reverso_cartas.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/cambiar_texto.dart';
 import 'package:CartaVerse/main.dart';
+import 'package:http/http.dart' as http;
 
 class Perfil extends StatelessWidget {
   final String usuario;
   final String sessionId;
   final String sessionToken;
-  final int fichas;
 
-  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken, required this.fichas});
+  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class Perfil extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(fichas.toString() + " fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -69,7 +70,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas,))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -92,7 +93,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -178,14 +179,19 @@ class Perfil extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyApp(),
-                        ),
-                        (route) => false,
-                      );
+                    onPressed: () async {
+                      try {
+                        var url = 'http://' + ip + ':20000/api/usuarios/logout?usuarioSesion=' + sessionId + '&sessionToken=' + sessionToken;
+                        await http.delete(Uri.parse(url));
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyApp(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                      catch (error) {}
                     },
                   )
                 )

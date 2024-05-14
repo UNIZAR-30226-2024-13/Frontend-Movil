@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/globals.dart';
 
 class PartidasPausadas extends StatelessWidget {
   final String usuario;
@@ -19,27 +19,11 @@ class PartidasPausadas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-
-    final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>((Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => Menu(usuario: usuario,))
-            );
-          },
           child: Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/logo.png'),
@@ -47,7 +31,7 @@ class PartidasPausadas extends StatelessWidget {
         ),
         title: Text("Pausadas"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(

@@ -1,3 +1,4 @@
+import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/amigos.dart';
 import 'package:CartaVerse/crearPartida.dart';
@@ -9,9 +10,8 @@ class Menu extends StatelessWidget {
   final String usuario;
   final String sessionId;
   final String sessionToken;
-  final int fichas;
 
-  const Menu({required this.usuario, required this.sessionId, required this.sessionToken, required this.fichas});
+  const Menu({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class Menu extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(fichas.toString() + " fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken))
               );
             },
             child: Container(
@@ -75,7 +75,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
+                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -98,7 +98,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )

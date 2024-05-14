@@ -3,6 +3,7 @@ import 'package:CartaVerse/UNO.dart';
 import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/elegirFichas.dart';
+import 'package:CartaVerse/globals.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
@@ -44,7 +45,7 @@ class _MenuUnionState extends State<MenuUnion> {
           ),
         ),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),

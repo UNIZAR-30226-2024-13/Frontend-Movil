@@ -1,7 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuUnion.dart';
+import 'package:CartaVerse/globals.dart';
 
 class unirsePartida extends StatelessWidget {
   final String usuario;
@@ -25,7 +24,7 @@ class unirsePartida extends StatelessWidget {
 
         title: Text("Unirse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(

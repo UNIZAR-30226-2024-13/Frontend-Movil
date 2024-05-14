@@ -1,5 +1,4 @@
-// ignore_for_file: must_be_immutable
-
+import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -9,11 +8,10 @@ class CambiarTexto extends StatelessWidget {
   final bool cambiar_contrasegna;
   final String sessionId;
   final String sessionToken;
-  final int fichas;
 
   String texto_a_mostrar = "";
 
-  CambiarTexto({required this.usuario, required this.cambiar_contrasegna, required this.sessionId, required this.sessionToken, required this.fichas});
+  CambiarTexto({required this.usuario, required this.cambiar_contrasegna, required this.sessionId, required this.sessionToken});
 
 
   @override
@@ -47,7 +45,7 @@ class CambiarTexto extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(fichas.toString() + " fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),

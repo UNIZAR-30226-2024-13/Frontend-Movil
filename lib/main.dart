@@ -173,9 +173,9 @@ class _InicioState extends State<Inicio> {
         else {
           //var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
           var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
-          var fichas = respuesta_json['datos']['usuario']['fichas'];
+          fichas_usuario = respuesta_json['datos']['usuario']['fichas'];
           Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token, fichas: fichas,))
+            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token))
           );
         }
       }
