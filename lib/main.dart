@@ -186,19 +186,6 @@ class _InicioState extends State<Inicio> {
   }
 }
 
-
-Widget botonAcceder() {
-  return ElevatedButton(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.green,
-      elevation: 0,
-    ),
-    onPressed: () {},
-    child: Text("Boton")
-  );
-}
-
-
 void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,

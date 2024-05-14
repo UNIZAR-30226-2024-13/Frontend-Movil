@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CambiarTexto extends StatelessWidget {
   final TextEditingController _texto_input = TextEditingController();
   final String usuario;

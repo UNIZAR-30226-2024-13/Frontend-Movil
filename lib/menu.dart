@@ -98,7 +98,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => crearPartida())
+                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario,))
                       )
                     },
                   )
@@ -121,7 +121,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => unirsePartida())
+                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario,))
                       )
                     },
                   )

@@ -1,8 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuUnion.dart';
 
 class unirsePartida extends StatelessWidget {
-  const unirsePartida({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const unirsePartida({required this.usuario});
 
   @override
   Widget build(BuildContext context){

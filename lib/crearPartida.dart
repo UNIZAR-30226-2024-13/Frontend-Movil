@@ -1,9 +1,12 @@
+import 'package:CartaVerse/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuCreacion.dart';
 
 
 class crearPartida extends StatelessWidget {
-  const crearPartida({ Key? key }) : super(key: key);
+  final String usuario;
+
+  const crearPartida({required this.usuario,});
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +14,18 @@ class crearPartida extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
-        leading: Container(
-          padding: EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/logo.png'
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => Menu(usuario: usuario))
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Image.asset('assets/logo.png'),
+            ),
           ),
-        ),
         title: Text("Crear partida"),
         actions: <Widget>[
           Text("400 Fichas"),

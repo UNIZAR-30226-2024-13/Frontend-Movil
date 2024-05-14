@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'globals.dart';
 
 var ocultar;
 
@@ -309,7 +310,7 @@ class CartaExtra extends StatelessWidget {
             width: 50, // Ancho de la imagen
             height: 50, // Alto de la imagen
             child: Image.asset(
-              'assets/carta.png',
+              path_reverso,
               fit: BoxFit.contain, // Ajustar la imagen al contenedor
             ),
           ),
@@ -328,7 +329,7 @@ class CartaExtra extends StatelessWidget {
           width: 50, // Ancho de la imagen
           height: 50, // Alto de la imagen
           child: Image.asset(
-            'assets/carta.png',
+            path_reverso,
             fit: BoxFit.contain, // Ajustar la imagen al contenedor
           ),
         ),
@@ -367,7 +368,7 @@ class CartasJugador extends StatelessWidget {
               },
               child: Text("->"),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                backgroundColor: MaterialStateProperty.all(color_carta()),
                 foregroundColor: MaterialStateProperty.all(Colors.black),
                 textStyle: MaterialStateProperty.all(TextStyle(
                   fontSize: 15,
@@ -412,7 +413,7 @@ class Carta extends StatelessWidget {
             cartaTexto,
           ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.yellow),
+            backgroundColor: MaterialStateProperty.all(color_carta()),
             foregroundColor: MaterialStateProperty.all(Colors.black),
             textStyle: MaterialStateProperty.all(
               TextStyle(
@@ -425,4 +426,18 @@ class Carta extends StatelessWidget {
       ),
     );
   }
+}
+
+Color? color_carta() {
+  switch (color_cartas) {
+    case "amarillo":
+      return Colors.yellow;
+    case "azul":
+      return Colors.blue;
+    case "naranja":
+      return Colors.orange;
+    case "morado":
+      return Colors.purple;
+  }
+  return null;
 }

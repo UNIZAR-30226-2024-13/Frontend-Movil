@@ -1,3 +1,6 @@
+import 'package:CartaVerse/Cinquillo.dart';
+import 'package:CartaVerse/UNO.dart';
+import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/elegirFichas.dart';
 
@@ -162,8 +165,14 @@ class _MenuUnionState extends State<MenuUnion> {
     if (juego == "blackjack" || juego == "poker") {
       Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida, privada: privada)));
     }
-    else {
-      Navigator.pop(context);
+    else if (juego == "mentiroso") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Mentiroso()));
+    }
+    else if (juego == "cinquillo") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
+    }
+    else if (juego == "uno") {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UnoGame()));
     }
   }
 }
