@@ -1,4 +1,7 @@
+import 'package:CartaVerse/menu.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 
 class Cinquillo extends StatefulWidget {
   @override
@@ -15,12 +18,26 @@ class _CinquilloState extends State<Cinquillo> {
         child: AppBar(
           backgroundColor: Colors.red,
           automaticallyImplyLeading: false,
-          title : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Cinquillo', style: TextStyle(fontSize: 19.5)),
-            ],
-          ),
+          title : Text('Cinquillo', style: TextStyle(fontSize: 19.5)),
+          actions: <Widget>[
+            Container(
+              padding: EdgeInsets.all(5),
+              child: ElevatedButton(
+                onPressed: () {
+                  iniciarVotacion(context);
+                },
+                child: Text('Pausar partida'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                  foregroundColor: MaterialStateProperty.all(Colors.black),
+                  textStyle: MaterialStateProperty.all(TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  )),
+                ),
+              ) ,
+            ),
+          ],
         ),
       ),
       body: Container(
@@ -284,3 +301,103 @@ Color _colorPalo(String palo){
   }
   return Color.fromARGB(255, 238, 0, 255);
 }
+
+int votosAceptados = 0;
+int totalJugadores = 4;
+int votos = 0;
+
+// Los votos deberían incrementarse según la votación de cada uno
+void iniciarVotacion(BuildContext context) {
+  votosAceptados = 3;
+  votos = 3;
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Votación iniciada"),
+      content: Text("¿Estás de acuerdo en pausar la partida?"),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            votosAceptados++;
+            votos++;
+            esperarResultadoVotacion(context);
+          },
+          child: Text('Sí'),
+        ),
+        TextButton(
+          onPressed: () {
+            votos++;
+            esperarResultadoVotacion(context);
+          },
+          child: Text('No'),
+        ),
+      ],
+    ),
+  );
+
+  Timer(Duration(seconds: 10), () {
+    verificarResultadoVotacion(context);
+  });
+  
+}
+
+// No está implementado de manera distribuida
+void esperarResultadoVotacion(BuildContext context) {
+  Navigator.of(context).pop();
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Esperando resultado de la votación"),
+    ),
+  );
+}
+
+void verificarResultadoVotacion(BuildContext context) {
+  // Si hay mayoría sale de la partida, si no sigue la partida mostrando el resultado.
+  if (votos == 4 && (votosAceptados / votos) >= 0.75) {
+    Navigator.of(context).pop();
+    salirDePartida(context);
+  } else {
+    Navigator.of(context).pop(); // Cerrar el diálogo de votación
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Votación fallida"),
+        content: Text("$votosAceptados/$votos"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Cerrar el diálogo de resultado de votación
+            },
+            child: Text('Cerrar'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+void salirDePartida(BuildContext context) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("La partida ha sido pausada"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); 
+              Navigator.of(context).pop(); 
+            },
+            child: Text('Cerrar'),
+          ),
+        ],
+      ),
+    );
+}
+
