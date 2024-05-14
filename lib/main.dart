@@ -156,7 +156,7 @@ class _InicioState extends State<Inicio> {
       try {
         Map<String, dynamic> payload = {
           "usuario" : _user,
-          "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$iBfAxRuPmU.yrlw.MXwqpe"),
+          "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q."),
         };
         /* Usuario registrado:
           yoXXX

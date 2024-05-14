@@ -150,7 +150,7 @@ void _verificarRegistro(BuildContext context) async {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
-    var password = BCrypt.hashpw(_pass, "\$2a\$10\$iBfAxRuPmU.yrlw.MXwqpe");
+    var password = BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q.");
     try {
       Map<String, dynamic> payload = {
         "usuario": {
