@@ -6,8 +6,9 @@ class Perfil extends StatelessWidget {
   final String usuario;
   final String sessionId;
   final String sessionToken;
+  final int fichas;
 
-  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken});
+  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken, required this.fichas});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Perfil extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("Fichas"),
+          Text(fichas.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -66,7 +67,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas,))
                       )
                     },
                   )
@@ -89,7 +90,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
                       )
                     },
                   )

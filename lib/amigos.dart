@@ -7,8 +7,9 @@ class Amigos extends StatefulWidget {
   final String usuario;
   final String sessionId;
   final String sessionToken;
+  final int fichas ;
 
-  Amigos({required this.usuario, required this.sessionId, required this.sessionToken});
+  Amigos({required this.usuario, required this.sessionId, required this.sessionToken, required this.fichas});
 
   @override
   _AmigosState createState() => _AmigosState();
@@ -56,7 +57,7 @@ class _AmigosState extends State<Amigos> {
         ),
         title: Text("Amigos"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(widget.fichas.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),

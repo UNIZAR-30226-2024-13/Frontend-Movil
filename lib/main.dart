@@ -159,8 +159,8 @@ class _InicioState extends State<Inicio> {
           "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q."),
         };
         /* Usuario registrado:
-          yoXXX
-          yoMismo0
+          usuario0
+          Usuario0
         */
         var url = Uri.parse('http://' + ip + ':20000/api/usuarios/login');
         var body = json.encode(payload);
@@ -173,8 +173,9 @@ class _InicioState extends State<Inicio> {
         else {
           //var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
           var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
+          var fichas = respuesta_json['datos']['usuario']['fichas'];
           Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token))
+            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token, fichas: fichas,))
           );
         }
       }

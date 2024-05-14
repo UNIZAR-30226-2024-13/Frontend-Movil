@@ -9,17 +9,12 @@ class Menu extends StatelessWidget {
   final String usuario;
   final String sessionId;
   final String sessionToken;
+  final int fichas;
 
-  const Menu({required this.usuario, required this.sessionId, required this.sessionToken});
+  const Menu({required this.usuario, required this.sessionId, required this.sessionToken, required this.fichas});
 
   @override
   Widget build(BuildContext context) {
-    String _mostrarFichas() {
-      String fichas = "1M";
-
-      return fichas;
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
@@ -32,12 +27,12 @@ class Menu extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text(_mostrarFichas() + " Fichas"),
+          Text(fichas.toString() + " fichas"),
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
               );
             },
             child: Container(
@@ -80,7 +75,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
+                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken, fichas: fichas))
                       )
                     },
                   )

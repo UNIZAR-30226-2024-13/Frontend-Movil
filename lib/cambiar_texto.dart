@@ -8,22 +8,21 @@ class CambiarTexto extends StatelessWidget {
   final bool cambiar_contrasegna;
   final String sessionId;
   final String sessionToken;
+  final int fichas;
 
   String texto_a_mostrar = "";
 
-  CambiarTexto({required this.usuario, required this.cambiar_contrasegna, required this.sessionId, required this.sessionToken});
+  CambiarTexto({required this.usuario, required this.cambiar_contrasegna, required this.sessionId, required this.sessionToken, required this.fichas});
 
 
   @override
   Widget build(BuildContext context) {
-
     if (cambiar_contrasegna) {
       texto_a_mostrar = "Introduzca una contraseña nueva";
     }
     else {
       texto_a_mostrar = "Introduzca un usuario nuevo";
     }
-
     void _verificar_cambio() {
       String texto_leido = _texto_input.text;
       if (texto_leido == "") {
@@ -47,7 +46,7 @@ class CambiarTexto extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("20 Fichas"),
+          Text(fichas.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),
