@@ -1,6 +1,41 @@
 import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menuCreacion.dart';
+
+bool privada = false;
+
+class SwitchPrivada extends StatefulWidget {
+  const SwitchPrivada({super.key});
+
+  @override
+  State<SwitchPrivada> createState() => _SwitchPrivadaState();
+}
+
+class _SwitchPrivadaState extends State<SwitchPrivada> {
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      thumbIcon: thumbIcon,
+      value: privada,
+      activeColor: Colors.yellow,
+      onChanged: (bool value) {
+        setState(() {
+          privada = value;
+        });
+      },
+    );
+  }
+}
 
 class crearPartida extends StatelessWidget {
   final String usuario;
@@ -47,6 +82,19 @@ class crearPartida extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text("Privada",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SwitchPrivada()
+                ],
+              ),
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -74,7 +122,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken)));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -106,7 +154,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo", sessionId: sessionId, sessionToken: sessionToken)));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -138,7 +186,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker", sessionId: sessionId, sessionToken: sessionToken)));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -175,7 +223,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack", sessionId: sessionId, sessionToken: sessionToken)));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )
@@ -207,7 +255,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno", sessionId: sessionId, sessionToken: sessionToken)));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno", sessionId: sessionId, sessionToken: sessionToken)));
                     },
                   ),
                 )

@@ -4,8 +4,10 @@ import 'package:CartaVerse/globals.dart';
 
 class unirsePartida extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const unirsePartida({required this.usuario});
+  const unirsePartida({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context){
@@ -77,7 +79,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso",))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -112,7 +114,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -148,7 +150,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -189,7 +191,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -224,7 +226,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),

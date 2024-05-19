@@ -34,7 +34,6 @@ class Inicio extends StatefulWidget {
 class _InicioState extends State<Inicio> {
   TextEditingController _texto_user = TextEditingController();
   TextEditingController _texto_pass = TextEditingController();
-  TextEditingController _texto_ip = TextEditingController();
 
   String _user = '';
   String _pass = '';
@@ -97,22 +96,6 @@ class _InicioState extends State<Inicio> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: SizedBox(
-                    width: 323.0,
-                    child: TextField(
-                      controller: _texto_ip,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'IP (temporal)',
-                        labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                    ),
-                  )
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: SizedBox(
                     width: 320.0,
                     height: 45,
                     child: ElevatedButton(
@@ -166,7 +149,6 @@ class _InicioState extends State<Inicio> {
   void _verificarLogin() async {
     _user = _texto_user.text;
     _pass = _texto_pass.text;
-    ip = _texto_ip.text;
     if (_user == "" || _pass == "") {
       mostrarAlerta(context, "Los campos no pueden ser vacíos");
     }

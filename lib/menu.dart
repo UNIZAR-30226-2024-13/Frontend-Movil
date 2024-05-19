@@ -121,7 +121,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )

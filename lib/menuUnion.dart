@@ -4,31 +4,64 @@ import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/elegirFichas.dart';
 import 'package:CartaVerse/globals.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
-  MenuUnion({required this.juego});
+  final String sessionId;
+  final String sessionToken;
+
+  MenuUnion({required this.juego, required this.sessionId, required this.sessionToken});
 
   @override
   _MenuUnionState createState() => _MenuUnionState();
 }
 
 class _MenuUnionState extends State<MenuUnion> {
-  final List<String> partidasGuardadas = [
-    "Partida 1",
-    "Partida 2",
-    "Partida 3",
-    "Partida 4",
-    "Partida 5",
-    "Partida 6",
-    "Partida 7",
-  ];
-
+  final List<String> partidasGuardadas = [];
   String id_partida_publica = "";
   String? _selectedPartida;
-
   TextEditingController _id_partida_privada = TextEditingController();
   String id_partida_privada = "";
+
+  @override
+  void initState() {
+    super.initState();
+    listarPartidas();
+  }
+
+  Future<void> listarPartidas() async {
+    var link = "";
+    if (widget.juego == "mentiroso") {
+      link = "mentiroso/getMentirosos";
+    }
+    else {
+      // Otros strings
+    }
+    try {
+      var url = 'http://' + ip + ':20000/api/juegos/'+ link + '?usuarioSesion=' + widget.sessionId + "&sessionToken=" + widget.sessionToken;
+      var respuestaUsuario = await http.get(Uri.parse(url));
+
+      Map<String, dynamic> respuestaJson = jsonDecode(respuestaUsuario.body);
+      if (respuestaJson['status']) {
+        List<dynamic> partidas = respuestaJson['datos'];
+        setState(() {
+          partidasGuardadas.clear();
+          for (var partida in partidas) {
+            partidasGuardadas.add(partida['id']);
+          }
+        });
+      }
+      else {
+        mostrarAlerta(context, "Error");
+      }
+    }
+    catch (error) {
+      mostrarAlerta(context, "Error no controlado");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
