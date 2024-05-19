@@ -156,9 +156,9 @@ class _BlackjackTableState extends State<BlackjackTable> {
           top: 0,
           child: ElevatedButton(
             onPressed: () {
-              String input = _text_fichas.text;
+              //String input = _text_fichas.text;
               _text_fichas.clear();
-              int apuesta = sanitizar_fichas(input);
+              //int apuesta = sanitizar_fichas(input);
               verificar_apuesta();
               // Función apostar
             },

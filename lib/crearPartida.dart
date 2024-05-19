@@ -1,4 +1,5 @@
 import 'package:CartaVerse/globals.dart';
+import 'package:CartaVerse/cargando_partida.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -270,6 +271,7 @@ class crearPartida extends StatelessWidget {
   }
 }
 
+
 void crear_partida(BuildContext context, String juego, String usuarioSesion, String sessionToken) async {
   var link = "";
   if (juego == "mentiroso") {
@@ -282,22 +284,21 @@ void crear_partida(BuildContext context, String juego, String usuarioSesion, Str
   try {
     var url = 'http://' + ip + ':20000/api/juegos/' + link +'?usuarioSesion=' + usuarioSesion + "&sessionToken=" + sessionToken + "&esPrivada=" + privada.toString();
     var respuesta_usuario = await http.post(Uri.parse(url));
-
     Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
 
     if (!respuesta_json['status']) {
-      mostrarAlerta(context, respuesta_json['mensaje'].runtimeType.toString());
+      mostrarAlerta(context, 'No se ha podido crear la partida');
     }
     else {
       var id_partida = respuesta_json['datos']['id'];
-      mostrarAlerta(context, id_partida);
-      //Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CargandoPartida(juego : juego, id_partida: id_partida, sessionId: usuarioSesion, sessionToken: sessionToken)));
     }
   }
   catch (error) {
     mostrarAlerta(context, "Error no controlado");
   }
 }
+
 
 void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(

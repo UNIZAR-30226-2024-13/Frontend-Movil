@@ -1,11 +1,9 @@
-import 'package:CartaVerse/Cinquillo.dart';
-import 'package:CartaVerse/UNO.dart';
-import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/elegirFichas.dart';
 import 'package:CartaVerse/globals.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:CartaVerse/cargando_partida.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
@@ -182,10 +180,10 @@ class _MenuUnionState extends State<MenuUnion> {
                             mostrarAlerta(context, "Debes seleccionar una única partida");
                           }
                           else if (!id_partida_publica.isEmpty) {
-                            moverse_a_juego(widget.juego, context, id_partida_publica, false);
+                            moverse_a_juego(widget.juego, context, id_partida_publica, false, widget.sessionId, widget.sessionToken);
                           }
                           else if (!_id_partida_privada.text.isEmpty) {
-                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, true);
+                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, true, widget.sessionId, widget.sessionToken);
                           }
                         },
                       ),
@@ -196,28 +194,38 @@ class _MenuUnionState extends State<MenuUnion> {
     );
   }
 
-  void moverse_a_juego(String juego, BuildContext context, String id_partida, bool privada) {
+  void moverse_a_juego(String juego, BuildContext context, String id_partida, bool privada, String usuarioSesion, String sessionToken) {
     if (juego == "blackjack" || juego == "poker") {
       Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida, privada: privada)));
     }
-    else if (juego == "mentiroso") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Mentiroso()));
-    }
-    else if (juego == "cinquillo") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
-    }
-    else if (juego == "uno") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UnoGame()));
+    else {
+      entrar_partida(juego + '/' + id_partida, usuarioSesion, sessionToken, context, juego);
     }
   }
 }
+
+
+void entrar_partida(String link, String usuarioSesion, String sessionToken, BuildContext context, String juego) async {
+  var url = 'http://' + ip + ':20000/api/juegos/' + link + '/addUsuario?nombreUsuario=' + usuarioSesion + '&usuarioSesion=' + usuarioSesion + "&sessionToken=" + sessionToken;
+  var respuesta_usuario = await http.post(Uri.parse(url));
+  Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+
+  if (!respuesta_json['status']) {
+    mostrarAlerta(context, respuesta_json['mensaje']);
+  }
+  else {
+    var id_partida = respuesta_json['datos']['id'];
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CargandoPartida(juego : juego, id_partida: id_partida, sessionId: usuarioSesion, sessionToken: sessionToken)));
+  }
+}
+
 
 void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
-      title: Text("Selección incorrecta"),
+      title: Text("Error al entrar"),
       content: Text(mensaje),
       actions: <Widget>
       [
