@@ -9,9 +9,8 @@ TextEditingController _text_fichas = TextEditingController();
 class ElegirFichas extends StatelessWidget {
   final String juego;
   final String id_partida;
-  final bool privada;
 
-  const ElegirFichas({required this.juego, required this.id_partida, required this.privada});
+  const ElegirFichas({required this.juego, required this.id_partida});
 
   @override
   Widget build(BuildContext context) {
