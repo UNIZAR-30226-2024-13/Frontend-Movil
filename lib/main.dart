@@ -158,10 +158,6 @@ class _InicioState extends State<Inicio> {
           "usuario" : _user,
           "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q."),
         };
-        /* Usuario registrado:
-          usuario0
-          Usuario0
-        */
         var url = Uri.parse('http://' + ip + ':20000/api/usuarios/login');
         var body = json.encode(payload);
         var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);

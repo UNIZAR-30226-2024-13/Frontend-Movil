@@ -1,5 +1,7 @@
 import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 bool privada = false;
 
@@ -122,7 +124,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken)));
+                      crear_partida(context, "mentiroso", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -154,7 +156,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo", sessionId: sessionId, sessionToken: sessionToken)));
+                      crear_partida(context, "cinquillo", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -186,7 +188,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker", sessionId: sessionId, sessionToken: sessionToken)));
+                      crear_partida(context, "poker", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -223,7 +225,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack", sessionId: sessionId, sessionToken: sessionToken)));
+                      crear_partida(context, "blackjack", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -255,7 +257,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno", sessionId: sessionId, sessionToken: sessionToken)));
+                      crear_partida(context, "uno", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -266,4 +268,53 @@ class crearPartida extends StatelessWidget {
       )
     );
   }
+}
+
+void crear_partida(BuildContext context, String juego, String usuarioSesion, String sessionToken) async {
+  var link = "";
+  if (juego == "mentiroso") {
+    link = "mentiroso/addMentiroso";
+  }
+  else {
+    link = "mentiroso/addMentiroso";
+    // Otros strings
+  }
+  try {
+    var url = 'http://' + ip + ':20000/api/juegos/' + link +'?usuarioSesion=' + usuarioSesion + "&sessionToken=" + sessionToken + "&esPrivada=" + privada.toString();
+    var respuesta_usuario = await http.post(Uri.parse(url));
+
+    Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+
+    if (!respuesta_json['status']) {
+      mostrarAlerta(context, respuesta_json['mensaje'].runtimeType.toString());
+    }
+    else {
+      var id_partida = respuesta_json['datos']['id'];
+      mostrarAlerta(context, id_partida);
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token)));
+    }
+  }
+  catch (error) {
+    mostrarAlerta(context, "Error no controlado");
+  }
+}
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Error al crear"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }

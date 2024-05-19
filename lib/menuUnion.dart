@@ -38,6 +38,7 @@ class _MenuUnionState extends State<MenuUnion> {
     }
     else {
       // Otros strings
+      link = "mentiroso/getMentirosos";
     }
     try {
       var url = 'http://' + ip + ':20000/api/juegos/'+ link + '?usuarioSesion=' + widget.sessionId + "&sessionToken=" + widget.sessionToken;
