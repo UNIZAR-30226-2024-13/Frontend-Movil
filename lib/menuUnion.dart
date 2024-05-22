@@ -48,7 +48,9 @@ class _MenuUnionState extends State<MenuUnion> {
         setState(() {
           partidasGuardadas.clear();
           for (var partida in partidas) {
-            partidasGuardadas.add(partida['id']);
+            List<dynamic> guarda = partida['guarda'];
+            var num_jugadores = guarda.length.toString();
+            partidasGuardadas.add(partida['id'] + " " + num_jugadores);
           }
         });
       }
@@ -102,7 +104,7 @@ class _MenuUnionState extends State<MenuUnion> {
                   "Partida privada",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                    fontSize: 20,
                   ),
                 ),
                 SizedBox(
@@ -127,7 +129,7 @@ class _MenuUnionState extends State<MenuUnion> {
                   style: TextStyle(
                     //fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                    fontSize: 20,
                   ),
                 ),
                 Container(
@@ -180,7 +182,7 @@ class _MenuUnionState extends State<MenuUnion> {
                             mostrarAlerta(context, "Debes seleccionar una única partida");
                           }
                           else if (!id_partida_publica.isEmpty) {
-                            moverse_a_juego(widget.juego, context, id_partida_publica, widget.sessionId, widget.sessionToken);
+                            moverse_a_juego(widget.juego, context, id_partida_publica.split(' ')[0], widget.sessionId, widget.sessionToken);
                           }
                           else if (!_id_partida_privada.text.isEmpty) {
                             moverse_a_juego(widget.juego, context, _id_partida_privada.text, widget.sessionId, widget.sessionToken);

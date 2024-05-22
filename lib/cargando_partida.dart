@@ -71,15 +71,30 @@ class _CargandoPartidaState extends State<CargandoPartida> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 27, 123, 22),
-          border: Border.all(color: Colors.black, width: 2.0) ,
+          border: Border.all(color: Colors.black, width: 2.0),
         ),
-        child: Text("Esperando jugadores",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.5,
-          ),
-      ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Esperando jugadores",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.5,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              widget.id_partida,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ],
+        ),
       )
     );
   }
