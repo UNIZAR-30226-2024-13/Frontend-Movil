@@ -20,7 +20,7 @@ class _ReversoCartasState extends State<ReversoCartas> {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),

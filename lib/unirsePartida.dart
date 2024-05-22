@@ -1,28 +1,22 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menuUnion.dart';
-import 'package:CartaVerse/menu.dart';
-
+import 'package:CartaVerse/globals.dart';
 
 class unirsePartida extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const unirsePartida({required this.usuario});
+  const unirsePartida({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
             onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => Menu(usuario: "alex",))
-              );
             },
             child: Container(
               padding: EdgeInsets.all(5),
@@ -32,7 +26,7 @@ class unirsePartida extends StatelessWidget {
 
         title: Text("Unirse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -85,7 +79,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso",))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego: "mentiroso", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -120,7 +114,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "cinquillo", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -156,7 +150,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "poker", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -197,7 +191,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "blackjack", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),
@@ -232,7 +226,7 @@ class unirsePartida extends StatelessWidget {
                     onPressed: () =>{
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno"))
+                        MaterialPageRoute(builder: (context) => MenuUnion(juego : "uno", sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   ),

@@ -1,12 +1,51 @@
-import 'package:CartaVerse/menu.dart';
+import 'package:CartaVerse/globals.dart';
+import 'package:CartaVerse/cargando_partida.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menuCreacion.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+bool privada = false;
+
+class SwitchPrivada extends StatefulWidget {
+  const SwitchPrivada({super.key});
+
+  @override
+  State<SwitchPrivada> createState() => _SwitchPrivadaState();
+}
+
+class _SwitchPrivadaState extends State<SwitchPrivada> {
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      thumbIcon: thumbIcon,
+      value: privada,
+      activeColor: Colors.yellow,
+      onChanged: (bool value) {
+        setState(() {
+          privada = value;
+        });
+      },
+    );
+  }
+}
 
 class crearPartida extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const crearPartida({required this.usuario,});
+  const crearPartida({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +54,14 @@ class crearPartida extends StatelessWidget {
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => Menu(usuario: usuario))
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(5),
-              child: Image.asset('assets/logo.png'),
-            ),
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Image.asset('assets/logo.png'),
           ),
+        ),
         title: Text("Crear partida"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -52,6 +85,19 @@ class crearPartida extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text("Privada",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SwitchPrivada()
+                ],
+              ),
               Container(
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -79,7 +125,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "mentiroso",)));
+                      crear_partida(context, "mentiroso", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -111,7 +157,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "cinquillo",)));
+                      crear_partida(context, "cinquillo", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -143,7 +189,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "poker",)));
+                      crear_partida(context, "poker", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -180,7 +226,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "blackjack",)));
+                      crear_partida(context, "blackjack", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -212,7 +258,7 @@ class crearPartida extends StatelessWidget {
                       ))
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MenuCreacion(juego: "uno",)));
+                      crear_partida(context, "uno", sessionId, sessionToken);
                     },
                   ),
                 )
@@ -223,4 +269,53 @@ class crearPartida extends StatelessWidget {
       )
     );
   }
+}
+
+
+void crear_partida(BuildContext context, String juego, String usuarioSesion, String sessionToken) async {
+  var link = "";
+  if (juego == "mentiroso") {
+    link = "mentiroso/addMentiroso";
+  }
+  else {
+    link = "mentiroso/addMentiroso";
+    // Otros strings
+  }
+  try {
+    var url = 'http://' + ip + ':20000/api/juegos/' + link +'?usuarioSesion=' + usuarioSesion + "&sessionToken=" + sessionToken + "&esPrivada=" + privada.toString();
+    var respuesta_usuario = await http.post(Uri.parse(url));
+    Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+
+    if (!respuesta_json['status']) {
+      mostrarAlerta(context, 'No se ha podido crear la partida');
+    }
+    else {
+      var id_partida = respuesta_json['datos']['id'];
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CargandoPartida(juego : juego, id_partida: id_partida, sessionId: usuarioSesion, sessionToken: sessionToken)));
+    }
+  }
+  catch (error) {
+    mostrarAlerta(context, "Error no controlado");
+  }
+}
+
+
+void mostrarAlerta(BuildContext context, String mensaje) {
+  showDialog(
+    barrierDismissible: false,
+    context: context, 
+    builder:  (context) => AlertDialog(
+      title: Text("Error al crear"),
+      content: Text(mensaje),
+      actions: <Widget>
+      [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Reintentar")
+        )
+      ]
+    )
+  );
 }

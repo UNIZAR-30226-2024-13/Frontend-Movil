@@ -1,34 +1,68 @@
-import 'package:CartaVerse/Cinquillo.dart';
-import 'package:CartaVerse/UNO.dart';
-import 'package:CartaVerse/mentiroso.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menu.dart';
 import 'package:CartaVerse/elegirFichas.dart';
+import 'package:CartaVerse/globals.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:CartaVerse/cargando_partida.dart';
 
 class MenuUnion extends StatefulWidget {
   final String juego;
-  MenuUnion({required this.juego});
+  final String sessionId;
+  final String sessionToken;
+
+  MenuUnion({required this.juego, required this.sessionId, required this.sessionToken});
 
   @override
   _MenuUnionState createState() => _MenuUnionState();
 }
 
 class _MenuUnionState extends State<MenuUnion> {
-  final List<String> partidasGuardadas = [
-    "Partida 1",
-    "Partida 2",
-    "Partida 3",
-    "Partida 4",
-    "Partida 5",
-    "Partida 6",
-    "Partida 7",
-  ];
-
+  final List<String> partidasGuardadas = [];
   String id_partida_publica = "";
   String? _selectedPartida;
-
   TextEditingController _id_partida_privada = TextEditingController();
   String id_partida_privada = "";
+
+  @override
+  void initState() {
+    super.initState();
+    listarPartidas();
+  }
+
+  Future<void> listarPartidas() async {
+    var link = "";
+    if (widget.juego == "mentiroso") {
+      link = "mentiroso/getMentirosos";
+    }
+    else {
+      // Otros strings
+      link = "mentiroso/getMentirosos";
+    }
+    try {
+      var url = 'http://' + ip + ':20000/api/juegos/'+ link + '?usuarioSesion=' + widget.sessionId + "&sessionToken=" + widget.sessionToken;
+      var respuestaUsuario = await http.get(Uri.parse(url));
+
+      Map<String, dynamic> respuestaJson = jsonDecode(respuestaUsuario.body);
+      if (respuestaJson['status']) {
+        List<dynamic> partidas = respuestaJson['datos'];
+        setState(() {
+          partidasGuardadas.clear();
+          for (var partida in partidas) {
+            List<dynamic> guarda = partida['guarda'];
+            var num_jugadores = guarda.length.toString();
+            partidasGuardadas.add(partida['id'] + " " + num_jugadores);
+          }
+        });
+      }
+      else {
+        mostrarAlerta(context, "Error");
+      }
+    }
+    catch (error) {
+      mostrarAlerta(context, "Error no controlado");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +73,13 @@ class _MenuUnionState extends State<MenuUnion> {
         backgroundColor: Colors.red,
         shape: Border.all(color: Colors.black, width: 2.0),
         leading: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Menu(usuario: "alex")),
-            );
-          },
           child: Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/logo.png'),
           ),
         ),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset('assets/silueta.jpg'),
@@ -76,7 +104,7 @@ class _MenuUnionState extends State<MenuUnion> {
                   "Partida privada",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                    fontSize: 20,
                   ),
                 ),
                 SizedBox(
@@ -101,7 +129,7 @@ class _MenuUnionState extends State<MenuUnion> {
                   style: TextStyle(
                     //fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 20, // Puedes ajustar el tamaño de la fuente aquí
+                    fontSize: 20,
                   ),
                 ),
                 Container(
@@ -154,10 +182,10 @@ class _MenuUnionState extends State<MenuUnion> {
                             mostrarAlerta(context, "Debes seleccionar una única partida");
                           }
                           else if (!id_partida_publica.isEmpty) {
-                            moverse_a_juego(widget.juego, context, id_partida_publica, false);
+                            moverse_a_juego(widget.juego, context, id_partida_publica.split(' ')[0], widget.sessionId, widget.sessionToken);
                           }
                           else if (!_id_partida_privada.text.isEmpty) {
-                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, true);
+                            moverse_a_juego(widget.juego, context, _id_partida_privada.text, widget.sessionId, widget.sessionToken);
                           }
                         },
                       ),
@@ -168,28 +196,38 @@ class _MenuUnionState extends State<MenuUnion> {
     );
   }
 
-  void moverse_a_juego(String juego, BuildContext context, String id_partida, bool privada) {
+  void moverse_a_juego(String juego, BuildContext context, String id_partida, String usuarioSesion, String sessionToken) {
     if (juego == "blackjack" || juego == "poker") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida, privada: privada)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ElegirFichas(juego : juego, id_partida: id_partida)));
     }
-    else if (juego == "mentiroso") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Mentiroso()));
-    }
-    else if (juego == "cinquillo") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Cinquillo()));
-    }
-    else if (juego == "uno") {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UnoGame()));
+    else {
+      entrar_partida(juego + '/' + id_partida, usuarioSesion, sessionToken, context, juego);
     }
   }
 }
+
+
+void entrar_partida(String link, String usuarioSesion, String sessionToken, BuildContext context, String juego) async {
+  var url = 'http://' + ip + ':20000/api/juegos/' + link + '/addUsuario?nombreUsuario=' + usuarioSesion + '&usuarioSesion=' + usuarioSesion + "&sessionToken=" + sessionToken;
+  var respuesta_usuario = await http.post(Uri.parse(url));
+  Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+
+  if (!respuesta_json['status']) {
+    mostrarAlerta(context, respuesta_json['mensaje']);
+  }
+  else {
+    var id_partida = respuesta_json['datos']['id'];
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CargandoPartida(juego : juego, id_partida: id_partida, sessionId: usuarioSesion, sessionToken: sessionToken)));
+  }
+}
+
 
 void mostrarAlerta(BuildContext context, String mensaje) {
   showDialog(
     barrierDismissible: false,
     context: context, 
     builder:  (context) => AlertDialog(
-      title: Text("Selección incorrecta"),
+      title: Text("Error al entrar"),
       content: Text(mensaje),
       actions: <Widget>
       [

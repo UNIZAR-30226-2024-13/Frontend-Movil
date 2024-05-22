@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'package:bcrypt/bcrypt.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/menu.dart';
 import 'package:CartaVerse/registro.dart';
+import 'package:CartaVerse/globals.dart';
 
 void main() {
   runApp(const MyApp());
@@ -142,21 +146,39 @@ class _InicioState extends State<Inicio> {
   }
 
 
-  void _verificarLogin() {
-    setState(() {
-      _user = _texto_user.text;
-      _pass = _texto_pass.text;
-      // not email in base || email in base and pass not pass of email
-      if (_user == "" || _pass == "") {
-        mostrarAlerta(context, "Los campos no pueden ser vacíos");
+  void _verificarLogin() async {
+    _user = _texto_user.text;
+    _pass = _texto_pass.text;
+    if (_user == "" || _pass == "") {
+      mostrarAlerta(context, "Los campos no pueden ser vacíos");
+    }
+    else {
+      try {
+        Map<String, dynamic> payload = {
+          "usuario" : _user,
+          "hashPasswd" : BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q."),
+        };
+        var url = Uri.parse('http://' + ip + ':20000/api/usuarios/login');
+        var body = json.encode(payload);
+        var respuesta_usuario = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+
+        Map<String, dynamic> respuesta_json = jsonDecode(respuesta_usuario.body);
+        if (!respuesta_json['status']) {
+          mostrarAlerta(context, 'Usuario o contraseña incorrectos');
+        }
+        else {
+          //var sesion_id = respuesta_json['datos']['sessionToken']['sessionId'];
+          var sesion_token = respuesta_json['datos']['sessionToken']['sessionToken'];
+          fichas_usuario = respuesta_json['datos']['usuario']['fichas'];
+          Navigator.push(context, 
+            MaterialPageRoute(builder: (context) => Menu(usuario : _user, sessionId: _user, sessionToken: sesion_token))
+          );
+        }
       }
-      else {
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => Menu(usuario : _user))
-        );
+      catch (error) {
+        mostrarAlerta(context, ip);
       }
-    });
+    }
   }
 }
 

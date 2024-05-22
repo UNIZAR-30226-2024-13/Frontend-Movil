@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:CartaVerse/globals.dart';
 
-var ocultar;
-
 class Mentiroso extends StatefulWidget {
+  final String id_partida;
+  final String sessionId;
+  final String sessionToken;
+  const Mentiroso({required this.id_partida, required this.sessionId, required this.sessionToken});
+
   @override
   _MentirosoState createState() => _MentirosoState();
 }
@@ -35,13 +38,17 @@ class _MentirosoState extends State<Mentiroso> {
 
   @override
   Widget build(BuildContext context) {
-    ocultar = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
           automaticallyImplyLeading: false,
+          title: Text(widget.id_partida,
+            style: TextStyle(
+              fontSize: 19.5,
+            ),
+          ),
           centerTitle: true,
           backgroundColor: Colors.red,
         ),

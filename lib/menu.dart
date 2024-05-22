@@ -1,3 +1,4 @@
+import 'package:CartaVerse/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/amigos.dart';
 import 'package:CartaVerse/crearPartida.dart';
@@ -7,8 +8,10 @@ import 'package:CartaVerse/unirsePartida.dart';
 
 class Menu extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const Menu({required this.usuario});
+  const Menu({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +27,12 @@ class Menu extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario))
+                MaterialPageRoute(builder: (context) => Perfil(usuario : usuario, sessionId: sessionId, sessionToken: sessionToken))
               );
             },
             child: Container(
@@ -72,7 +75,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => amigos(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => Amigos(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -95,7 +98,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => crearPartida(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -118,7 +121,7 @@ class Menu extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario,))
+                        MaterialPageRoute(builder: (context) => unirsePartida(usuario: usuario, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )

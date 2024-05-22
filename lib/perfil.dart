@@ -1,20 +1,23 @@
 import 'package:CartaVerse/color_cartas.dart';
+import 'package:CartaVerse/globals.dart';
 import 'package:CartaVerse/reverso_cartas.dart';
 import 'package:flutter/material.dart';
 import 'package:CartaVerse/cambiar_texto.dart';
 import 'package:CartaVerse/main.dart';
+import 'package:http/http.dart' as http;
 
 class Perfil extends StatelessWidget {
   final String usuario;
+  final String sessionId;
+  final String sessionToken;
 
-  const Perfil({required this.usuario});
+  const Perfil({required this.usuario, required this.sessionId, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        //shape: Border(bottom: BorderSide(color: Colors.black, width: 2)),
         shape: Border.all(color: Colors.black, width: 2.0),
 
         leading: Container(
@@ -25,7 +28,7 @@ class Perfil extends StatelessWidget {
         ),
         title: Text("CartaVerse"),
         actions: <Widget>[
-          Text("400 Fichas"),
+          Text(fichas_usuario.toString() + " fichas"),
           Container(
             padding: EdgeInsets.all(5),
             child: Image.asset(
@@ -67,7 +70,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: false, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -90,7 +93,7 @@ class Perfil extends StatelessWidget {
                     onPressed: () => {
                       Navigator.push(
                         context, 
-                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true,))
+                        MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, cambiar_contrasegna: true, sessionId: sessionId, sessionToken: sessionToken))
                       )
                     },
                   )
@@ -111,12 +114,7 @@ class Perfil extends StatelessWidget {
                       ))
                     ), 
                     onPressed: () => {
-                      /*
-                      Navigator.push(
-                        context, 
-                        //MaterialPageRoute(builder: (context) => CambiarTexto(usuario : usuario, funcion_fichas: funcion_fichas, cambiar_contraseña: ,))
-                      )
-                      */
+                      // Cambiar icono
                     },
                   )
                 )
@@ -181,15 +179,19 @@ class Perfil extends StatelessWidget {
                         fontWeight: FontWeight.bold
                       ))
                     ), 
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyApp(),
-                        ),
-                        (route) => false,
-                      );
-                      // Ir a main y borrar el historial de ruta de pantallas
+                    onPressed: () async {
+                      try {
+                        var url = 'http://' + ip + ':20000/api/usuarios/logout?usuarioSesion=' + sessionId + '&sessionToken=' + sessionToken;
+                        await http.delete(Uri.parse(url));
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyApp(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                      catch (error) {}
                     },
                   )
                 )

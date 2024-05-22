@@ -1,5 +1,9 @@
+import 'package:CartaVerse/main.dart';
+import 'package:CartaVerse/globals.dart';
+import 'package:bcrypt/bcrypt.dart';
 import 'package:flutter/material.dart';
-import 'package:CartaVerse/menu.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 TextEditingController _texto_pais = TextEditingController();
 TextEditingController _texto_email = TextEditingController();
@@ -129,7 +133,7 @@ class Registro extends StatelessWidget {
 }
 
 
-void _verificarRegistro(BuildContext context) {
+void _verificarRegistro(BuildContext context) async {
   _pais = _texto_pais.text;
   _email = _texto_email.text;
   _pass = _texto_pass.text;
@@ -146,11 +150,43 @@ void _verificarRegistro(BuildContext context) {
     mostrarAlerta(context, "El formato del email no es correcto");
   }
   else {
-    // INSERTAR USUARIO EN LA BASE DE DATOS
-    Navigator.push(
-      context, 
-      MaterialPageRoute(builder: (context) => Menu(usuario : _user))
-    );
+    var password = BCrypt.hashpw(_pass, "\$2a\$10\$Tr2zdgh7I3B9Sl9na7z/q.");
+    try {
+      Map<String, dynamic> payload = {
+        "usuario": {
+          "nombre" : _user,
+          "email" : _email,
+          "pais" : _pais
+        },
+        "login": {
+          "hashPasswd" : password
+        }
+      };
+      var url = Uri.parse('http://' + ip + ':20000/api/usuarios/newUsuario');
+      var body = json.encode(payload);
+
+      var respuesta_registro = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+      if (respuesta_registro.statusCode != 200) {
+        mostrarAlerta(context, 'Me cago en dios');
+      }
+      else {
+        try {
+          Map<String, dynamic> respuesta_json = jsonDecode(respuesta_registro.body);
+          if (!respuesta_json['status']) {
+            mostrarAlerta(context, 'Usuario o email ya registrado');
+          }
+          else {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Inicio()));
+          }
+        }
+        catch (error) {
+          mostrarAlerta(context, "Error no controlado 2");
+        }
+      }
+    }
+    catch (error) {
+      mostrarAlerta(context, "Error no controlado");
+    }
   }
 }
 
